@@ -1,0 +1,13 @@
+#dropdown-layout {
+  max-height: 70px; 
+  overflow: auto; 
+  clip-path: inset(0 0 100% 0); 
+  transition: clip-path 200ms ease-in-out, opacity 100ms ease-in-out;
+  opacity: 0;
+}
+
+#dropdown-layout.menuShow {
+  clip-path: inset(0 0 0 0); 
+  display: flex;
+  opacity: 1;
+}

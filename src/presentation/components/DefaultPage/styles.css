@@ -1,0 +1,8 @@
+#header-layout {
+  height: fit-content;
+}
+
+#header-layout.scrollHide {
+  height: 0;
+  visibility: hidden;
+}

@@ -1,3 +1,5 @@
+'use client'
+
 import { SubMenusTab } from "@/domain/models/components/subMenusTab";
 import { useState } from "react";
 import { CustomTabPanel } from "./CustomTabPanel";
@@ -18,7 +20,7 @@ export default function TabSubMenus(props: TabSubMenusProps): React.ReactNode {
 
   return (
     <>
-      <Container openSideBar={openSideBar} className="container-tabs">
+      <Container opensidebar={openSideBar} className="container-tabs">
         <TabsComponents centered value={value} onChange={handleChange}>
           {subMenusTab.map((tab) => (
             <TabComponent

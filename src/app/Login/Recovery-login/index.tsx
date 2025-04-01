@@ -1,8 +1,9 @@
+'use client'
+
 import { RoutesEnum } from "@/domain/models/Enums";
 import { schemaForgetPassword } from "@/domain/models/SchemasValidations/schemaForgetPassword";
 import { ErrorField, YupService } from "@/domain/services";
 import { FormProvider, TextField } from "@/presentation/components";
-import { useNavigate } from "react-router-dom";
 import {
   ButtonSignIn,
   Container,
@@ -14,11 +15,12 @@ import {
 import LoginLayout from "../layout";
 import { useState } from "react";
 import ErrorModal from "@/presentation/components/Modals/ErrorModal";
+import { useRouter } from "next/navigation";
 
 export default function FormRecoveryPassword(): React.ReactNode {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const methods = YupService.useFormYup(schemaForgetPassword);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const {
     handleSubmit,
@@ -28,7 +30,7 @@ export default function FormRecoveryPassword(): React.ReactNode {
 
   const onSubmit = async (data: any): Promise<void> => {
     setIsOpen(!isOpen)
-    navigate(RoutesEnum.LOGIN);
+    router.push(RoutesEnum.LOGIN);
   };
   
   return (

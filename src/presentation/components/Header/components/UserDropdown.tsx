@@ -1,19 +1,21 @@
+'use client'
+
 import * as React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { CustomButton, CustomMenuList } from './styles';
 import { KeyboardArrowUp } from '@mui/icons-material';
 import { Divider, Drawer} from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { RoutesEnum } from '@/domain/models/Enums';
 import ThemeModal from './ThemeModal';
 import UserIcon from '../../PerfilIcon';
+import { useRouter } from 'next/navigation';
 
 export default function UserDropDownFilter() {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const [isOpenModal, setIsOpenModal]  = React.useState<boolean>(false)
 
-  const navigate =  useNavigate()
+  const router = useRouter();
   
   const toggleDrawer = () => {
     setIsOpen(!isOpen)
@@ -22,15 +24,15 @@ export default function UserDropDownFilter() {
   };
 
   function handleNavigateSchedule() {
-    navigate(RoutesEnum.USER_PROFILE);
+    router.push(RoutesEnum.USER_PROFILE);
   }
 
   function handleNavigateBin() {
-    navigate(RoutesEnum.DUMP)
+    router.push(RoutesEnum.DUMP)
   }
 
   function handleNavigateHelp() {
-    navigate(RoutesEnum.HELP)
+    router.push(RoutesEnum.HELP)
   }
 
   function handleCloseThemeModal() {

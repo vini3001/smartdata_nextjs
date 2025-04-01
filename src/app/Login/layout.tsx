@@ -6,6 +6,8 @@ import {
   FooterColumn,
   SecondColumn
 } from "./styles";
+import Image from "next/image";
+import { Box } from "@mui/material";
 
 interface LoginLayoutProps {
   children: ReactNode
@@ -18,7 +20,7 @@ export default function LoginLayout({children}: LoginLayoutProps) {
     <Container>
         <ContainerAuth>
           <FirstColumn>
-            <img src="/src/presentation/pages/Login/assets/logo.svg" alt="money-login" />
+            <Image width={200} height={100} src="/assets/logo.svg" alt="money-login" />
           </FirstColumn>
            <SecondColumn>
               {children}   

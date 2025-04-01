@@ -1,8 +1,9 @@
+'use client'
+
 import { RoutesEnum } from "@/domain/models/Enums";
 import { schemaLogin } from "@/domain/models/SchemasValidations";
 import { ErrorField, YupService } from "@/domain/services";
 import { FormProvider, TextField } from "@/presentation/components";
-import { useNavigate } from "react-router-dom";
 import {
   ButtonSignIn,
   Container,
@@ -19,10 +20,11 @@ import {
 import LoginLayout from "../../layout";
 import CheckboxChecked from "@/presentation/assets/Login/checkbox-remember/CheckboxChecked";
 import CheckboxUnchecked from "@/presentation/assets/Login/checkbox-remember/CheckboxUnchecked";
+import { useRouter } from "next/navigation";
 
 export default function FormLogin(): React.ReactNode {
   const methods = YupService.useFormYup(schemaLogin);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const {
     handleSubmit,
@@ -31,8 +33,7 @@ export default function FormLogin(): React.ReactNode {
   } = methods;
 
   const onSubmit = async (data: any): Promise<void> => {
-    navigate(RoutesEnum.HOME);
-    // loginService.auth(dataRequest, navigate);
+    router.push(RoutesEnum.HOME);
   };
 
   return (
@@ -75,7 +76,7 @@ export default function FormLogin(): React.ReactNode {
                   <span>Lembre-se de mim</span>
                 </ContainerRememberDevice>
 
-                <ContainerTextForgot onClick={() => navigate(RoutesEnum.RECOVERY_PASSWORD)}>
+                <ContainerTextForgot onClick={() => router.push(RoutesEnum.RECOVERY_PASSWORD)}>
                     <span>Esqueceu a senha?</span>
                 </ContainerTextForgot>
               </ContainerFooter>

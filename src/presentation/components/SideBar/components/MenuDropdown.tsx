@@ -1,9 +1,11 @@
+'use client'
+
 import * as React from 'react';
 import { ListItemIcon } from '@mui/material';
 import { Container, CustomButtonContainer, ListSubMenu } from './styles';
 import OpenArrow from '@/presentation/assets/ArrowsDropdown/OpenArrow';
 import ClosedArrow from '@/presentation/assets/ArrowsDropdown/ClosedArrow';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 
 interface MenuDropdownProps {
     text: string
@@ -15,7 +17,7 @@ interface MenuDropdownProps {
 export default function MenuDropdown({text, showText, submenu, icon}: MenuDropdownProps) {
     const [open, setIsOpen] = React.useState<boolean>(false);
 
-    const navigate = useNavigate();
+    const router = useRouter();
 
     function handleClick () {
         setIsOpen(!open)
@@ -38,7 +40,7 @@ export default function MenuDropdown({text, showText, submenu, icon}: MenuDropdo
                 <>
                  {submenu.map((menu) => {
                     return (
-                        <ListSubMenu onClick={() => navigate(menu.route)} key={menu.id} >
+                        <ListSubMenu onClick={() => router.push(menu.route)} key={menu.id} >
                             <div className='submenu-container'>
                                {menu.text}
                             </div>

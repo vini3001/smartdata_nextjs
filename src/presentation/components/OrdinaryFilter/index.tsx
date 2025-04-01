@@ -1,8 +1,10 @@
+'use client'
+
 import { FilterContent } from "./styles";
 import DropdownBase from "../DropdownBase/DropdownCustom";
 import { CustomIcon, CustomIconLeft, CustomIconRight } from "./styles";
 import { RoutesEnum } from "@/domain/models/Enums";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 interface DefaultPageProps {
   filtersEnabled: ("filterNumber" | "filterDocument" | "visualization" | "schedule" | "dumpButton" | "searchHelp")[];
@@ -17,10 +19,10 @@ export default function OrdinaryFilter({filtersEnabled, handleSwitchView}: Defau
     const submenu = ['todos', 'dashboard', 'excel', 'pdf']
     const numberViews = Array.from({ length: 10 }, (_, i) => (i+1).toString());
 
-    const navigate = useNavigate();
+    const router = useRouter();
 
     function handleNavigateSchedule() {
-        navigate(RoutesEnum.SCHEDULE);
+        router.push(RoutesEnum.SCHEDULE);
     }
 
     return (

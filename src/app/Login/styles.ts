@@ -25,8 +25,16 @@ export const FirstColumn = styled.div`
   align-items: center;
   background-color: #323650;
 
+  .image-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
+
   img {
-    max-height: 55vh;
+    height: 55vh;
     width: auto;
     margin-bottom: 2.063rem;
   }

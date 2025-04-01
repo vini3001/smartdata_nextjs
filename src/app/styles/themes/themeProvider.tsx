@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import ThemeDark from "./dark";

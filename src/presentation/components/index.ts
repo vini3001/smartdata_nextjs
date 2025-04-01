@@ -1,3 +1,5 @@
+'use client'
+
 export { default as AccordionComponent } from "./AccordionComponent";
 export { default as BoxContentBase } from "./BoxContentsBase";
 export { default as ButtonBase } from "./Button";

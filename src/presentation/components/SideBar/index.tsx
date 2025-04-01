@@ -1,3 +1,5 @@
+'use client'
+
 import { RoutesEnum } from "@/domain/models/Enums";
 import {
   ArrowBackIosNewOutlined,
@@ -12,10 +14,10 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import { useTheme } from "styled-components";
 import { ContainerImg, ContainerSideBar, FooterContainer, SideBarCustom } from "./styles";
 import MenuDropdown from "./components/MenuDropdown";
+import { useRouter } from "next/navigation";
 
 interface SideBarProps {
   open: boolean;
@@ -24,10 +26,10 @@ interface SideBarProps {
 export default function SideBar(props: SideBarProps): React.ReactNode {
   
   const theme = useTheme();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   function handleNavigateHelp() {
-    navigate(RoutesEnum.HELP);
+    router.push(RoutesEnum.HELP);
   }
 
   const { open } = props;
@@ -68,7 +70,7 @@ export default function SideBar(props: SideBarProps): React.ReactNode {
               {!menu.dropdown ? (
               <ListItem
               disablePadding
-              onClick={() => navigate(menu.route)}
+              onClick={() => router.push(menu.route)}
               >
                 <ListItemButton title={menu.text}>
                   <div className="icon-text">

@@ -1,3 +1,5 @@
+'use client'
+
 import {ReactNode, useRef, useState} from "react";
 import { Header, SideBar } from "..";
 import { BodyContainer, Container, ContainerHome, CustomContainer, FilterContainer, FirstRow, } from "./styles";

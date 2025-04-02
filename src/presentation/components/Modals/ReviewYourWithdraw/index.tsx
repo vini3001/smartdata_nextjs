@@ -13,6 +13,7 @@ import {
   ReviewYourWithdrawImgRow,
   ReviewYourWithdrawTitle,
 } from "./styles";
+import Image from "next/image";
 
 interface ReviewYourWithdrawProps {
   modalTitle: string;
@@ -65,10 +66,10 @@ export default function ReviewYourWithdraw(props: ReviewYourWithdrawProps) {
         <ReviewYourWithdrawContainer>
           <ReviewYourWithdrawImgRow>
             <ReviewYourWithdrawCurrenceImg>
-              <img src={currenceIcon} alt="currence icon" />
+              <Image width={200} height={100} src={currenceIcon} alt="currence icon" />
             </ReviewYourWithdrawCurrenceImg>
             <ReviewYourWithdrawArrowRight>
-              <img src={theme.images.withdrawIcon} alt="arrow right" />
+              <Image width={200} height={100} src={theme.images.withdrawIcon} alt="arrow right" />
             </ReviewYourWithdrawArrowRight>
           </ReviewYourWithdrawImgRow>
           <ReviewYourWithdrawTitle>{modalTitle}</ReviewYourWithdrawTitle>
@@ -90,13 +91,13 @@ export default function ReviewYourWithdraw(props: ReviewYourWithdrawProps) {
           />
           <ReviewYourWithdrawButtonsRow>
             <ButtonOption
-              variantButton="secondary"
+              variantbutton="secondary"
               onClick={() => onClickCancel()}
             >
               Cancelar
             </ButtonOption>
             <ButtonOption
-              variantButton="primary"
+              variantbutton="primary"
               onClick={() => onClickConfirm()}
             >
               Sacar
@@ -118,7 +119,7 @@ export default function ReviewYourWithdraw(props: ReviewYourWithdrawProps) {
         {loadInformation()}
       </BaseModal>
       <ButtonOpenModal
-        variantButton="secondary"
+        variantbutton="secondary"
         onClick={() => setOpenModal(!openModal)}
       >
         Adicionar conta bancária

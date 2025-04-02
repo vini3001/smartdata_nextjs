@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Pagination, Table } from "@mui/material"
+import { Box, Button, ButtonBase, Divider, Pagination, Table } from "@mui/material"
 import styled from "styled-components"
 
 export const PaginationContent = styled.div`
@@ -96,6 +96,7 @@ export const ContainerModal = styled(Box)`
 
 export const FormContainer = styled.form`
    display: flex;
+   position: relative;
    flex-direction: column;
    gap: 1rem;
 `
@@ -171,7 +172,9 @@ export const FormButton = styled(Button)`
     &.MuiButtonBase-root {    
       font-size: 14px;
       font-weight: 400;
-      width: 10rem;
+      text-wrap: nowrap;
+      padding-inline: 12px;
+      min-width: 10rem;
       border-radius: 10px;
       text-transform: none;
     }
@@ -187,4 +190,18 @@ export const BoxDownloadIcon = styled(Box)`
       text-decoration: underline;
     }
   }
+`
+
+export const TemplateButton = styled(Button)`
+  && {
+    &.MuiButtonBase-root {    
+      font-size: 14px;
+      font-weight: 400;
+      text-wrap: nowrap;
+      padding-inline: 12px;
+      min-width: 10rem;
+      border-radius: 10px;
+      text-transform: none;
+    }
+   }
 `

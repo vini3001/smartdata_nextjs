@@ -10,6 +10,7 @@ import {
   TwoFactorAuthanticationContentSub,
   TwoFactorAuthanticationContentTitle,
 } from "./styles";
+import Image from "next/image";
 
 export default function TwoFactorAuthantication() {
   const [openModal, setOpenModal] = useState(false);
@@ -25,7 +26,7 @@ export default function TwoFactorAuthantication() {
       >
         <TwoFactorAuthanticationContent>
           <TwoFactorAuthanticationContentImg>
-            <img src={theme.images.keysIcon} alt="keys icon" />
+            <Image width={200} height={100} src={theme.images.keysIcon} alt="keys icon" />
           </TwoFactorAuthanticationContentImg>
           <TwoFactorAuthanticationContentTitle>
             Autenticação de dois fatores
@@ -37,7 +38,7 @@ export default function TwoFactorAuthantication() {
         </TwoFactorAuthanticationContent>
       </BaseModal>
       <ButtonOpenModal
-        variantButton="secondary"
+        variantbutton="secondary"
         onClick={() => setOpenModal(!openModal)}
       >
         Adicionar conta bancária

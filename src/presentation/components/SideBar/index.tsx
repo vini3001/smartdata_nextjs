@@ -2,10 +2,6 @@
 
 import { RoutesEnum } from "@/domain/models/Enums";
 import {
-  ArrowBackIosNewOutlined,
-  ArrowForwardIosOutlined
-} from "@mui/icons-material";
-import {
   Box,
   Divider,
   List,
@@ -18,6 +14,7 @@ import { useTheme } from "styled-components";
 import { ContainerImg, ContainerSideBar, FooterContainer, SideBarCustom } from "./styles";
 import MenuDropdown from "./components/MenuDropdown";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface SideBarProps {
   open: boolean;
@@ -58,10 +55,9 @@ export default function SideBar(props: SideBarProps): React.ReactNode {
     <ContainerSideBar opendrawer={open ? 'true' : 'false'}>
       
         <ContainerImg>
-          <img
-          src={theme.images.logo}
-          className={open ? "" : "resize-logo"}
-          />
+          <Image width={200} height={100}
+        src={theme.images.logo}
+        className={open ? "" : "resize-logo"} alt={""}          />
         </ContainerImg>
       
         <List sx={{flexGrow: '1', overflowY: 'auto', padding: 0}}>

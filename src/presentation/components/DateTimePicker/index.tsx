@@ -8,6 +8,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { TextFieldProps } from '@mui/material';
 import React from 'react';
 import dayjs from 'dayjs';
+import Image from "next/image";
 
 interface DateTimePickerProps {
     props: TextFieldProps;
@@ -26,7 +27,7 @@ export default function DateTimePickerCustom(DateTimeField: DateTimePickerProps)
     const name = props.name ? props.name : "";
 
     const CalendarIconStandard = () => {
-        return <img src={openPickerIcon} alt="Calendar" />
+        return <Image style={{width: 'fit-content', height: 'fit-content'}} width={200} height={100} src={openPickerIcon} alt="Calendar" />
     }
 
     const { control } = useForm({});

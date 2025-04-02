@@ -5,6 +5,7 @@ import DropdownBase from "../DropdownBase/DropdownCustom";
 import { CustomIcon, CustomIconLeft, CustomIconRight } from "./styles";
 import { RoutesEnum } from "@/domain/models/Enums";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface DefaultPageProps {
   filtersEnabled: ("filterNumber" | "filterDocument" | "visualization" | "schedule" | "dumpButton" | "searchHelp")[];
@@ -31,14 +32,14 @@ export default function OrdinaryFilter({filtersEnabled, handleSwitchView}: Defau
             <DropdownBase isNumber={true} submenu={numberViews} hidden={!filtersEnabled.includes("filterNumber")} handleSetValue={()=>{}} />
             <DropdownBase isNumber={false} submenu={submenu} hidden={!filtersEnabled.includes("filterDocument")} handleSetValue={()=>{}} />
             <div className="filter-vectors" hidden={!filtersEnabled.includes("visualization")}>
-                <CustomIconLeft onClick={() => {handleSwitchView({view: 'list'})}}><img src="/src/presentation/assets/Home/Vector1.svg" /></CustomIconLeft>
-                <CustomIconRight onClick={() => {handleSwitchView({view: 'grid'})}}><img src="/src/presentation/assets/Home/Vector2.svg" /></CustomIconRight>
+                <CustomIconLeft onClick={() => {handleSwitchView({view: 'list'})}}><Image width={200} height={100} src="assets/Home/Vector1.svg" alt={""} /></CustomIconLeft>
+                <CustomIconRight onClick={() => {handleSwitchView({view: 'grid'})}}><Image width={200} height={100} src="assets/Home/Vector2.svg" alt={""} /></CustomIconRight>
             </div>
             <div className="icon-container" hidden={!filtersEnabled.includes("schedule")} >
             <CustomIcon onClick={handleNavigateSchedule}>
                 <a>visualizar agenda</a>
                 <div className="icon-separator">
-                <img src="/src/presentation/assets/Home/Vector3.svg" />
+                <Image width={200} height={100} src="assets/Home/Vector3.svg" alt={""} />
                 </div>
             </CustomIcon>
             </div>

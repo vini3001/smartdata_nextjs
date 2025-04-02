@@ -1,8 +1,8 @@
 import { FormControl } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
-import lightIcon from '/src/presentation/assets/Theme/light-icon.svg'
-import darkIcon from '/src/presentation/assets/Theme/dark-icon.svg'
+import lightIcon from '/public/assets/Theme/light-icon.svg'
+import darkIcon from '/public/assets/Theme/dark-icon.svg'
 
 const MaterialUITheme= styled(Switch)(({ theme }) => ({
     width: 62,

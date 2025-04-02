@@ -1,6 +1,6 @@
 import { DefaultPage, TextField } from "@/presentation/components";
 import { ButtonPhoto, SvgIcon, ButtonProfile, CheckboxAccount, CheckboxAccountContainer, ColorPicker, ProfileContainer, SwitchContainer } from "./styles";
-import svgCam from "@/presentation/assets/Profile/camera-img.svg"
+import svgCam from "@/presentation/assets/Profile/camera-Image width={200} height={100}.svg"
 import perfilIcon  from "@/presentation/assets/Profile/user-icon.svg" 
 import mailIcon  from "@/presentation/assets/Profile/mail-icon.svg" 
 import passwordIcon  from "@/presentation/assets/Profile/password-icon.svg" 
@@ -15,6 +15,7 @@ import CheckboxUnchecked from "@/presentation/assets/Profile/checkbox-account/Ch
 import { ButtonBase as CustomButton } from "@/presentation/components";
 import ErrorModal from "@/presentation/components/Modals/ErrorModal";
 import SuccessModal from "@/presentation/components/Modals/SuccessModal";
+import Image from "next/image";
 
 
 export default function ProfilePage() {
@@ -63,12 +64,12 @@ function ProfileBody() {
                     <ButtonProfile>
                         <input id="fileInput" onChange={handleImageChange} type="file" className="input-file" />
                         {imagePreview && (
-                            <img id="preview" src={imagePreview} alt="Pré-visualização da imagem" className="image-container"/>
+                            <Image width={200} height={100} id="preview" src={imagePreview} alt="Pré-visualização da imagem" className="image-container"/>
                         )}
                         <span>C</span>
                     </ButtonProfile >
                     <ButtonPhoto>
-                            <img src={svgCam} alt="Camera Icon" />
+                            <Image width={200} height={100} src={svgCam} alt="Camera Icon" />
                     </ButtonPhoto>
                   </div>
                     <div style={{display: 'flex', flexDirection: 'column'}}>
@@ -125,7 +126,7 @@ function ProfileBody() {
                     <div className="box">
                       <CustomSwitchButton />
                       <div className="text-container">
-                        <a>Mensagem de Texto - PDF/IMG</a>
+                        <a>Mensagem de Texto - PDF/Image width={200} height={100}</a>
                         <span>Receber informações por Whatsapp</span>
                       </div>
                     </div>
@@ -150,7 +151,7 @@ function ProfileBody() {
                     <div className="box">
                       <CustomSwitchButton />
                       <div className="text-container">
-                        <a>Mensagem de Texto - PDF/IMG</a>
+                        <a>Mensagem de Texto - PDF/Image width={200} height={100}</a>
                         <span>Receber informações por Telegram</span>
                       </div>
                     </div>
@@ -181,8 +182,8 @@ function ProfileBody() {
                   <span style={{fontSize: '14px'}}>Personalize seu idioma e região.</span>
               </div> 
               <div style={{display: 'flex', flexDirection: 'column', width: '100%', gap: '1rem'}}>
-                <DropdownBase title="Idioma" submenu={languageConfig} handleReturnValue={() => { } } props={{}} />
-                <DropdownBase title="Fuso Horário" submenu={worldHour} handleReturnValue={() => { } } props={{}} />
+                <DropdownBase title="Idioma" submenu={languageConfig} handleReturnValue={() => { } } props={{}} error={undefined} />
+                <DropdownBase title="Fuso Horário" submenu={worldHour} handleReturnValue={() => { } } props={{}} error={undefined} />
               </div>
             </section>
             <Divider />

@@ -8,6 +8,7 @@ import { Divider } from "@mui/material";
 import "./styles.css"
 import { FooterContainer } from "./styles";
 import ModalChatAI from "./modalChatAI";
+import Image from "next/image";
 
 interface DefaultPageProps {
   body: ReactNode;
@@ -81,7 +82,7 @@ export default function DefaultPage({ body, path, selectedIcon, text, subTextCom
             <FooterContainer>
                 <span>© copyright 2024 - SmartData é  RISTI</span>
                 <button onClick={handleOpenModal} className="image-container">
-                   <img src="/src/presentation/assets/Home/Botao AI.svg" />
+                   <Image width={200} height={100} src="/assets/Home/Botao AI.svg" alt={""} />
                 </button>
             </FooterContainer>
             <ModalChatAI isOpen={isOpen} handleModal={handleOpenModal}/>

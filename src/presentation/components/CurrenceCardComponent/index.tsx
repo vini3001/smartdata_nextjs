@@ -33,7 +33,7 @@ export default function CurrenceCardComponent(
 
   return (
     <Container>
-      <img src={currenceIcon} />
+      <Image width={200} height={100} src={currenceIcon} />
       <ContainerCurrenceName>
         <CurrenceName>{currenceName}</CurrenceName>
         <CurrenceNameAbbreviated>

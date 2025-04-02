@@ -10,6 +10,7 @@ import { RoutesEnum } from '@/domain/models/Enums';
 import ThemeModal from './ThemeModal';
 import UserIcon from '../../PerfilIcon';
 import { useRouter } from 'next/navigation';
+import Image from "next/image";
 
 export default function UserDropDownFilter() {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -77,13 +78,13 @@ export default function UserDropDownFilter() {
               </div>
             </MenuItem>
             <Divider />
-            <MenuItem onClick={handleOpenThemeModal} className='list-custom'><img src="src/presentation/assets/Home/Vector4.svg" />Temas</MenuItem>
-            <MenuItem onClick={handleNavigateSchedule} className='list-custom'><img src="src/presentation/assets/Home/config.svg" />Configurações</MenuItem>
+            <MenuItem onClick={handleOpenThemeModal} className='list-custom'><Image width={200} height={100} src="/assets/Home/Vector4.svg" alt={''} />Temas</MenuItem>
+            <MenuItem onClick={handleNavigateSchedule} className='list-custom'><Image width={200} height={100} src="/assets/Home/config.svg" alt={''} />Configurações</MenuItem>
             <Divider />
-            <MenuItem onClick={handleNavigateHelp} className='list-custom'><img src="src/presentation/assets/Home/Vector6.svg" />Smart Assistente</MenuItem>
+            <MenuItem onClick={handleNavigateHelp} className='list-custom'><Image width={200} height={100} src="/assets/Home/Vector6.svg" alt={''} />Smart Assistente</MenuItem>
             <Divider />
-            <MenuItem onClick={handleNavigateBin} className='list-custom'><img src="src/presentation/assets/Home/botao_lixeira.svg" />Lixo</MenuItem>
-            <MenuItem className='list-custom'><img src="src/presentation/assets/Home/botao_logout.svg" />Sair</MenuItem>
+            <MenuItem onClick={handleNavigateBin} className='list-custom'><Image width={200} height={100} src="/assets/Home/botao_lixeira.svg" alt={''} />Lixo</MenuItem>
+            <MenuItem className='list-custom'><Image width={200} height={100} src="/assets/Home/botao_logout.svg" alt={''} />Sair</MenuItem>
           </CustomMenuList>
         </Drawer>
         <ThemeModal isOpen={isOpenModal} handleChangeView={handleCloseThemeModal} />

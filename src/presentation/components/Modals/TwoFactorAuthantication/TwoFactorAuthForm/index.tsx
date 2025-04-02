@@ -106,7 +106,7 @@ export default function TwoFactorAuthForm(): React.ReactNode {
             />
           ))}
         </TextFieldBox>
-        <ButtonSendCode variantButton="secondary" type="submit">
+        <ButtonSendCode variantbutton="secondary" type="submit">
           Verificar código
         </ButtonSendCode>
       </form>

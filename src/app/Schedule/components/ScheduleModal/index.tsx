@@ -9,6 +9,7 @@ import DropdownContact from '@/presentation/components/DropdownBase';
 import DateTimePickerCustom from '@/presentation/components/DateTimePicker';
 import DropdownBase from '@/presentation/components/DropdownBase/DropdownCustom';
 import { Checkbox } from '@/presentation/components';
+import Image from "next/image";
 
 interface ScheduleModalProps {
   isOpen: boolean
@@ -59,7 +60,7 @@ export default function ScheduleModal({isOpen, handleModal}: ScheduleModalProps)
                 <div className='text-box'>
                   <h4 className='main-text'>Meio de comunicação</h4>
                   <a className='subtext'>Quero receber essa informação pelo:</a>
-                  <DropdownContact submenu={contactOptions} handleReturnValue={handleSetValue} props={{}} />
+                  <DropdownContact submenu={contactOptions} handleReturnValue={handleSetValue} props={{}} error={undefined} />
                 </div>
                 <div className='text-box'>
                   <h4 className='main-text'>Define dia e mês</h4>
@@ -96,7 +97,7 @@ export default function ScheduleModal({isOpen, handleModal}: ScheduleModalProps)
                 <ContainerText>
                   <span>Whatsapp -  sexta-feira  entre  às  8h00  e  9h00</span>
                   <ButtonIcon>
-                      <img src="src/presentation/assets/Schedule/botao-lixeira-vermelho.svg" />
+                      <Image width={200} height={100} src="/assets/Schedule/botao-lixeira-vermelho.svg" alt={''} />
                   </ButtonIcon>
                 </ContainerText>
              </div>
@@ -153,6 +154,8 @@ function ChildModal({isOpen, handleModal}: ScheduleModalProps) {
   {id: 6, label: 'S', fullName: 'Sexta-feira'}, {id: 7, label: 'S', fullName: 'Sábado'}]
 
   const listPeriod  = ['dia', 'mês', 'semana', 'ano']
+
+  console.log(pickerDate)
 
   return (
     <React.Fragment>

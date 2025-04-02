@@ -8,7 +8,7 @@ interface RadioButtonProps {
   props: RadioProps;
   error?: ErrorField;
   label?: string;
-  FormLabel: React.React.ReactNode
+  FormLabel: React.ReactNode
   control?: any
 }
 

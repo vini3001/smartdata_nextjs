@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
+import Tabs, { TabsProps } from "@mui/material/Tabs";
 import * as React from "react";
 import CustomTabPanel from "./CustomTabPanel";
 import { Container } from "./style";
@@ -11,6 +11,7 @@ type TabData = {
 };
 
 type DynamicTabsProps = {
+  tabprops?: TabsProps
   tabs: TabData[];
 };
 
@@ -22,7 +23,7 @@ function a11yProps(index: number) {
 }
 
 export default function DynamicTabs(props: DynamicTabsProps): React.ReactNode {
-  const { tabs } = props;
+  const { tabs, tabprops } = props;
   const [value, setValue] = React.useState(0);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
@@ -33,7 +34,7 @@ export default function DynamicTabs(props: DynamicTabsProps): React.ReactNode {
     <Container>
       <Box>
         <Box>
-          <Tabs value={value} onChange={handleChange}>
+          <Tabs {...tabprops} value={value} onChange={handleChange}>
             {tabs.map((tab, index) => (
               <Tab label={tab.name} key={index} {...a11yProps(index)} />
             ))}

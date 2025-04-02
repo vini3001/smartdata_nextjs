@@ -3,7 +3,7 @@ import PaginatedItems from "./components/DumpPaginate";
 import React from "react";
 import { ButtonDump } from "./styles";
 import { ClickAwayListener, Grow, ListItemIcon, ListItemText, MenuItem, MenuList, Paper, Popper } from "@mui/material";
-
+import Image from "next/image";
 
 export default function FilesDump() {
     return (
@@ -83,11 +83,11 @@ const anchorRef = React.useRef<HTMLButtonElement | null>(null);
                         onKeyDown={handleListKeyDown}
                     >
                         <MenuItem onClick={handleClose}>
-                            <ListItemIcon><img src="/src/presentation/assets/paste.svg" /></ListItemIcon>
+                            <ListItemIcon><Image width={200} height={100} src="assets/paste.svg" alt={""} /></ListItemIcon>
                             <ListItemText>Restaurar</ListItemText>
                         </MenuItem>
                         <MenuItem onClick={handleClose}>
-                            <ListItemIcon><img src="/src/presentation/assets/Schedule/botao-lixeira-vermelho.svg" /></ListItemIcon>
+                            <ListItemIcon><Image width={200} height={100} src="assets/Schedule/botao-lixeira-vermelho.svg" alt={""} /></ListItemIcon>
                             <ListItemText sx={{color: '#FF4228'}}>Excluir para sempre</ListItemText>
                         </MenuItem>
                     </MenuList>

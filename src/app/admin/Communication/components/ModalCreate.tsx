@@ -1,12 +1,13 @@
 import { BaseModal, Checkbox, FormProvider, TextField } from "@/presentation/components";
 import { Box } from "@mui/material";
-import { ArchiveBox, FormButton, ContainerModal, FormContainer, PreviewBox, BoxDownloadIcon } from "./styles";
+import { ArchiveBox, FormButton, ContainerModal, FormContainer, PreviewBox, BoxDownloadIcon, TemplateButton } from "./styles";
 import { ErrorField, YupService } from "@/domain/services";
 import { schemaCommunication } from "@/domain/models/SchemasValidations/schemaCommunication";
 import DateTimePickerCustom from "@/presentation/components/DateTimePicker";
 import DropdownBase from "@/presentation/components/DropdownBase";
 import { AttachFile, FileOpen, InsertLink } from "@mui/icons-material";
 import React from "react";
+import ModalCreateTemplate from "./ModalTemplates/ModalCreateTemplate";
 import DropdownCheckboxCustom, {top100Films} from "@/presentation/components/DropdownBase/DropdownCheckboxCustom";
 
 interface CommunicationProps {
@@ -28,6 +29,7 @@ export default function CreateCommunication({isOpen, handleOpenModal}: Communica
 function CommunicationBody({handleOpenModal}: Pick<CommunicationProps, "handleOpenModal">) {
     const [filePreview, setFilePreview] = React.useState<File | null>(null);
     const [fileUrl, setFileUrl] = React.useState<string | undefined>();
+    const [isOpenTemplate, setIsOpenTemplate] = React.useState<boolean>(false)
     const methods = YupService.useFormYup(schemaCommunication);
 
     const {
@@ -51,6 +53,10 @@ function CommunicationBody({handleOpenModal}: Pick<CommunicationProps, "handleOp
         setFileUrl(url);
     }
     };
+
+    function handleOpenModalTemplate() {
+        setIsOpenTemplate(!isOpenTemplate)
+    }
    return (
     <ContainerModal>
         <FormProvider methods={methods}>
@@ -117,6 +123,12 @@ function CommunicationBody({handleOpenModal}: Pick<CommunicationProps, "handleOp
                         </div>
                     </PreviewBox>
                 </Box>
+                <ArchiveBox>
+                        <a style={{height: 'fit-content'}}>Escolher template para envio: </a>
+                        <Box sx={{borderRadius: '100px',  minWidth: 'auto', padding: '3px'}}>
+                            <TemplateButton onClick={handleOpenModalTemplate} sx={{backgroundColor: '#88D182', color: 'white'}}>CADASTRAR / ESCOLHER MODELO</TemplateButton>
+                        </Box> 
+                </ArchiveBox>
                 <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'end', width: '50%', alignSelf: 'end', gap: '0.5rem'}}>
                     <FormButton type="submit" sx={{backgroundColor: '#828DD4', color: 'white'}}>
                       Salvar
@@ -127,6 +139,7 @@ function CommunicationBody({handleOpenModal}: Pick<CommunicationProps, "handleOp
                 </Box>
             </FormContainer>
         </FormProvider>
+        <ModalCreateTemplate isOpen={isOpenTemplate} handleOpenModal={handleOpenModalTemplate} />
     </ContainerModal>
    )
 }

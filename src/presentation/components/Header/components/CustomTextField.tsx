@@ -1,4 +1,3 @@
-import SearchIcon from "/src/presentation/assets/Header/search-icon.svg"
 import { SvgIcon, theme } from "./styles";
 import TextField from "../../TextFields/TextFieldBase";
 import { ThemeProvider } from "@mui/material";
@@ -23,7 +22,7 @@ export default function TextFieldHeader() {
                 justifyContent: 'center',
                 alignItems: 'center'
               },
-              startAdornment: <SvgIcon src={SearchIcon} />
+              startAdornment: <SvgIcon src="assets/Help/lupa-icon.svg" />
             },
             InputLabelProps: {
               style: {

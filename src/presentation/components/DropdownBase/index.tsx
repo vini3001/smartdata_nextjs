@@ -11,7 +11,7 @@ import { UseFormRegister } from 'react-hook-form';
 interface DropdownBase {
   props: SelectProps
   submenu: string[]
-  error: ErrorField
+  error?: ErrorField
   title?: string
   placeholder?: string
   searchBar?: boolean

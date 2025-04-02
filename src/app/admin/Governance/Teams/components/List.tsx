@@ -1,5 +1,6 @@
 import { Paper, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { ListButton, TableCustom } from "./styles";
+import Image from "next/image";
 
 interface ListProps {
     currentItems: {id: number, nome: string, idade: number}[]
@@ -36,7 +37,7 @@ export default function List({currentItems}: ListProps) {
                     <TableCell align="left">{row.nome}</TableCell>
                     <TableCell sx={{padding: 0, position: 'relative'}}>
                         <ListButton sx={{position: 'absolute', top: 0}}>
-                            <img src="src/presentation/assets/Schedule/edit-icon.svg" />
+                            <Image width={200} height={100} src="/assets/Schedule/edit-icon.svg" alt={""} />
                         </ListButton>
                     </TableCell>
                     </TableRow>

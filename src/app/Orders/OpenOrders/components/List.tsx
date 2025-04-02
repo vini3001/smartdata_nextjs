@@ -1,6 +1,7 @@
 import React from "react";
 import { ListButton, ListContainer, ListContent, ListStrip } from "./styles";
-import ScheduleModal from "@/presentation/pages/Schedule/components/ScheduleModal";
+import ScheduleModal from "@/app/Schedule/components/ScheduleModal";
+import Image from "next/image";
 
 interface ListProps {
     currentItems: number[]
@@ -24,16 +25,16 @@ export default function List({currentItems}: ListProps) {
                         </div>
                         <div className="icon-container">
                             <ListButton>
-                                <img src="src/presentation/assets/Home/botao_BI.svg" />
+                                <Image width={200} height={100} src="/assets/Home/botao_BI.svg" alt={""} />
                             </ListButton>
                             <ListButton onClick={handleModal}>
-                                <img src="src/presentation/assets/Home/botao-criar-agendamento.svg" />
+                                <Image width={200} height={100} src="/assets/Home/botao-criar-agendamento.svg" alt={""} />
                             </ListButton>
                             <ListButton>
-                                <img src="src/presentation/assets/Home/botao-cancelar-agendamento.svg" />
+                                <Image width={200} height={100} src="/assets/Home/botao-cancelar-agendamento.svg" alt={""} />
                             </ListButton>
                             <ListButton>
-                                <img src="src/presentation/assets/Home/botao_lixeira.svg" />
+                                <Image width={200} height={100} src="/assets/Home/botao_lixeira.svg" alt={""} />
                             </ListButton>
                         </div>
                     </ListContent>

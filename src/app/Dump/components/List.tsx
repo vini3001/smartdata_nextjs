@@ -1,4 +1,5 @@
 import { ButtonContainer, ListButton, ListContainer, ListContent } from "./styles";
+import Image from "next/image";
 
 interface ListProps {
     currentItems: number[]
@@ -26,7 +27,7 @@ export default function List({currentItems}: ListProps) {
                         </div>
                         <div className="icon-container">
                             <ListButton>
-                                <img src="src/presentation/assets/Dump/option-icon.svg" />
+                                <Image width={200} height={100} src="/assets/Dump/option-icon.svg" alt={""} />
                             </ListButton>
                         </div>
                     </ListContent>

@@ -12,6 +12,7 @@ import {
   FilterCurrenceTypeText,
   SelectCurrenceContainer,
 } from "./styles";
+import Image from "next/image";
 
 export default function SelectCurrence() {
   const [openModal, setOpenModal] = useState(false);
@@ -72,7 +73,7 @@ export default function SelectCurrence() {
               ))}
             {options.length > optionsPerPage && (
               <FilterCurrenceTypeImg>
-                <img
+                <Image width={200} height={100}
                   src={theme.images.arrowRightIcon}
                   alt="arrow right icon"
                   onClick={handleArrowClick}
@@ -83,7 +84,7 @@ export default function SelectCurrence() {
         </SelectCurrenceContainer>
       </BaseModal>
       <ButtonOpenModal
-        variantButton="secondary"
+        variantbutton="secondary"
         onClick={() => setOpenModal(!openModal)}
       >
         Adicionar conta bancária

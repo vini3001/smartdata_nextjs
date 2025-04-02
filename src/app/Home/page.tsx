@@ -1,3 +1,5 @@
+'use client'
+
 import {
   DefaultPage,
 } from "@/presentation/components";

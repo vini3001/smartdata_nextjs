@@ -6,6 +6,7 @@ import Close from "@mui/icons-material/Close";
 import UserIcon from "../../PerfilIcon";
 import { useLayoutEffect, useRef, useState } from "react";
 import TextField from "../../TextFields/TextFieldBase";
+import Image from "next/image";
 
 interface ChatAIModalProps {
     isOpen: boolean
@@ -16,7 +17,7 @@ export default function ModalChatAI({isOpen, handleModal}: ChatAIModalProps) {
     const [isOpenSide, setIsOpenSide] = useState<boolean>(false)
     const [permission, setPermission] = useState(false);
     //variáveis para o áudio
-    const mediaRecorder = useRef<MediaRecorder>();
+    const mediaRecorder = useRef<MediaRecorder>(null);
     const [recordingStatus, setRecordingStatus] = useState("inactive");
     const [audioChunks, setAudioChunks] = useState<any[]>([]);
     const [audio, setAudio] = useState<string>();
@@ -111,49 +112,49 @@ export default function ModalChatAI({isOpen, handleModal}: ChatAIModalProps) {
                 </div>
                 <ContainerSideBarBody opendrawer={isOpenSide ? "true" : "false"}>
                   <div className="box1">
-                    <CustomChatButton startIcon={<img src="/src/presentation/assets/ChatAI/add-icon.svg" />}>Nova Conversa</CustomChatButton>
+                    <CustomChatButton startIcon={<Image width={200} height={100} src="assets/ChatAI/add-icon.svg" alt={""} />}>Nova Conversa</CustomChatButton>
                   </div>
                   <div className="box2">
                     <h4>Recentes</h4>
                     <CustomList>
                       <ListItemButton>
-                        <ListItemIcon><img src="/src/presentation/assets/ChatAI/chat-icon.svg" /></ListItemIcon>
+                        <ListItemIcon><Image width={200} height={100} src="assets/ChatAI/chat-icon.svg" alt={""} /></ListItemIcon>
                         <ListItemText>What is Lorem Ipsum?</ListItemText>
                       </ListItemButton>
                       <ListItemButton>
-                        <ListItemIcon><img src="/src/presentation/assets/ChatAI/chat-icon.svg" /></ListItemIcon>
+                        <ListItemIcon><Image width={200} height={100} src="assets/ChatAI/chat-icon.svg" alt={""} /></ListItemIcon>
                         <ListItemText>What is Lorem Ipsum?</ListItemText>
                       </ListItemButton>
                       <ListItemButton>
-                        <ListItemIcon><img src="/src/presentation/assets/ChatAI/chat-icon.svg" /></ListItemIcon>
+                        <ListItemIcon><Image width={200} height={100} src="assets/ChatAI/chat-icon.svg" alt={""} /></ListItemIcon>
                         <ListItemText>What is Lorem Ipsum?</ListItemText>
                       </ListItemButton>
                       <ListItemButton>
-                        <ListItemIcon><img src="/src/presentation/assets/ChatAI/chat-icon.svg" /></ListItemIcon>
+                        <ListItemIcon><Image width={200} height={100} src="assets/ChatAI/chat-icon.svg" alt={""} /></ListItemIcon>
                         <ListItemText>What is Lorem Ipsum?</ListItemText>
                       </ListItemButton>
                       <ListItemButton>
-                        <ListItemIcon><img src="/src/presentation/assets/ChatAI/chat-icon.svg" /></ListItemIcon>
+                        <ListItemIcon><Image width={200} height={100} src="assets/ChatAI/chat-icon.svg" alt={""} /></ListItemIcon>
                         <ListItemText>What is Lorem Ipsum?</ListItemText>
                       </ListItemButton>
                       <ListItemButton>
-                        <ListItemIcon><img src="/src/presentation/assets/ChatAI/chat-icon.svg" /></ListItemIcon>
+                        <ListItemIcon><Image width={200} height={100} src="assets/ChatAI/chat-icon.svg" alt={""} /></ListItemIcon>
                         <ListItemText>What is Lorem Ipsum?</ListItemText>
                       </ListItemButton>
                       <ListItemButton>
-                        <ListItemIcon><img src="/src/presentation/assets/ChatAI/chat-icon.svg" /></ListItemIcon>
+                        <ListItemIcon><Image width={200} height={100} src="assets/ChatAI/chat-icon.svg" alt={""} /></ListItemIcon>
                         <ListItemText>What is Lorem Ipsum?</ListItemText>
                       </ListItemButton>
                       <ListItemButton>
-                        <ListItemIcon><img src="/src/presentation/assets/ChatAI/chat-icon.svg" /></ListItemIcon>
+                        <ListItemIcon><Image width={200} height={100} src="assets/ChatAI/chat-icon.svg" alt={""} /></ListItemIcon>
                         <ListItemText>What is Lorem Ipsum?</ListItemText>
                       </ListItemButton>
                       <ListItemButton>
-                        <ListItemIcon><img src="/src/presentation/assets/ChatAI/chat-icon.svg" /></ListItemIcon>
+                        <ListItemIcon><Image width={200} height={100} src="assets/ChatAI/chat-icon.svg" alt={""} /></ListItemIcon>
                         <ListItemText>What is Lorem Ipsum?</ListItemText>
                       </ListItemButton>
                       <ListItemButton>
-                        <ListItemIcon><img src="/src/presentation/assets/ChatAI/chat-icon.svg" /></ListItemIcon>
+                        <ListItemIcon><Image width={200} height={100} src="assets/ChatAI/chat-icon.svg" alt={""} /></ListItemIcon>
                         <ListItemText>What is Lorem Ipsum?</ListItemText>
                       </ListItemButton>
                     </CustomList>
@@ -189,19 +190,19 @@ export default function ModalChatAI({isOpen, handleModal}: ChatAIModalProps) {
                           <div>
                             {permission && recordingStatus === "inactive" && (
                               <ButtonMic onClick={startRecording} type="button">
-                                  <img src="src/presentation/assets/ChatAI/microphone-icon.svg" />
+                                  <Image width={200} height={100} src="/assets/ChatAI/microphone-icon.svg" alt={""} />
                               </ButtonMic>
                             )}
 
                            {!permission && (
                             <ButtonMic onClick={getMicrophonePermission} type="button">
-                              <img src="src/presentation/assets/ChatAI/microphone-icon.svg" />
+                              <Image width={200} height={100} src="/assets/ChatAI/microphone-icon.svg" alt={""} />
                             </ButtonMic>
                             )} 
 
                             {recordingStatus === "recording" && (
                             <ButtonMic style={{backgroundColor: '#828DD4'}} onClick={stopRecording} type="button">
-                              <img src="src/presentation/assets/ChatAI/microphone-icon.svg" />
+                              <Image width={200} height={100} src="/assets/ChatAI/microphone-icon.svg" alt={""} />
                             </ButtonMic>
                             )}
                           </div>

@@ -183,6 +183,7 @@ export const ListButton = styled(Button)`
 img {
   height: auto;
   min-width: 19px;
+  width: fit-content;
 }
 `
 

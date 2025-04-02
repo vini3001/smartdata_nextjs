@@ -1,6 +1,5 @@
 import { DefaultPage, TextField } from "@/presentation/components";
 import { Container, HelpBox, IconImg } from "./styles";
-import SearchIcon from "/src/presentation/assets/Help/lupa-icon.svg"
 
 
 export default function Help() {
@@ -55,7 +54,7 @@ function SearchBar() {
                     justifyContent: 'center',
                     alignItems: 'center',
                 },
-                startAdornment: <IconImg src={SearchIcon} />
+                startAdornment: <IconImg src="assets/Help/lupa-icon.svg" />
                 }
             }} />
             </div>

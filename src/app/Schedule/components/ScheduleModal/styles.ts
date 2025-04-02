@@ -339,6 +339,11 @@ export const ButtonIcon = styled(Button)`
     padding: 2px;
     min-width: auto;
   }
+
+  img {
+    width: fit-content;
+    height: fit-content;
+  }
 `
 
 export const ColorfulButton = styled(Button)<ButtonProps>`

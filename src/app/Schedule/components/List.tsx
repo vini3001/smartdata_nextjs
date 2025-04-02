@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ListButton, ListContainer, ListContent, ListStrip, ListWrapper } from "./styles";
 import { DropdownDays } from "./DropdownDays";
+import Image from "next/image";
 
 interface ListProps {
     currentItems: number[]
@@ -30,10 +31,10 @@ export default function List({currentItems}: ListProps) {
                             </div>
                             <div className="icon-container">
                                 <ListButton>
-                                    <img src="src/presentation/assets/Schedule/edit-icon.svg" />
+                                    <Image width={200} height={100} src="/assets/Schedule/edit-icon.svg" alt={""} />
                                 </ListButton>
                                 <ListButton>
-                                    <img src="src/presentation/assets/Schedule/botao-lixeira-vermelho.svg" />
+                                    <Image width={200} height={100} src="/assets/Schedule/botao-lixeira-vermelho.svg" alt={""} />
                                 </ListButton>
                             </div>
                         </ListContent>
@@ -49,7 +50,7 @@ export default function List({currentItems}: ListProps) {
                                 <ListButton>
                                 </ListButton>
                                 <ListButton>
-                                    <img src="src/presentation/assets/Schedule/botao-lixeira-vermelho.svg" />
+                                    <Image width={200} height={100} src="/assets/Schedule/botao-lixeira-vermelho.svg" alt={""} />
                                 </ListButton>
                             </div>
                         </ListContent>

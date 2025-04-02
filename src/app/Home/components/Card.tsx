@@ -2,6 +2,7 @@ import React from "react";
 import { CardButton, CardContainer, GridContainer, InfoHeader } from "./styles";
 import ScheduleModal from "../../Schedule/components/ScheduleModal";
 import PowerBiModal from "../../PowerBI/components/PowerBIModal";
+import Image from "next/image";
 
 interface CardProps {
     currentItems: number[]
@@ -32,20 +33,20 @@ export default function Card({currentItems}: CardProps) {
 
                             <div className="icon-container">
                                 <CardButton onClick={handleModalPowerBi}>
-                                    <img src="src/presentation/assets/Home/botao_BI.svg" />
+                                    <Image width={200} height={100} src="/assets/Home/botao_BI.svg" alt={""} />
                                 </CardButton>
                                 <CardButton onClick={handleModalSchedule}>
-                                    <img src="src/presentation/assets/Home/botao-criar-agendamento.svg" />
+                                    <Image width={200} height={100} src="/assets/Home/botao-criar-agendamento.svg" alt={""} />
                                 </CardButton>
                                 <CardButton>
-                                    <img src="src/presentation/assets/Home/botao-cancelar-agendamento.svg" />
+                                    <Image width={200} height={100} src="/assets/Home/botao-cancelar-agendamento.svg" alt={""} />
                                 </CardButton>
                                 <CardButton>
-                                    <img src="src/presentation/assets/Home/botao_lixeira.svg" />
+                                    <Image width={200} height={100} src="/assets/Home/botao_lixeira.svg" alt={""} />
                                 </CardButton>             
                             </div>
                         </InfoHeader>
-                        <img src="/src/presentation/assets/Home/Group 924.png" className="image-container" />    
+                        <Image width={200} height={100} src="/assets/Home/Group924.png" className="image-container" alt={""} />    
                     </CardContainer>
                 )
             })}

@@ -3,6 +3,7 @@ import { Container, ContainerHeader, ContainerIcons, ContainerLogo, CustomHeader
 import TextFieldHeader from "./components/CustomTextField";
 import MenuDropDownFilter from "./components/DropdownFilter";
 import UserDropDownFilter from "./components/UserDropdown";
+import Image from "next/image";
 
 interface HeaderProps {
   openSideBar: boolean;
@@ -18,7 +19,7 @@ export default function Header(props: HeaderProps): React.ReactNode {
           <ContainerHeader>
             {/* Logo */}
             <ContainerLogo>
-              <img src="/src/presentation/assets/Header/logo-header.svg" />
+              <Image width={200} height={100} src="assets/Header/logo-header.svg" alt={""} />
             </ContainerLogo>
 
             {/* Search bar */}

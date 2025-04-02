@@ -1,3 +1,4 @@
+import Image from "next/image";
 
 const Icons = {
   Home: "Home",
@@ -14,9 +15,9 @@ export interface IconProps {
 }
 
 export default function SideBarIcon({selectedIcon}: IconProps) {
-    const iconPath = `src/presentation/assets/SideBar/Icons/${Icons[selectedIcon  as keyof typeof Icons]}.svg`
+    const iconPath = `/assets/SideBar/Icons/${Icons[selectedIcon  as keyof typeof Icons]}.svg`
 
     return (
-        <img src={iconPath} />
+        <Image style={{width: 'fit-content', height: 'fit-content'}} width={200} height={100} src={iconPath} alt={""} />
     )
 }

@@ -1,13 +1,50 @@
 import { BaseModal } from "@/presentation/components";
-import { ContainerModal, PaperContainer } from "./styles";
-import Carousel from 'react-material-ui-carousel'
+import { ContainerModal, LeftArrow, PaperContainer, RightArrow } from "./styles";
+import Carousel from 'react-multi-carousel';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import Image from "next/image";
 
 interface PowerBiModalProps {
     isOpen: boolean;
     handleModal: () => void
 }
+
+const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 1
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1
+    }
+  };
+
+ const LeftArrowIcon = ({ onClick }: any) => {
+    return (
+        <LeftArrow onClick={onClick}>
+            <KeyboardArrowLeftIcon sx={{color: 'white'}} />
+        </LeftArrow>
+    );
+  };
+
+  const RightArrowIcon = ({ onClick }: any) => {
+    return (
+        <RightArrow onClick={onClick}>
+            <KeyboardArrowRightIcon sx={{color: 'white'}} />
+        </RightArrow>
+    );
+  };
 
 export default function PowerBiModal({isOpen, handleModal}: PowerBiModalProps) {
 
@@ -31,25 +68,17 @@ function PowerBiBody() {
     return (
        <ContainerModal>
           <Carousel
-            NextIcon={<KeyboardArrowRightIcon style={{color: 'white'}} />}
-            PrevIcon={<KeyboardArrowLeftIcon style={{color: 'white'}} />}
-            height={undefined}
+            containerClass='carousel-container'
+            responsive={responsive}
             autoPlay={false}
-            indicators={false}
-            navButtonsAlwaysVisible={true}
-            fullHeightHover={false}
-            navButtonsProps={{
-                style: {
-                    backgroundColor: '#6A81BF'
-                }
-            }} 
-            navButtonsWrapperProps={{
-                style: {
-                    top: 'calc(50% - 50px)'
-                }
-            }}
-            next={ (next, active) => console.log(`we left ${active}, and are now at ${next}`) }
-            prev={ (prev, active) => console.log(`we left ${active}, and are now at ${prev}`) }
+            infinite={false}
+            partialVisbile={false}
+            customLeftArrow={<LeftArrowIcon />}
+            customRightArrow={<RightArrowIcon />}
+            swipeable={true}
+            draggable={true}
+            itemClass='container-item'
+            showDots={false}
           >
                 {
                     items.map( (item, i) => <Item key={i} item={item} /> )
@@ -63,7 +92,7 @@ function Item(props: any)
 {
     return (
         <PaperContainer elevation={0}>
-            <img className="image-container" src="/src/presentation/assets/Rectangle 608.png" />
+            <Image width={200} height={100} className="image-container" src="assets/Rectangle 608.png" alt={""} />
         </PaperContainer>
     )
 }

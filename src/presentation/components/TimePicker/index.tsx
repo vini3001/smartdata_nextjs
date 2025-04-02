@@ -3,6 +3,7 @@ import { Container, ContainerArrows, CustomButton, CustomDateTimePicker } from '
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import Image from "next/image";
 
 export default function ManualMinuteUpdater() {
   const [currentTime, setCurrentTime] = useState(dayjs());
@@ -25,10 +26,10 @@ export default function ManualMinuteUpdater() {
       </LocalizationProvider>
       <ContainerArrows>
         <CustomButton onClick={addOneMinute}>
-          <img style={{height: '12px', width: '12px'}} src="/src/presentation/assets/Schedule/button-up-icon.svg" />
+          <Image width={200} height={100} style={{ height: '12px', width: '12px' }} src="assets/Schedule/button-up-icon.svg" alt={''} />
         </CustomButton>
         <CustomButton onClick={removeOneMinute}>
-          <img style={{height: '12px', width: '12px'}} src="/src/presentation/assets/Schedule/button-down-icon.svg" />
+          <Image width={200} height={100} style={{ height: '12px', width: '12px' }} src="assets/Schedule/button-down-icon.svg" alt={''} />
         </CustomButton>
       </ContainerArrows>
     </Container>

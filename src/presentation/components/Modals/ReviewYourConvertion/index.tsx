@@ -12,6 +12,7 @@ import {
   ReviewYourConvetionImgRow,
   TwoFactorAuthanticationButtonsRow,
 } from "./styles";
+import Image from "next/image";
 
 export default function ReviewYourConvertion() {
   const [openModal, setOpenModal] = useState(false);
@@ -28,7 +29,7 @@ export default function ReviewYourConvertion() {
         <ReviewYourConvetionContainer>
           <ReviewYourConvetionImgRow>
             <ReviewYourConvertionCurrenceImg>
-              <img
+              <Image width={200} height={100}
                 src={
                   "https://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/512/Bitcoin-BTC-icon.png"
                 }
@@ -36,10 +37,10 @@ export default function ReviewYourConvertion() {
               />
             </ReviewYourConvertionCurrenceImg>
             <ReviewYourConvertionArrowRight>
-              <img src={theme.images.arrowRightIcon} alt="arrow right" />
+              <Image width={200} height={100} src={theme.images.arrowRightIcon} alt="arrow right" />
             </ReviewYourConvertionArrowRight>
             <ReviewYourConvertionCurrenceImg>
-              <img
+              <Image width={200} height={100}
                 src={"https://cdn-icons-png.flaticon.com/512/6001/6001368.png"}
                 alt="ethereum"
               />
@@ -61,17 +62,17 @@ export default function ReviewYourConvertion() {
             endAdornmentTotal="ETH"
           />
           <TwoFactorAuthanticationButtonsRow>
-            <ButtonConvert variantButton="secondary" onClick={() => {}}>
+            <ButtonConvert variantbutton="secondary" onClick={() => {}}>
               Cancelar
             </ButtonConvert>
-            <ButtonConvert variantButton="primary" onClick={() => {}}>
+            <ButtonConvert variantbutton="primary" onClick={() => {}}>
               Confirmar
             </ButtonConvert>
           </TwoFactorAuthanticationButtonsRow>
         </ReviewYourConvetionContainer>
       </BaseModal>
       <ButtonOpenModal
-        variantButton="secondary"
+        variantbutton="secondary"
         onClick={() => setOpenModal(!openModal)}
       >
         Adicionar conta bancária

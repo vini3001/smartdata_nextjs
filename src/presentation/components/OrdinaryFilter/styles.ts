@@ -27,6 +27,11 @@ export const CustomIconLeft = styled(ButtonBase)`
     cursor: pointer;
     min-width: auto;
   }
+
+  img {
+    width: fit-content;
+    height: fit-content;
+  }
 `
 
 export const CustomIconRight = styled(ButtonBase)`
@@ -37,6 +42,11 @@ export const CustomIconRight = styled(ButtonBase)`
     background-color: white;
     cursor: pointer;
     min-width: auto;
+  }
+
+  img {
+    width: fit-content;
+    height: fit-content;
   }
 `
 
@@ -67,4 +77,9 @@ export const CustomIcon = styled(ButtonBase)`
     margin-left: 0.5rem;
     margin-bottom: 0.2rem;
    }
+
+   img {
+    width: fit-content;
+    height: fit-content;
+  }
 `

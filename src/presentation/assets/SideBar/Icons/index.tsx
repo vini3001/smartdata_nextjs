@@ -11,7 +11,7 @@ const Icons = {
 };
 
 export interface IconProps {
-    selectedIcon: string;
+    selectedIcon?: string;
 }
 
 export default function SideBarIcon({selectedIcon}: IconProps) {

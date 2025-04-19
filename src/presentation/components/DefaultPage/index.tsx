@@ -13,17 +13,18 @@ import Image from "next/image";
 interface DefaultPageProps {
   body: ReactNode;
   path: string;
-  selectedIcon: string;
+  selectedIcon?: string;
   text: string;
   subTextComponent?: ReactNode;
-  sideComponent: ReactNode
+  sideComponent: ReactNode;
+  CustomSelectedIcon: ReactNode
 }
 
 export interface viewProps {
   view: 'grid' | 'list'
 }
 
-export default function DefaultPage({ body, path, selectedIcon, text, subTextComponent, sideComponent }: DefaultPageProps): React.ReactNode {
+export default function DefaultPage({ body, path, selectedIcon, CustomSelectedIcon, text, subTextComponent, sideComponent }: DefaultPageProps): React.ReactNode {
   const [openSideBar, setOpenSideBar] = useState<boolean>(true);
   const [isOpen, setIsOpen] = useState<boolean>(false)
   
@@ -65,7 +66,7 @@ export default function DefaultPage({ body, path, selectedIcon, text, subTextCom
             open={openSideBar}
           />
           <BodyContainer ref={documentRef}>
-              <NavigateHeader handleOpenSideBar={() => setOpenSideBar(!openSideBar)} selectedIcon={selectedIcon} path={path} /> 
+              <NavigateHeader handleOpenSideBar={() => setOpenSideBar(!openSideBar)} CustomSelectedIcon selectedIcon={selectedIcon !== undefined ? selectedIcon : ''} path={path} /> 
               <Divider />
               <ContainerHome>
                 <FirstRow>

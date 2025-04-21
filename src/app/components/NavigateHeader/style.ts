@@ -10,9 +10,13 @@ export const Container = styled.div`
    align-items: center;
 
    && {
-      .MuiListItemIcon-root {
+      &.MuiListItemIcon-root {
          min-width: 30px;
          justify-content: center;
+      }
+
+      .MuiSvgIcon-root {
+         color: rgba(0,0,0,0.54);
       }
    }
 
@@ -63,4 +67,5 @@ export const IconContainer = styled.div`
    flex-direction: row;
    justify-content: center;
    align-items: center;
+   gap: 0.3rem;
 `

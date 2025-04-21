@@ -84,7 +84,3 @@ export const ContainerImg = styled.div`
     visibility: hidden;
   }
 `;
-
-export const SideBarCustom = styled(SideBarIcon)`
-  
-`

@@ -1,22 +1,20 @@
 import { Container, FirstColumn, IconContainer, SecondColumn } from "./style";
 import SideBarIcon, { IconProps } from "@/assets/SideBar/Icons";
 
-interface NavigateHeaderProps extends IconProps{
+interface NavigateHeaderProps {
    path: string
-   CustomSelectedIcon?: React.ReactNode
+   SelectedIcon?: React.ReactNode
    handleOpenSideBar: () => void;
 }
 
 export default function NavigateHeader(NagivateProps: NavigateHeaderProps) {
-   const { path, handleOpenSideBar, CustomSelectedIcon, selectedIcon } = NagivateProps;
+   const { path, handleOpenSideBar, SelectedIcon } = NagivateProps;
 
     return (
         <Container>
            <FirstColumn>
               <IconContainer onClick={handleOpenSideBar}>
-                 {selectedIcon !== undefined ? <SideBarIcon selectedIcon={selectedIcon} /> :
-                   CustomSelectedIcon
-                  }
+                 {SelectedIcon}
                 <span>{path}</span>
               </IconContainer>
            </FirstColumn>

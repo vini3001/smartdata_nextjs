@@ -1,11 +1,12 @@
-import { DefaultPage } from "@/app/components";
-import PaginatedItems from "./components/SchedulePaginate";
+'use client'
+
+import PaginatedItems from "./SchedulePaginate";
 import OrdinaryFilter from "@/app/components/OrdinaryFilter";
 import { Box } from "@mui/material";
 import ToolsBand from "@/app/components/ToolsBand";
 
 
-export default function Schedule() {
+export default function ClientSchedule() {
 
     return (
         <Box>

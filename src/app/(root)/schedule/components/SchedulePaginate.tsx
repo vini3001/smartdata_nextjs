@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react';
 import { CustomDivider, CustomLabelPaginate, PaginationContainer, PaginationContent } from './styles'
 import List from './List';

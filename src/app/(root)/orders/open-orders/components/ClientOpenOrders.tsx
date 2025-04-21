@@ -1,3 +1,5 @@
+'use client'
+
 import PaginatedItems from "./OpenOrdersPagination";
 import { useState } from "react";
 import { viewProps } from "@/app/components/DefaultPage";

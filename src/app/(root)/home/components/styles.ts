@@ -9,7 +9,6 @@ export const GridContainer = styled.div`
   justify-content: center;
   align-items: center;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  min-width: 20rem;
   height: auto;
   gap: 0.5rem;
 
@@ -22,11 +21,13 @@ export const GridContainer = styled.div`
 export const CardContainer = styled(BoxContentBase)`
   display: flex;
   width: 100%;
+  min-width: 10rem;
   flex-direction: column;
   border-radius: 0.5rem;
   gap: 1rem;
 
   .image-container {
+    width: 100%;
     aspect-ratio: 6/3;
   }
 `

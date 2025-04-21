@@ -44,6 +44,8 @@ export default createGlobalStyle`
       height: 100vh;
       width: 100vw;
       overflow-x: hidden;
+
+      --swiper-navigation-size: 20px
     }
 
     * h1 {

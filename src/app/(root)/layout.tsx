@@ -1,6 +1,6 @@
 'use client'
 
-import {ReactNode, useRef, useState} from "react";
+import { useEffect, useLayoutEffect, useState} from "react";
 import { Header, SideBar } from "@/app/components";
 import { BodyContainer, Container, ContainerHome, CustomContainer, FilterContainer, FirstRow, } from "./styles";
 import NavigateHeader from "@/app/components/NavigateHeader";
@@ -9,16 +9,7 @@ import { FooterContainer } from "./styles";
 import ModalChatAI from "@/app/components/DefaultPage/modalChatAI";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-
-interface DefaultPageProps {
-  body: ReactNode;
-  path: string;
-  selectedIcon?: string;
-  text: string;
-  subTextComponent?: ReactNode;
-  sideComponent: ReactNode;
-  CustomSelectedIcon: ReactNode
-}
+import menus, { MenuProps } from "@/app/(root)/routes";
 
 export interface viewProps {
   view: 'grid' | 'list'
@@ -29,6 +20,7 @@ export default function DefaultPage({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [selectedRoute, setSelectedRoute] = useState<MenuProps>()
   const [openSideBar, setOpenSideBar] = useState<boolean>(true);
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
@@ -37,6 +29,12 @@ export default function DefaultPage({
   function handleOpenModal() {
     setIsOpen(!isOpen)
   }
+
+  useLayoutEffect(() => {
+    console.log('infoRoute')
+    const infoRoute = menus.find((item) => {return item.route === path})
+    setSelectedRoute(infoRoute)
+  }, [path])
 
   return (
     <Container>
@@ -48,7 +46,8 @@ export default function DefaultPage({
             open={openSideBar}
           />
           <BodyContainer>
-              <NavigateHeader handleOpenSideBar={() => setOpenSideBar(!openSideBar)} path={path} /> 
+              <NavigateHeader handleOpenSideBar={() => setOpenSideBar(!openSideBar)} path={selectedRoute?.text ?? ''} 
+                SelectedIcon={selectedRoute?.icon ?? ''} /> 
               <Divider />
               <ContainerHome>
                 <FirstRow>

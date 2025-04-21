@@ -6,28 +6,28 @@ export const ContainerModal = styled.div`
   width: 80vw;
   padding: 15px;
 
-  .react-multi-carousel-item {
-    display: flex;
-    list-style: none;
+  .swiper {
+    width: 100%;
+    height: 100%;
   }
 
-  .react-multi-carousel-track {
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    position: relative;
+  .swiper-button-prev,
+  .swiper-button-next {
+    padding: 20px;
+    background-color: rgba(132,140,212,.7);
+    border-radius: 99px;
   }
 
-  .react-multi-carousel-list {
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    position: relative
+  .swiper-button-next:after {
+     position: absolute;
+     right: 13px;
+     color: white;
   }
 
-  .react-multi-carousel-dot-list {
-    display: flex;
-    flex-direction: row;
+  .swiper-button-prev:after {
+     position: absolute;
+     left: 13px;
+     color: white;
   }
 `
 
@@ -37,6 +37,10 @@ export const ContentModal = styled.div`
 
 export const PaperContainer = styled(Paper)`
   &.MuiPaper-root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     height: 400px;
     border-radius: 8px;
     overflow: hidden;
@@ -45,8 +49,6 @@ export const PaperContainer = styled(Paper)`
         border-radius: 8px;
         position: absolute;
         cursor: pointer;
-        width: 100%;
-        height: 100%;
         object-fit: cover;
    }
 `

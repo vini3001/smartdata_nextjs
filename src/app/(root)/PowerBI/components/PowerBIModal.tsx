@@ -1,50 +1,15 @@
 import { BaseModal } from "@/app/components";
-import { ContainerModal, LeftArrow, PaperContainer, RightArrow } from "./styles";
-import Carousel from 'react-multi-carousel';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import { ContainerModal, PaperContainer } from "./styles";
 import Image from "next/image";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { Navigation } from 'swiper/modules';
 
 interface PowerBiModalProps {
     isOpen: boolean;
     handleModal: () => void
 }
-
-const responsive = {
-    superLargeDesktop: {
-      // the naming can be any, depends on you.
-      breakpoint: { max: 4000, min: 3000 },
-      items: 5
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 1
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1
-    }
-  };
-
- const LeftArrowIcon = ({ onClick }: any) => {
-    return (
-        <LeftArrow onClick={onClick}>
-            <KeyboardArrowLeftIcon sx={{color: 'white'}} />
-        </LeftArrow>
-    );
-  };
-
-  const RightArrowIcon = ({ onClick }: any) => {
-    return (
-        <RightArrow onClick={onClick}>
-            <KeyboardArrowRightIcon sx={{color: 'white'}} />
-        </RightArrow>
-    );
-  };
 
 export default function PowerBiModal({isOpen, handleModal}: PowerBiModalProps) {
 
@@ -67,23 +32,20 @@ function PowerBiBody() {
 
     return (
        <ContainerModal>
-          <Carousel
-            containerClass='carousel-container'
-            responsive={responsive}
-            autoPlay={false}
-            infinite={false}
-            partialVisbile={false}
-            customLeftArrow={<LeftArrowIcon />}
-            customRightArrow={<RightArrowIcon />}
-            swipeable={true}
-            draggable={true}
-            itemClass='container-item'
-            showDots={false}
-          >
+            <Swiper
+                slidesPerView={'auto'}
+                navigation={true}
+                freeMode={true}
+                pagination={{
+                clickable: true,
+                }}
+                modules={[Navigation]}
+            >
                 {
-                    items.map( (item, i) => <Item key={i} item={item} /> )
+                    items.map( (item, i) => {
+                    return <SwiperSlide key={i}><Item item={item} /></SwiperSlide> })
                 }
-          </Carousel>
+            </Swiper>
        </ContainerModal>
     )
 }
@@ -92,7 +54,7 @@ function Item(props: any)
 {
     return (
         <PaperContainer elevation={0}>
-            <Image width={200} height={100} className="image-container" src="assets/Rectangle 608.png" alt={""} />
+            <Image width={200} height={100} className="image-container" src="/assets/Frame.svg" alt={""} />
         </PaperContainer>
     )
 }

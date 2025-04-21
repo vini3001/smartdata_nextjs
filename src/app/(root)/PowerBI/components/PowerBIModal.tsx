@@ -1,4 +1,4 @@
-import { BaseModal } from "@/presentation/components";
+import { BaseModal } from "@/app/components";
 import { ContainerModal, LeftArrow, PaperContainer, RightArrow } from "./styles";
 import Carousel from 'react-multi-carousel';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';

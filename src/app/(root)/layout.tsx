@@ -1,12 +1,12 @@
 'use client'
 
 import {ReactNode, useRef, useState} from "react";
-import { Header, SideBar } from "@/presentation/components";
+import { Header, SideBar } from "@/app/components";
 import { BodyContainer, Container, ContainerHome, CustomContainer, FilterContainer, FirstRow, } from "./styles";
-import NavigateHeader from "@/presentation/components/NavigateHeader";
+import NavigateHeader from "@/app/components/NavigateHeader";
 import { Divider } from "@mui/material";
 import { FooterContainer } from "./styles";
-import ModalChatAI from "@/presentation/components/DefaultPage/modalChatAI";
+import ModalChatAI from "@/app/components/DefaultPage/modalChatAI";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 

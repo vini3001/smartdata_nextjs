@@ -1,11 +1,11 @@
-import { BaseModal, DynamicTabs, FormProvider, TextField } from "@/presentation/components";
+import { BaseModal, DynamicTabs, FormProvider, TextField } from "@/app/components";
 import { Box } from "@mui/material";
 import { FormButton, ContainerModal, FormContainer } from "./styles";
 import { ErrorField, YupService } from "@/domain/services";
 ///import { schemaInformation } from "@/domain/models/SchemasValidations/schemaInformation";
 import { schemaTeams } from "@/domain/models/SchemasValidations/schemaTeams";
-import DropdownBase from "@/presentation/components/DropdownBase";
-import DropdownCheckboxCustom from "@/presentation/components/DropdownBase/DropdownCheckboxCustom";
+import DropdownBase from "@/app/components/DropdownBase";
+import DropdownCheckboxCustom from "@/app/components/DropdownBase/DropdownCheckboxCustom";
 
 interface InformationProps {
     isOpen: boolean

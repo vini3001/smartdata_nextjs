@@ -3,7 +3,7 @@ import { ContainerFields, FormButtonTemplate, LeftArrow, RightArrow, TemplateBox
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { Box, CardContent } from "@mui/material";
-import { TextField } from "@/presentation/components";
+import { TextField } from "@/app/components";
 import Image from "next/image";
 
 const responsive = {

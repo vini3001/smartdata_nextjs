@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { CustomDivider, CustomLabelPaginate, ListHeaderInfo, PaginationContainer, PaginationContent } from './styles';
 import List from './List';
-import DropdownBase from '@/presentation/components/DropdownBase/DropdownCustom';
+import DropdownBase from '@/app/components/DropdownBase/DropdownCustom';
 
 const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 

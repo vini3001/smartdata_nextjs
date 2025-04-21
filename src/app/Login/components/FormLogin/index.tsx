@@ -3,7 +3,7 @@
 import { RoutesEnum } from "@/domain/models/Enums";
 import { schemaLogin } from "@/domain/models/SchemasValidations";
 import { ErrorField, YupService } from "@/domain/services";
-import { FormProvider, TextField } from "@/presentation/components";
+import { FormProvider, TextField } from "@/app/components";
 import {
   ButtonSignIn,
   Container,
@@ -18,8 +18,8 @@ import {
   CheckBoxRemember,
 } from "./styles";
 import LoginLayout from "../../layout";
-import CheckboxChecked from "@/presentation/assets/Login/checkbox-remember/CheckboxChecked";
-import CheckboxUnchecked from "@/presentation/assets/Login/checkbox-remember/CheckboxUnchecked";
+import CheckboxChecked from "@/assets/Login/checkbox-remember/CheckboxChecked";
+import CheckboxUnchecked from "@/assets/Login/checkbox-remember/CheckboxUnchecked";
 import { useRouter } from "next/navigation";
 
 export default function FormLogin(): React.ReactNode {

@@ -2,13 +2,13 @@ import * as React from 'react';
 import { BodyContent, ButtonIcon, ColorfulButton, ContainerText, CustomButton, HeaderContent, Modal, ModalContent, styleMain, styleChild, TimeContainer, BodyContentChildModal, StyledBackdrop, DayButton, ButtonContainer } from './styles';
 import { Cached, Close } from '@mui/icons-material';
 import { Divider, IconButton } from '@mui/material';
-import DateCalendarCustom from '@/presentation/components/DateTimeCalendar';
-import CustomSwitchButton from '@/presentation/components/SwitchButton';
-import ManualMinuteUpdater from '@/presentation/components/TimePicker';
-import DropdownContact from '@/presentation/components/DropdownBase';
-import DateTimePickerCustom from '@/presentation/components/DateTimePicker';
-import DropdownBase from '@/presentation/components/DropdownBase/DropdownCustom';
-import { Checkbox } from '@/presentation/components';
+import DateCalendarCustom from '@/app/components/DateTimeCalendar';
+import CustomSwitchButton from '@/app/components/SwitchButton';
+import ManualMinuteUpdater from '@/app/components/TimePicker';
+import DropdownContact from '@/app/components/DropdownBase';
+import DateTimePickerCustom from '@/app/components/DateTimePicker';
+import DropdownBase from '@/app/components/DropdownBase/DropdownCustom';
+import { Checkbox } from '@/app/components';
 import Image from "next/image";
 
 interface ScheduleModalProps {

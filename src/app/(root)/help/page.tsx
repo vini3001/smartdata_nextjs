@@ -1,7 +1,7 @@
-import { DefaultPage, TextField } from "@/presentation/components";
+import { TextField } from "@/app/components";
 import { Container, HelpBox, IconImg } from "./styles"
 import { Box } from "@mui/material";
-import ToolsBand from "@/presentation/components/ToolsBand";
+import ToolsBand from "@/app/components/ToolsBand";
 
 
 export default function Help() {
@@ -11,11 +11,6 @@ export default function Help() {
           <ToolsBand text={"Boa noite, Felipe Santos"} subTextComponent={<h3>Como podemos ajudar?</h3>} sideComponent={<SearchBar />} />
           <HelpBody />
         </Box>
-        // <DefaultPage body={<HelpBody />}
-        // path={"Home / ajuda"} selectedIcon={"Home"}
-        // text="Boa noite, Felipe Santos"
-        // subTextComponent={<h3>Como podemos ajudar?</h3>} 
-        // sideComponent={<SearchBar />}        />
     )
 }
 

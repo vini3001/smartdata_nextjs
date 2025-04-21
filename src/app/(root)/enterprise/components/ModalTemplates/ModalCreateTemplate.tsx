@@ -1,8 +1,8 @@
 import { schemaTemplate } from "@/domain/models/SchemasValidations/schemaTemplate";
 import { YupService } from "@/domain/services/YupService";
-import BaseModal from "@/presentation/components/Modals/BaseModal";
+import BaseModal from "@/app/components/Modals/BaseModal";
 import { FormContainer } from "../styles";
-import { DynamicTabs, FormProvider } from "@/presentation/components";
+import { DynamicTabs, FormProvider } from "@/app/components";
 import React from "react";
 import { ContainerModalTemplate } from "./styles";
 import TemplateTeamsCarousel from "./TemplateTeams";

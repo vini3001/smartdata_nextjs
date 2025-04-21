@@ -1,8 +1,8 @@
-import { DefaultPage } from "@/presentation/components";
+import { DefaultPage } from "@/app/components";
 import PaginatedItems from "./components/SchedulePaginate";
-import OrdinaryFilter from "@/presentation/components/OrdinaryFilter";
+import OrdinaryFilter from "@/app/components/OrdinaryFilter";
 import { Box } from "@mui/material";
-import ToolsBand from "@/presentation/components/ToolsBand";
+import ToolsBand from "@/app/components/ToolsBand";
 
 
 export default function Schedule() {

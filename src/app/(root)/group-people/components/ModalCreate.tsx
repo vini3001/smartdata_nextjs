@@ -1,14 +1,14 @@
-import { BaseModal, FormProvider, TextField } from "@/presentation/components";
+import { BaseModal, FormProvider, TextField } from "@/app/components";
 import { Box } from "@mui/material";
 import { FormButton, ContainerModal, FormContainer, TemplateButton, RegisterBox, ContainerBox, LabelPeople, DeleteButton, CustomContainer } from "./styles";
 import { ErrorField, YupService } from "@/domain/services";
 ///import { schemaGroup } from "@/domain/models/SchemasValidations/schemaGroup";
-import DropdownCheckboxCustom, {top100Films} from "@/presentation/components/DropdownBase/DropdownCheckboxCustom";
+import DropdownCheckboxCustom, {top100Films} from "@/app/components/DropdownBase/DropdownCheckboxCustom";
 import { schemaTeams } from "@/domain/models/SchemasValidations/schemaTeams";
 import React from "react";
-import CustomSwitchButton from "@/presentation/components/SwitchButton";
-import DropdownBase from "@/presentation/components/DropdownBase";
-import CustomErrorAlert from "@/presentation/components/AlertComponents/ErrorAlert";
+import CustomSwitchButton from "@/app/components/SwitchButton";
+import DropdownBase from "@/app/components/DropdownBase";
+import CustomErrorAlert from "@/app/components/AlertComponents/ErrorAlert";
 import { Delete, PersonAdd } from "@mui/icons-material";
 import AddPeople from "./ModalAddPeople";
 

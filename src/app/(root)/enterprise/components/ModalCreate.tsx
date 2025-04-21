@@ -1,16 +1,16 @@
-import { BaseModal, Checkbox, FormProvider, TextField } from "@/presentation/components";
+import { BaseModal, Checkbox, FormProvider, TextField } from "@/app/components";
 import { Box } from "@mui/material";
 import { FormButton, ContainerModal, FormContainer } from "./styles";
 import { ErrorField, YupService } from "@/domain/services";
 //import { schemaEnterprise } from "@/domain/models/SchemasValidations/schemaEnterprise";
-import DateTimePickerCustom from "@/presentation/components/DateTimePicker";
-import DropdownBase from "@/presentation/components/DropdownBase";
+import DateTimePickerCustom from "@/app/components/DateTimePicker";
+import DropdownBase from "@/app/components/DropdownBase";
 import React from "react";
 import ModalCreateTemplate from "./ModalTemplates/ModalCreateTemplate";
-import DropdownCheckboxCustom, {top100Films} from "@/presentation/components/DropdownBase/DropdownCheckboxCustom";
+import DropdownCheckboxCustom, {top100Films} from "@/app/components/DropdownBase/DropdownCheckboxCustom";
 import { schemaTeams } from "@/domain/models/SchemasValidations/schemaTeams";
-import GridLocal from "@/presentation/components/DataGridCustom/GridLocal";
-import GridParameter from "@/presentation/components/DataGridCustom/GridParameters";
+import GridLocal from "@/app/components/DataGridCustom/GridLocal";
+import GridParameter from "@/app/components/DataGridCustom/GridParameters";
 
 interface EnterpriseProps {
     isOpen: boolean

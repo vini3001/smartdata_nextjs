@@ -1,14 +1,14 @@
-import { BaseModal, Checkbox, FormProvider, TextField } from "@/presentation/components";
+import { BaseModal, Checkbox, FormProvider, TextField } from "@/app/components";
 import { Box } from "@mui/material";
 import { ArchiveBox, FormButton, ContainerModal, FormContainer, PreviewBox, BoxDownloadIcon, TemplateButton } from "./styles";
 import { ErrorField, YupService } from "@/domain/services";
 import { schemaCommunication } from "@/domain/models/SchemasValidations/schemaCommunication";
-import DateTimePickerCustom from "@/presentation/components/DateTimePicker";
-import DropdownBase from "@/presentation/components/DropdownBase";
+import DateTimePickerCustom from "@/app/components/DateTimePicker";
+import DropdownBase from "@/app/components/DropdownBase";
 import { AttachFile, FileOpen, InsertLink } from "@mui/icons-material";
 import React from "react";
 import ModalCreateTemplate from "./ModalTemplates/ModalCreateTemplate";
-import DropdownCheckboxCustom, {top100Films} from "@/presentation/components/DropdownBase/DropdownCheckboxCustom";
+import DropdownCheckboxCustom, {top100Films} from "@/app/components/DropdownBase/DropdownCheckboxCustom";
 
 interface CommunicationProps {
     isOpen: boolean

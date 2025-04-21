@@ -82,7 +82,10 @@ export const TableCustom = styled(Table)`
 `
 
 export const ListButton = styled(Button)`
-   all: unset;
+   display: flex;
+   position: absolute;
+   top: 0;
+   justify-content: center;
    width: 100%;
    height: 100%;
    cursor: pointer;

@@ -1,15 +1,15 @@
-import { BaseModal, Checkbox, FormProvider, TextField } from "@/presentation/components";
+import { BaseModal, Checkbox, FormProvider, TextField } from "@/app/components";
 import { Alert, Box, FormControl, FormControlLabel, FormHelperText, Tooltip, Typography } from "@mui/material";
 import { FormButton, ContainerModal, FormContainer, TemplateButton, RegisterBox, ContainerBox } from "./styles";
 import { ErrorField, YupService } from "@/domain/services";
 ///import { schemaPeople } from "@/domain/models/SchemasValidations/schemaPeople";
-import DropdownCheckboxCustom, {top100Films} from "@/presentation/components/DropdownBase/DropdownCheckboxCustom";
+import DropdownCheckboxCustom, {top100Films} from "@/app/components/DropdownBase/DropdownCheckboxCustom";
 import { schemaTeams } from "@/domain/models/SchemasValidations/schemaTeams";
 import React from "react";
 import ModalGridCreate from "./ModalGridCreate";
-import CustomSwitchButton from "@/presentation/components/SwitchButton";
-import DropdownBase from "@/presentation/components/DropdownBase";
-import CustomErrorAlert from "@/presentation/components/AlertComponents/ErrorAlert";
+import CustomSwitchButton from "@/app/components/SwitchButton";
+import DropdownBase from "@/app/components/DropdownBase";
+import CustomErrorAlert from "@/app/components/AlertComponents/ErrorAlert";
 
 interface PeopleProps {
     isOpen: boolean

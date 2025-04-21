@@ -1,6 +1,6 @@
 import { ContainerFields, FormButtonTemplate, TemplateBox, TemplateContainer, TemplateOptionContainer, TemplateSubLabel, TemplateWrapper } from "./styles";
 import { Box, CardContent } from "@mui/material";
-import TextFieldArea from "@/presentation/components/TextFields/TextFieldArea";
+import TextFieldArea from "@/app/components/TextFields/TextFieldArea";
 import React from "react";
 
 interface TemplateProps {
@@ -41,7 +41,7 @@ function TemplateOne({textOne}: TemplateTexts) {
         <TemplateWrapper elevation={0}>
             <TemplateOptionContainer sx={{backgroundColor: '#f0fce4'}}>
                 <CardContent>
-                    <img className="image-container" src="/src/presentation/assets/Rectangle 608.png" />
+                    <img className="image-container" src="assets/Rectangle 608.png" />
                     <TemplateBox>
                        <TemplateSubLabel style={{color: 'black'}}>{textOne}</TemplateSubLabel>
                     </TemplateBox>

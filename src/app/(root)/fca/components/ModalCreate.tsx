@@ -1,10 +1,10 @@
-import { BaseModal, FormProvider, RadioButtonGroup } from "@/presentation/components";
+import { BaseModal, FormProvider, RadioButtonGroup } from "@/app/components";
 import { Box, FormControlLabel, Radio } from "@mui/material";
 import { FormButton, ContainerModal, FormContainer, ControlRadioGroup, HeaderBox } from "./styles";
 import { ErrorField, YupService } from "@/domain/services";
 ///import { schemaFCA } from "@/domain/models/SchemasValidations/schemaFCA";
 import { schemaTeams } from "@/domain/models/SchemasValidations/schemaTeams";
-import GridDocument from "@/presentation/components/DataGridCustom/GridDocument";
+import GridDocument from "@/app/components/DataGridCustom/GridDocument";
 import React from "react";
 
 interface FCAProps {

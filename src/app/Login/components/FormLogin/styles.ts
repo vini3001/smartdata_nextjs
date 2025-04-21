@@ -1,4 +1,4 @@
-import { BoxContentBase, ButtonBase } from "@/presentation/components";
+import { BoxContentBase, ButtonBase } from "@/app/components";
 import { Checkbox } from "@mui/material";
 import styled from "styled-components";
 

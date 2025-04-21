@@ -1,9 +1,9 @@
-import GridPerson from "@/presentation/components/DataGridCustom/GridPerson";
+import GridPerson from "@/app/components/DataGridCustom/GridPerson";
 import { ContainerModal, ModalContentGrid } from "./styles";
 import React from "react";
-import { BaseModal } from "@/presentation/components";
-import GridExceptions from "@/presentation/components/DataGridCustom/GridExceptions";
-import GridCommunication from "@/presentation/components/DataGridCustom/GridCommunication";
+import { BaseModal } from "@/app/components";
+import GridExceptions from "@/app/components/DataGridCustom/GridExceptions";
+import GridCommunication from "@/app/components/DataGridCustom/GridCommunication";
 
 interface ModalGridProps {
     isOpen: boolean

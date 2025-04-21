@@ -72,6 +72,11 @@ export default createGlobalStyle`
       color: ${(props) => props.theme.colors.headline1}
     }
 
+    img {
+      width: fit-content;
+      height: auto;
+    }
+
     .MuiModal-root {
       position: absolute;
       display: flex;

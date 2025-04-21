@@ -1,4 +1,4 @@
-import { BoxContentBase } from "@/presentation/components";
+import { BoxContentBase } from "@/app/components";
 import { Button, Divider, Pagination } from "@mui/material";
 import styled from "styled-components";
 

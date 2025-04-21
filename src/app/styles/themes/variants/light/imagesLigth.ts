@@ -1,4 +1,4 @@
-import LogoSmartData from "@/presentation/assets/SideBar/logo.svg";
+import LogoSmartData from "@/assets/SideBar/logo.svg";
 
 export default {
   logo: LogoSmartData

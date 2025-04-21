@@ -1,6 +1,6 @@
 import { Box, Paper, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from "@mui/material";
 import { ListButton, TableCustom } from "./styles";
-import CustomSwitchButton from "@/presentation/components/SwitchButton";
+import CustomSwitchButton from "@/app/components/SwitchButton";
 
 interface ListProps {
     currentItems: {id: number, nome: string, idade: number}[]
@@ -33,7 +33,7 @@ export default function List({currentItems}: ListProps) {
                         <Tooltip title={'Editar'}>
                             <Box sx={{display: 'flex', justifyContent: 'center'}}>
                                 <ListButton>
-                                    <img src="src/presentation/assets/Schedule/edit-icon.svg" />
+                                    <img src="assets/Schedule/edit-icon.svg" />
                                 </ListButton>
                             </Box>
                         </Tooltip>

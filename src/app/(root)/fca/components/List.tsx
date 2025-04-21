@@ -44,7 +44,7 @@ export default function List({currentItems}: ListProps) {
                        <Tooltip title={"Editar"}>
                            <Box sx={{display: 'flex', justifyContent: 'center'}}>
                                 <ListButton>
-                                    <img src="src/presentation/assets/Schedule/edit-icon.svg" />
+                                    <img src="assets/Schedule/edit-icon.svg" />
                                 </ListButton>
                             </Box>
                        </Tooltip>

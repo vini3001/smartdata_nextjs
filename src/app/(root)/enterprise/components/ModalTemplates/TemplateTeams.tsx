@@ -1,11 +1,11 @@
 import { ContainerFields, FormButtonTemplate, TemplateBox, TemplateCheckboxContainer, TemplateContainer, TemplateLabel, TemplateOptionContainer, TemplateSubLabel, TemplateWrapper } from "./styles";
 import { Box, CardContent, Typography } from "@mui/material";
-import { Checkbox, TextField } from "@/presentation/components";
+import { Checkbox, TextField } from "@/app/components";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
-import TextFieldArea from "@/presentation/components/TextFields/TextFieldArea";
+import TextFieldArea from "@/app/components/TextFields/TextFieldArea";
 import React from "react";
 
 interface TemplateProps {
@@ -68,7 +68,7 @@ function TemplateOne(textProps: TemplateTexts) {
         <TemplateWrapper elevation={0}>
             <TemplateOptionContainer sx={{backgroundColor: 'black'}}>
                 <CardContent>
-                    <img className="image-container" src="/src/presentation/assets/Rectangle 608.png" />
+                    <img className="image-container" src="assets/Rectangle 608.png" />
                     <TemplateBox sx={{backgroundColor: 'rgb(41, 41, 41)'}}>
                     <TemplateLabel>{textProps.textOne}</TemplateLabel>
                     </TemplateBox>
@@ -96,7 +96,7 @@ function TemplateTwo(textProps: TemplateTexts) {
                     <TemplateBox sx={{backgroundColor: 'rgb(41, 41, 41)'}}>
                     <TemplateLabel>{textProps.textOne}</TemplateLabel>
                     </TemplateBox>
-                    <img className="image-container" src="/src/presentation/assets/Rectangle 608.png" />
+                    <img className="image-container" src="assets/Rectangle 608.png" />
                     <TemplateBox sx={{backgroundColor: 'rgb(41, 41, 41)'}}>
                     <TemplateLabel>{textProps.textTwo}</TemplateLabel>
                     </TemplateBox>
@@ -124,7 +124,7 @@ function TemplateThree(textProps: TemplateTexts) {
                     <TemplateBox sx={{backgroundColor: 'rgb(41, 41, 41)'}}>
                     <TemplateLabel>{textProps.textTwo}</TemplateLabel>
                     </TemplateBox>
-                    <img className="image-container" src="/src/presentation/assets/Rectangle 608.png" />
+                    <img className="image-container" src="assets/Rectangle 608.png" />
                     <TemplateBox sx={{backgroundColor: 'rgb(41, 41, 41)'}}>
                     <TemplateSubLabel>{textProps.textThree}</TemplateSubLabel>
                     </TemplateBox>
@@ -152,7 +152,7 @@ function TemplateFour(textProps: TemplateTexts) {
                     <TemplateBox sx={{backgroundColor: 'rgb(41, 41, 41)'}}>
                     <TemplateSubLabel>{textProps.textThree}</TemplateSubLabel>
                     </TemplateBox>
-                    <img className="image-container" src="/src/presentation/assets/Rectangle 608.png" />
+                    <img className="image-container" src="assets/Rectangle 608.png" />
                 </CardContent>
             </TemplateOptionContainer>
             <TemplateCheckboxContainer>

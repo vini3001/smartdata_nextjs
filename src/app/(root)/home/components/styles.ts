@@ -1,4 +1,4 @@
-import { BoxContentBase } from "@/presentation/components";
+import { BoxContentBase } from "@/app/components";
 import { Button, Divider, Pagination } from "@mui/material";
 import styled from "styled-components";
 
@@ -9,6 +9,7 @@ export const GridContainer = styled.div`
   justify-content: center;
   align-items: center;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  min-width: 20rem;
   height: auto;
   gap: 0.5rem;
 
@@ -177,13 +178,6 @@ export const ListButton = styled(Button)`
   background-color: white;
   height: 100%;
   width: 100%;
-  //padding: 1.2rem;
-}
-
-img {
-  height: auto;
-  min-width: 19px;
-  width: fit-content;
 }
 `
 

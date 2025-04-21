@@ -1,4 +1,4 @@
-import { BaseModal, FormProvider, TextField } from "@/presentation/components";
+import { BaseModal, FormProvider, TextField } from "@/app/components";
 import { Box } from "@mui/material";
 import { FormButton, ContainerModal, FormContainer, RegisterBox } from "./styles";
 import { ErrorField, YupService } from "@/domain/services";

@@ -1,8 +1,8 @@
 import React from "react";
 import { Container, CustomButtonContainer } from "./styles";
 import { ListItemIcon } from "@mui/material";
-import OpenArrow from '@/presentation/assets/ArrowsDropdown/OpenArrow';
-import ClosedArrow from '@/presentation/assets/ArrowsDropdown/ClosedArrow';
+import OpenArrow from '@/assets/ArrowsDropdown/OpenArrow';
+import ClosedArrow from '@/assets/ArrowsDropdown/ClosedArrow';
 
 interface DropdownDaysProps {
     text: string

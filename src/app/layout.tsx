@@ -3,6 +3,7 @@ import GlobalStyles from "./styles/global";
 import "./globals.css";
 import ThemeProvider from "@/app/styles/themes/themeProvider";
 import { getCssText } from "../../stitches.config";
+import StyledComponentsRegistry from "../../lib/styled-component-registry";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,11 +23,13 @@ export default function RootLayout({
       <link rel="preconnect" href="https://fonts.gstatic.com" />
       <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet" />
       </head>
-      <body>      
+      <body>  
+      <StyledComponentsRegistry>
         <ThemeProvider>
           <GlobalStyles />
           {children}
         </ThemeProvider>
+      </StyledComponentsRegistry>
       </body>
     </html>
   );

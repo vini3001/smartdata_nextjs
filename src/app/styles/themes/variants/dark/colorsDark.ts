@@ -101,4 +101,9 @@ export default {
   reviewYourWithdraw: {
     background: "#323232",
   },
+  typography: {
+    body1: {
+      color: 'red'
+    }
+  }
 };

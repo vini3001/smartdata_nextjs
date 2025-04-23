@@ -10,7 +10,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { useTheme } from "styled-components";
+import { useTheme}  from "@mui/material";
 import { ContainerImg, ContainerSideBar, FooterContainer } from "./styles";
 import MenuDropdown from "./components/MenuDropdown";
 import { useRouter } from "next/navigation";

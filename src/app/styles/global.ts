@@ -37,7 +37,7 @@ export default createGlobalStyle`
     body {
       font-size: 16px;
       box-sizing: border-box;
-      background-color: ${(props) => props.theme.colors.background};
+      background-color: ${(props) => {console.log(props);return props.theme.colors.background}};
     }
 
     body, #root {

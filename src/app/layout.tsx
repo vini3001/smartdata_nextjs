@@ -3,8 +3,8 @@ import GlobalStyles from "./styles/global";
 import "./global.css";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
 import { customFonts } from "./styles/fonts"
-import { theme } from "./components/Header/components/styles";
-import ThemeProvider from "./styles/themes/themeProvider";
+import MuiThemeProvider from "./styles/themes/MuiThemeProvider";
+import EmotionThemeProvider from "./styles/themes/EmotionThemeProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,10 +27,11 @@ export default function RootLayout({
       <body> 
         <main className={customFonts.className}>
           <AppRouterCacheProvider>
-            <ThemeProvider>
-              <GlobalStyles />
-              {children}
-            </ThemeProvider>
+            <MuiThemeProvider>
+              <EmotionThemeProvider>
+                {children}
+              </EmotionThemeProvider>
+            </MuiThemeProvider>
           </AppRouterCacheProvider>
         </main>
       </body>

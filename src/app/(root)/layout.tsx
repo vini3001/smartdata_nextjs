@@ -5,7 +5,7 @@ import { Header, SideBar } from "@/app/components";
 import { BodyContainer, Container, ContainerHome, CustomContainer, FilterContainer, FirstRow, } from "./styles";
 import NavigateHeader from "@/app/components/NavigateHeader";
 import { Divider } from "@mui/material";
-import { FooterContainer } from "./styles";
+import { FooterContainer } from "../components/DefaultPage/styles";
 import ModalChatAI from "@/app/components/DefaultPage/modalChatAI";
 import Image from "next/image";
 import { usePathname } from "next/navigation";

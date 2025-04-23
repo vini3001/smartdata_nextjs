@@ -1,5 +1,5 @@
 import { Button, Divider, ListItemButton, Pagination } from "@mui/material";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 interface ScheduleProps {
   isOpen?: 'true' | 'false'

@@ -1,5 +1,5 @@
 import { Box, Button, Divider, Pagination, Table } from "@mui/material"
-import styled from "styled-components"
+import styled from "@emotion/styled"
 
 export const PaginationContent = styled.div`
   width: 100%;
@@ -110,7 +110,7 @@ export const ArchiveBox = styled(Box)`
   flex-direction: row;
   padding: 8px;
   border: 1px solid #DCDCDC;
-  background-color: ${(props) => props.theme.colors.background};
+  background-color: ${props => props.theme.colors.background};
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   justify-items: center;

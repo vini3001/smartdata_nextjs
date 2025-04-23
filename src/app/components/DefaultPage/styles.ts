@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { ButtonBase } from "@mui/material";
 
 interface ContentProps {
@@ -12,9 +12,7 @@ export const Container = styled.section`
   flex-direction: column;
 `
 
-export const Content = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== "opensidebar",
-})<ContentProps>`
+export const Content = styled.div<ContentProps>`
   width: calc(
     100% - ${(props) => (props.opensidebar ? "13.25rem" : "5.25rem")}
   );

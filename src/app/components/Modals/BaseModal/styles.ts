@@ -1,6 +1,6 @@
 import Backdrop from "@mui/material/Backdrop";
 import { Modal as BaseModal } from '@mui/base/Modal'
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 export const Container = styled.div`
   border-radius: 1rem;

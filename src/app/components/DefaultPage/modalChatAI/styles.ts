@@ -1,5 +1,5 @@
 import { Button, List, ListItem } from "@mui/material";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import ButtonBase from "../../Button";
 
 
@@ -7,9 +7,7 @@ export interface ContainerSideBarProps {
   opendrawer: 'true' | 'false';
 }
 
-export const ContainerSideBar = styled('div').withConfig({
-  shouldForwardProp: (prop) => prop !== "openDrawer",
-})<ContainerSideBarProps>`
+export const ContainerSideBar = styled('div')<ContainerSideBarProps>`
   display: flex;
   padding: 20px;
   position: relative;
@@ -54,9 +52,7 @@ export const ContainerSideBar = styled('div').withConfig({
   }
 `;
 
-export const ContainerSideBarBody = styled('div').withConfig({
-  shouldForwardProp: (prop) => prop !== "openDrawer",
-})<ContainerSideBarProps>`
+export const ContainerSideBarBody = styled('div')<ContainerSideBarProps>`
     height: 100%;
     width: ${(props) => (props.opendrawer === 'true' ? "auto" : "0")};
     overflow-y: hidden;

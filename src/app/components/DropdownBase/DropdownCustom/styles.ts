@@ -1,14 +1,12 @@
 import { ListItemButton } from "@mui/material";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 interface DropdownProps {
    isopen?: 'true' | 'false'
    isnumber?: 'true' | 'false'
 }
 
-export const Container = styled.div.withConfig({
-   shouldForwardProp: (prop) => prop !== "isnumber",
- })<DropdownProps>`
+export const Container = styled.div<DropdownProps>`
    display: flex;
    align-items: center;
    height: 2rem;
@@ -33,9 +31,7 @@ export const Container = styled.div.withConfig({
    }
 `
 
-export const SubMenu = styled.div.withConfig({
-   shouldForwardProp: (prop) => prop !== "isnumber",
- })<DropdownProps>`
+export const SubMenu = styled.div<DropdownProps>`
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -81,9 +77,7 @@ export const CustomButtonSubMenu = styled(ListItemButton)`
    }
 `
 
-export const CustomButtonContainer = styled(ListItemButton).withConfig({
-   shouldForwardProp: (prop) => prop !== "isopen",
- })<DropdownProps>`
+export const CustomButtonContainer = styled(ListItemButton)<DropdownProps>`
    &&.MuiButtonBase-root{
       display: flex;
       min-width: ${(props) => (props.isnumber === "true" ? '3.5rem' : '6.2rem')};

@@ -1,6 +1,6 @@
 import { ButtonBase } from "@/app/components"
 import { Box, Button, Paper } from "@mui/material"
-import styled from "styled-components"
+import styled from "@emotion/styled"
 
 export const ContainerModalTemplate = styled(Box)`
   overflow-y: auto;

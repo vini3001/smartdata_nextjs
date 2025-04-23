@@ -1,5 +1,5 @@
 import { Box, Button, ButtonBase, Divider, Pagination, Table } from "@mui/material"
-import styled from "styled-components"
+import styled from "@emotion/styled"
 
 export const PaginationContent = styled.div`
   width: 100%;

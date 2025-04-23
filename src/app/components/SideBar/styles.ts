@@ -1,5 +1,5 @@
 import SideBarIcon from "@/assets/SideBar/Icons";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 export const Container = styled.div``;
 
@@ -7,9 +7,7 @@ export interface ContainerSideBarProps {
   opendrawer: 'true' | 'false';
 }
 
-export const ContainerSideBar = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== "openDrawer",
-})<ContainerSideBarProps>`
+export const ContainerSideBar = styled.div<ContainerSideBarProps>`
   display: flex;
   flex-direction: column;
   position: relative;
@@ -51,9 +49,7 @@ export const ContainerSideBar = styled.div.withConfig({
   }
 `;
 
-export const FooterContainer = styled.footer.withConfig({
-  shouldForwardProp: (prop) => prop !== "openDrawer",
-})<ContainerSideBarProps>`
+export const FooterContainer = styled.footer<ContainerSideBarProps>`
   display: flex;
   margin-bottom: 8px;
   flex-direction: column;

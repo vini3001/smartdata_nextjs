@@ -1,5 +1,5 @@
 import { TextField } from "@mui/material";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 export const Container = styled.div`
   display: flex;
@@ -10,8 +10,9 @@ export const Container = styled.div`
 export const TextFieldCustom = styled(TextField)`
   && {
     .Mui-error {
-      background-color: ${(props) =>
-        props.theme.colors.errors.backgroundErrorField} !important;
+      background-color: ${(props) => {
+        console.log(props)
+        return props.theme.colors.errors.backgroundErrorField}} !important;
     }
 
     .MuiInputBase-root {

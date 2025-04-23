@@ -1,12 +1,10 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 interface ContainerProps {
   opensidebar: 'true'  | 'false';
 }
 
-export const Container = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== "opensidebar",
-})<ContainerProps>`
+export const Container = styled.div<ContainerProps>`
    .MuiFormControl-root {
     display: flex;
     justify-content: center;

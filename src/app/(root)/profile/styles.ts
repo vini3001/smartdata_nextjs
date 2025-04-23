@@ -1,6 +1,6 @@
 import Checkbox from "@mui/material/Checkbox";
 import { Button } from "@mui/material";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 
 export const ProfileContainer = styled.div`

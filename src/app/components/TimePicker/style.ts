@@ -1,6 +1,6 @@
 import { Box, ButtonBase } from "@mui/material";
 import { DesktopTimePicker } from "@mui/x-date-pickers";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 export const Container = styled(Box)`
   padding-inline: 5px;

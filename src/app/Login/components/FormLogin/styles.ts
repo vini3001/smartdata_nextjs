@@ -1,6 +1,6 @@
 import { BoxContentBase, ButtonBase } from "@/app/components";
 import { Checkbox } from "@mui/material";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 export const Container = styled(BoxContentBase)`
   display: flex;

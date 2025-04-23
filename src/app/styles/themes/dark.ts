@@ -1,8 +1,10 @@
+import { Theme } from "@emotion/react";
 import colors from "./variants/dark/colorsDark";
-//import images from "./variants/dark/imagesDark";
 
-export default {
+const ThemeDark: Theme = {
   title: "dark",
   colors,
   //images,
 };
+
+export default ThemeDark

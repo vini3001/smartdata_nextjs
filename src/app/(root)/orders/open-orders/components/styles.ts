@@ -1,6 +1,6 @@
 import { BoxContentBase } from "@/app/components";
 import { Button, Divider, Pagination } from "@mui/material";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 //Referente à visualização no modo grid ---------------------------------------------------------------------------->
 

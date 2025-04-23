@@ -1,6 +1,6 @@
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 interface ContentProps {
   opensidebar: boolean;

@@ -1,6 +1,6 @@
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 
 export const CustomDateCalendarContainer = styled(LocalizationProvider)`

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { ButtonBase } from "../..";
 
 export const TwoFactorAuthanticationContainer = styled.div`

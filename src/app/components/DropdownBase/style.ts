@@ -1,6 +1,6 @@
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
-import styled from "@emotion/styled";
+import styled from "@emotion/styled"
 import { Autocomplete } from '@mui/material';
 
 export const ContainerDropdown = styled(FormControl)` 
@@ -34,8 +34,8 @@ export const DropdownCustom = styled(Select)`
    padding-left: 10px;
    && {
     .MuiSelect-select {
-        min-height: auto;
-        width: -webkit-fill-available;
+        min-height: 27px;
+        width: --webkit-fill-available;
         padding: 8.5px 5px 8.5px 5px;
         justify-content: center;
     }
@@ -65,8 +65,8 @@ export const DropdownCustomNew = styled(Autocomplete)`
     .MuiInputBase-root {
         background-color: white;
         width: 100%;
-        min-height: auto;
-        width: -webkit-fill-available;
+        min-height: 27px;
+        width: --webkit-fill-available;
         padding: 8.5px 5px 8.5px 15px;
         justify-content: start;
         border-radius: 8px;
@@ -90,6 +90,7 @@ export const DropdownCustomNew = styled(Autocomplete)`
 
     &.MuiAutocomplete-root {
       .MuiOutlinedInput-root .MuiAutocomplete-input {
+        min-height: 27px;
         padding: 0;
       }
     }

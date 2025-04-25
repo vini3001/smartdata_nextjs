@@ -29,6 +29,7 @@ export default function RootLayout({
           <AppRouterCacheProvider>
             <MuiThemeProvider>
               <EmotionThemeProvider>
+                <GlobalStyles />
                 {children}
               </EmotionThemeProvider>
             </MuiThemeProvider>

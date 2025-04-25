@@ -1,8 +1,10 @@
+import SearchIcon from "@/assets/Header/search-icon.svg"
 import { SvgIcon, theme } from "./styles";
 import TextField from "../../TextFields/TextFieldBase";
 import { ThemeProvider } from "@mui/material";
 
 export default function TextFieldHeader() {
+    console.log(SearchIcon)
     return  (
         <ThemeProvider theme={theme}>
           <TextField
@@ -11,22 +13,26 @@ export default function TextFieldHeader() {
                  '.MuiOutlinedInput-notchedOutline': {border: 'none !important'}},
             placeholder: "Pesquisar...",
             InputProps: {
-              style: {
-                paddingLeft: 0,
-                border: 'none',
-                height: '2rem',
-                width: '55%',
-                marginTop: '2px',
-                backgroundColor: '#474A62',
-                color: 'white',
-                justifyContent: 'center',
-                alignItems: 'center'
-              },
-              startAdornment: <SvgIcon src="assets/Help/lupa-icon.svg" />
+              startAdornment: <SvgIcon src={SearchIcon.src} />
             },
-            InputLabelProps: {
-              style: {
-                color: 'white'
+            slotProps: {
+              input: {
+                style: {
+                  paddingLeft: 0,
+                  border: 'none',
+                  height: '2rem',
+                  width: '55%',
+                  marginTop: '2px',
+                  backgroundColor: '#474A62',
+                  color: 'white',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }
+              },
+              inputLabel: {
+                style: {
+                  color: 'white'
+                }
               }
             }
           }} />

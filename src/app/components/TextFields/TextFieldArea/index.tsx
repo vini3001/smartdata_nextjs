@@ -28,7 +28,7 @@ export default function TextFieldArea(customProps: FieldProps): React.ReactNode 
     );
   };
 
-  /*const makeIconShowPassword = (): React.ReactNode => {
+  /*const makeIconShowPassword = (): JSX.Element => {
     if (props.type !== "password") return <></>;
 
     return <LockOutlinedIcon />;
@@ -49,10 +49,19 @@ export default function TextFieldArea(customProps: FieldProps): React.ReactNode 
           // ref={ props.ref && props } // assign ref prop
           error={error?.hasError}
           helperText={makeError()}
-          InputLabelProps={{
-            ...props.InputLabelProps,
-            shrink: false,
+          slotProps={{
+            inputLabel: {
+              ...props.slotProps?.inputLabel,
+              sx: { top: "-1.1vh", "&.MuiInputLabel-shrink": { top: 0 },
+                    "&.Mui-focused": {color: '#828dd4'} },
+            },
+            input: {
+              ...props.slotProps?.input,
+              startAdornment: props.InputProps?.startAdornment
+                && props.InputProps?.startAdornment
+            }
           }}
+
           InputProps={{
             ...props.InputProps,
             startAdornment: props.InputProps?.startAdornment

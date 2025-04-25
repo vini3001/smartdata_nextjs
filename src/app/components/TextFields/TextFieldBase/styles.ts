@@ -9,17 +9,17 @@ export const Container = styled.div`
 
 export const TextFieldCustom = styled(TextField)`
   && {
-    .Mui-error {
-      background-color: ${(props) => {
-        console.log(props)
-        return props.theme.colors.errors.backgroundErrorField}} !important;
+
+    .MuiFormLabel-root {
+      background-color: transparent;
     }
 
     .MuiInputBase-root {
-      height: 40px;
+      font-family: 'Oxygen';
+      height: 45px;
       margin-bottom: 0px;
       border-color: #DCDCDC;
-      background-color: ${(props) => props.theme.colors.textField.background};
+      //background-color: ${(props) => props.theme.colors.textField.background};
       gap: 0.2rem;
 
       .MuiSvgIcon-root {

@@ -15,7 +15,7 @@ export const TextFieldCustom = styled(TextField)`
     }
 
     .MuiInputBase-root {
-      height: 6rem;
+      min-height: 6rem;
       //align-items: start;
       margin-bottom: 0px;
       border-color: #DCDCDC;

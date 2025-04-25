@@ -219,7 +219,7 @@ export default function GridLocal({ data, actionUpsert, actionDelete }: any) {
             <GridActionsCellItem
               icon={<SaveIcon />}
               label='Salvar'
-              sx={{
+              style={{
                 color: '#828DD4',
               }}
               onClick={handleSaveClick(id)}
@@ -229,7 +229,7 @@ export default function GridLocal({ data, actionUpsert, actionDelete }: any) {
               label='Cancelar'
               className='textPrimary'
               onClick={handleCancelClick(id)}
-              sx={{
+              style={{
                 color: '#6e6e6e',
               }}
             />,
@@ -277,6 +277,7 @@ export default function GridLocal({ data, actionUpsert, actionDelete }: any) {
           slots={{ toolbar: EditToolbar }}
           slotProps={{ toolbar: { setRows, setRowModesModel } }}
           hideFooter
+          showToolbar
         />
       </Box>
     </>

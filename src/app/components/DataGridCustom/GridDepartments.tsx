@@ -182,7 +182,7 @@ export default function GridDepartments({ data, actionUpsert, actionDelete }: an
             <GridActionsCellItem
               icon={<SaveIcon />}
               label='Salvar'
-              sx={{
+              style={{
                 color: '#828DD4',
               }}
               onClick={handleSaveClick(id)}
@@ -192,7 +192,7 @@ export default function GridDepartments({ data, actionUpsert, actionDelete }: an
               label='Cancelar'
               className='textPrimary'
               onClick={handleCancelClick(id)}
-              sx={{
+              style={{
                 color: '#6e6e6e',
               }}
             />,
@@ -240,6 +240,7 @@ export default function GridDepartments({ data, actionUpsert, actionDelete }: an
           slots={{ toolbar: EditToolbar }}
           slotProps={{ toolbar: { setRows, setRowModesModel } }}
           hideFooter
+          showToolbar
         />
       </Box>
     </>

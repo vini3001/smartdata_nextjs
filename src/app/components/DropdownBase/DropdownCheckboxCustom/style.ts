@@ -1,5 +1,5 @@
 import { FormControl, Select } from "@mui/material";
-import styled from "@emotion/styled";
+import styled from "@emotion/styled"
 
 export const ContainerDropdown = styled(FormControl)` 
    && {
@@ -23,10 +23,14 @@ export const DropdownCustom = styled(Select)`
    padding-left: 10px;
    && {
     .MuiSelect-select {
-        min-height: auto;
+        min-height: 27px;
         width: -webkit-fill-available;
         padding: 8.5px 5px 8.5px 5px;
         justify-content: center;
+    }
+
+    .MuiAutocomplete-input {
+       min-height: 27px;
     }
 
     .MuiOutlinedInput-notchedOutline {

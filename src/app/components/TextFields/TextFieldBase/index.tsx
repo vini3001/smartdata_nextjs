@@ -28,7 +28,7 @@ export default function TextField(customProps: FieldProps): React.ReactNode {
     );
   };
 
-  /*const makeIconShowPassword = (): React.ReactNode => {
+  /*const makeIconShowPassword = (): JSX.Element => {
     if (props.type !== "password") return <></>;
 
     return <LockOutlinedIcon />;
@@ -45,17 +45,19 @@ export default function TextField(customProps: FieldProps): React.ReactNode {
           onChange={(e) => props.onChange && props.onChange(e)}
           // onBlur={(e) => props.onBlur && props.onBlur(e)}
           // ref={ props.ref && props } // assign ref prop
-          error={error?.hasError}
+          error={error?.hasError !== false ? error?.hasError : props.error}
           helperText={makeError()}
-          InputLabelProps={{
-            ...props.InputLabelProps,
-            shrink: false,
-          }}
-          InputProps={{
-            ...props.InputProps,
-            startAdornment: props.InputProps?.startAdornment
-              && props.InputProps?.startAdornment
-              //: makeIconShowPassword(),
+          slotProps={{
+            input: {
+              ...props.slotProps?.input,
+              startAdornment: props.InputProps?.startAdornment
+                && props.InputProps?.startAdornment
+            },
+            inputLabel: {
+              sx: { top: "-0.7vh", "&.MuiInputLabel-shrink": { top: 0 },
+                    "&.Mui-focused": {color: '#828dd4'} },
+              ...props.slotProps?.inputLabel
+            }
           }}
         />
       </Container>

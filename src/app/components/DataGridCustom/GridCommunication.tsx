@@ -183,7 +183,7 @@ export default function GridCommunication({ data, actionUpsert, actionDelete }: 
             <GridActionsCellItem
               icon={<SaveIcon />}
               label='Salvar'
-              sx={{
+              style={{
                 color: '#828DD4',
               }}
               onClick={handleSaveClick(id)}
@@ -193,7 +193,7 @@ export default function GridCommunication({ data, actionUpsert, actionDelete }: 
               label='Cancelar'
               className='textPrimary'
               onClick={handleCancelClick(id)}
-              sx={{
+              style={{
                 color: '#6e6e6e',
               }}
             />,
@@ -241,6 +241,7 @@ export default function GridCommunication({ data, actionUpsert, actionDelete }: 
           slots={{ toolbar: EditToolbar }}
           slotProps={{ toolbar: { setRows, setRowModesModel } }}
           hideFooter
+          showToolbar
         />
       </Box>
     </>

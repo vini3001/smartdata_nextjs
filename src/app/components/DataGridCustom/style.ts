@@ -1,8 +1,9 @@
-import { GridToolbarContainer } from "@mui/x-data-grid";
-import styled from "@emotion/styled";
+//import { GridToolbar } from "@mui/x-data-grid/internals"
+import styled from "@emotion/styled"
+import { Toolbar } from "@mui/x-data-grid"
 
 
-export const CustomToolbar = styled(GridToolbarContainer)`
+export const CustomToolbar = styled(Toolbar)`
    align-items: center;
    justify-content: space-between;
 

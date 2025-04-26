@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useLayoutEffect, useState} from "react";
+import { useLayoutEffect, useState} from "react";
 import { Header, SideBar } from "@/app/components";
 import { BodyContainer, Container, ContainerHome, CustomContainer, FilterContainer, FirstRow, } from "./styles";
 import NavigateHeader from "@/app/components/NavigateHeader";
@@ -31,22 +31,36 @@ export default function DefaultPage({
   }
 
   useLayoutEffect(() => {
-    console.log('infoRoute')
-    const infoRoute = menus.find((item) => {return item.route === path})
-    setSelectedRoute(infoRoute)
+    const mainRoute = menus.find((item) => {
+      return path.includes(item.route)
+    })
+
+    if (mainRoute !== undefined && mainRoute.dropdown) {
+      const subRoute = mainRoute.submenu?.find((item) => {
+        return path.includes(item.route)
+      })
+
+      subRoute !== undefined && setSelectedRoute(subRoute)
+    } else if (mainRoute !== undefined && !mainRoute.dropdown) {
+      setSelectedRoute(mainRoute)
+    }
+    
   }, [path])
+
+  console.log(selectedRoute)
 
   return (
     <Container>
       <div>
-        <Header openSideBar={openSideBar} />
+        <Header openSideBar={openSideBar} filters={selectedRoute?.filters ?? []} />
       </div> 
         <CustomContainer>
           <SideBar
             open={openSideBar}
           />
           <BodyContainer>
-              <NavigateHeader handleOpenSideBar={() => setOpenSideBar(!openSideBar)} path={selectedRoute?.text ?? ''} 
+              <NavigateHeader handleOpenSideBar={() => setOpenSideBar(!openSideBar)} 
+                path={selectedRoute?.text ?? ''} 
                 SelectedIcon={selectedRoute?.icon ?? ''} /> 
               <Divider />
               <ContainerHome>

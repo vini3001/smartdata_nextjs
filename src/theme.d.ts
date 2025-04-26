@@ -106,6 +106,9 @@ declare module "@emotion/react" {
       reviewYourWithdraw: {
         background: string;
       };
-    };
+    },
+    images: {
+      logo: string;
+    }
   }
 }

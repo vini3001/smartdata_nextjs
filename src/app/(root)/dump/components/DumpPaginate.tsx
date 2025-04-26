@@ -12,7 +12,7 @@ export default function PaginatedItems() {
   const numberViews = Array.from({ length: 10 }, (_, i) => (i + 1).toString());
 
   const endOffset = itemOffset + numberView;
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+ 
   const currentItems = items.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(items.length / numberView);
 

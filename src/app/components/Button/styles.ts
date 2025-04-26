@@ -8,7 +8,7 @@ export const Container = styled(Button)<{ variantbutton?: "primary" | "secondary
     &[variantbutton="primary"] {
 
       &.MuiButton-text {
-        color: ${(props) => {console.log(props);return props.theme.colors.button.primary.text}};
+        color: ${(props) => props.theme.colors.button.primary.text};
       }
     }
 

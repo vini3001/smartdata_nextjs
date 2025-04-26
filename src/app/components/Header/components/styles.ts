@@ -4,7 +4,7 @@ import styled from "@emotion/styled"
 import Checkbox from "@mui/material/Checkbox";
 
 interface ButtonProps {
-   color?: 'green' | 'purple'
+   customcolor?: 'green' | 'purple'
    header?: 'false' | 'true'
 }
 
@@ -150,8 +150,8 @@ export const ButtonFilter = styled(Button)<ButtonProps>`
       font-family: 'Oxygen';
       border-radius: 10px;
       width: 50%;
-      color: ${(props) => props.color === 'green' ? '#4C8C46' : '#828DD4'};
-      text-transform: ${(props) => props.color === 'green' && 'none'};
+      color: ${(props) => props.customcolor === 'green' ? '#4C8C46' : '#828DD4'};
+      text-transform: ${(props) => props.customcolor === 'green' && 'none'};
    }
   }
 `

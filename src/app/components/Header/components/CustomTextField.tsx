@@ -4,7 +4,6 @@ import TextField from "../../TextFields/TextFieldBase";
 import { ThemeProvider } from "@mui/material";
 
 export default function TextFieldHeader() {
-    console.log(SearchIcon)
     return  (
         <ThemeProvider theme={theme}>
           <TextField

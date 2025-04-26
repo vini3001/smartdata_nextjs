@@ -10,12 +10,13 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { useTheme}  from "@mui/material";
+
 import { ContainerImg, ContainerSideBar, FooterContainer } from "./styles";
 import MenuDropdown from "./components/MenuDropdown";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import menus from "@/app/(root)/routes";
+import { useTheme } from "@emotion/react";
 
 interface SideBarProps {
   open: boolean;

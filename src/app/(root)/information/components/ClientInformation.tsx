@@ -5,11 +5,11 @@ import { Container } from "../styles";
 import PaginatedItems from "./InformationPaginate";
 import { Box, SvgIcon } from "@mui/material";
 import { useState } from "react";
-import CreateGroup from "../../group-people/components/ModalCreate";
 import DropdownBase from "@/app/components/DropdownBase";
 import { ErrorField, YupService } from "@/domain/services";
 import { schemaTeams } from "@/domain/models/SchemasValidations/schemaTeams";
 import ToolsBand from "@/app/components/ToolsBand";
+import CreateInformation from "./ModalCreate";
 
 
 export default function ClientInformation() {
@@ -65,9 +65,9 @@ function AddButton() {
                              </SvgIcon>} 
         sx={{'.MuiButton-startIcon': {marginRight: '4px'}, fontSize: '15px', alignItems: 'center', backgroundColor: '#71B475', borderRadius: '99px', paddingInline: '20px'}}
         onClick={handleOpenModal}>
-        NOVO GRUPO
+        NOVA INFORMAÇÃO
       </ButtonBase>
-      <CreateGroup isOpen={isOpen} handleOpenModal={handleOpenModal} />
+      <CreateInformation isOpen={isOpen} handleOpenModal={handleOpenModal} />
     </>
   )
 }

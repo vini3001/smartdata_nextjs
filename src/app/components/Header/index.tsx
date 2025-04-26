@@ -7,10 +7,11 @@ import Image from "next/image";
 
 interface HeaderProps {
   openSideBar: boolean;
+  filters: {id: number, name: string, isDropdown: boolean, submenu: string[]}[]
 }
 
 export default function Header(props: HeaderProps): React.ReactNode {
-  const { openSideBar } = props;
+  const { openSideBar, filters } = props;
 
   return (
     <Container opensidebar={openSideBar  ?  'true'  :  'false'}>
@@ -27,7 +28,7 @@ export default function Header(props: HeaderProps): React.ReactNode {
 
             {/* Icons */}
             <ContainerIcons>
-              <MenuDropDownFilter />
+              <MenuDropDownFilter filters={filters} />
               <UserDropDownFilter />
             </ContainerIcons>
           </ContainerHeader>

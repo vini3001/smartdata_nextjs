@@ -4,9 +4,9 @@ import { ButtonBase } from "@/app/components";
 import PaginatedItems from "./ClientsPaginate";
 import { Box, SvgIcon } from "@mui/material";
 import { useState } from "react";
-import CreateGroup from "../../group-people/components/ModalCreate";
 import { Container } from "../styles";
 import ToolsBand from "@/app/components/ToolsBand";
+import CreateClients from "./ModalCreate";
 
 
 export default function ClientsPage() {
@@ -50,7 +50,7 @@ function AddButton() {
         onClick={handleOpenModal}>
         NOVO CLIENTE
       </ButtonBase>
-      <CreateGroup isOpen={isOpen} handleOpenModal={handleOpenModal} />
+      <CreateClients isOpen={isOpen} handleOpenModal={handleOpenModal} />
     </>
   )
 }

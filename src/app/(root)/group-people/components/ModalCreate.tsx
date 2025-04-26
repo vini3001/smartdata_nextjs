@@ -72,7 +72,7 @@ function GroupBody({handleOpenModal}: Pick<GroupProps, "handleOpenModal">) {
                 <CustomContainer>
                     {ListPeople.map((item: any) => {
                       return (
-                        <Box sx={{display: 'flex', flexDirection: 'row', width: '100%', gap: '0.7rem'}}>
+                        <Box key={item.id} sx={{display: 'flex', flexDirection: 'row', width: '100%', gap: '0.7rem'}}>
                             <LabelPeople>{item.name}</LabelPeople>
                             <DeleteButton sx={{backgroundColor: '#FF4228', color: 'white'}}>
                                 <Delete />

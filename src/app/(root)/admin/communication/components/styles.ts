@@ -81,19 +81,26 @@ export const TableCustom = styled(Table)`
   }
 `
 
-export const ListButton = styled(Button)`
+export const ListButton = styled(ButtonBase)`
+  && {
+    &.MuiButtonBase-root {
+      border-radius: 99999px;
+      padding: 10px;
+      min-width: 0;
+      color: #828DD4
+    }
+  };
+
    display: flex;
-   position: absolute;
-   top: 0;
    justify-content: center;
-   width: 100%;
    height: 100%;
    cursor: pointer;
 `
 
 export const ContainerModal = styled(Box)`
   overflow: auto;
-  width: 80vw;
+  width: 90vw;
+  padding-top: 0.5rem;
   padding-right: 0.5rem;
 `
 
@@ -117,6 +124,18 @@ export const ArchiveBox = styled(Box)`
   justify-content: space-between;
 `
 
+export const ArchiveBoxTwo = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  padding: 8px;
+  border: 1px solid #DCDCDC;
+  background-color: ${(props) => props.theme.colors.background};
+  border-radius: 10px;
+  justify-items: center;
+  align-items: center;
+  justify-content: space-between;
+`
+
 export const PreviewBox = styled(Box)`
   display: flex;
   width: 100%;
@@ -132,6 +151,8 @@ export const PreviewBox = styled(Box)`
 
   .box-file {
     display: flex;
+    padding: 10px;
+    text-align: center;
     border-radius: 10px;
     position: relative;
     justify-content: center;

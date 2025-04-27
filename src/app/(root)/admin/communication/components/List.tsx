@@ -1,7 +1,6 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from "@mui/material";
 import { ListButton, TableCustom } from "./styles";
 import CustomSwitchButton from "@/app/components/SwitchButton";
-import Image from "next/image";
 
 interface ListProps {
     currentItems: {id: number, nome: string, idade: number}[]
@@ -13,9 +12,9 @@ export default function List({currentItems}: ListProps) {
             <TableCustom sx={{ minWidth: 650, borderCollapse: 'separate', borderSpacing: '10px 10px'  }} aria-label="simple table">
                 <TableHead>
                     <TableRow
-                        sx={{ 'td, th': {border: 0, textWrap: 'nowrap', fontSize: '15px', fontWeight: 400 }, 'th': {backgroundColor: '#D6D9EF', borderRadius: '10px'} }}
+                        sx={{ 'td, th': { border: 0, textWrap: 'nowrap', color: '#000000', fontSize: '17px', fontWeight: 400 }, 'th': {backgroundColor: '#D6D9EF', borderRadius: '10px'} }}
                         >
-                        <TableCell sx={{backgroundColor: '#D6D9EF'}} scope="center">Nome</TableCell>
+                        <TableCell sx={{backgroundColor: '#D6D9EF'}} align="left">Nome</TableCell>
                         <TableCell sx={{backgroundColor: '#D6D9EF'}} align="center" >Descrição</TableCell>
                         <TableCell sx={{backgroundColor: '#D6D9EF'}} align="center" >Meio de Comunicação</TableCell>
                         <TableCell sx={{backgroundColor: '#D6D9EF'}} align="center" >Tipo de Intervalo</TableCell>
@@ -29,7 +28,7 @@ export default function List({currentItems}: ListProps) {
                 {currentItems.map((row) => (
                     <TableRow
                     key={row.nome}
-                    sx={{ 'td, th': {position: 'relative', border: 0,  textWrap: 'nowrap', fontSize: '14px' }, 'td': {backgroundColor: 'white', borderRadius: '10px'} }}
+                    sx={{ 'td, th': { border: 0,  textWrap: 'nowrap', fontSize: '17px' }, 'td': {backgroundColor: 'white', borderRadius: '10px'} }}
                     >
                     <TableCell scope="row">
                         {row.nome}
@@ -41,12 +40,20 @@ export default function List({currentItems}: ListProps) {
                     <TableCell align="left">{row.nome}</TableCell>
                     <TableCell align="left">{row.nome}</TableCell>
                     <TableCell sx={{padding: 0, minWidth: '64px'}}>
-                        <ListButton>
-                            <Image width={200} height={100} src="/assets/Schedule/edit-icon.svg" alt={""} />
-                        </ListButton>
+                        <Tooltip title={'Editar'}>
+                            <Box sx={{display: 'flex', justifyContent: 'center'}}>
+                                <ListButton>
+                                    <img src="src/presentation/assets/Schedule/edit-icon.svg" />
+                                </ListButton>
+                            </Box>
+                        </Tooltip>
                     </TableCell>
                     <TableCell>
-                        <CustomSwitchButton />
+                        <Tooltip title={'Ativar / Inativar'}>
+                            <Box>
+                                <CustomSwitchButton />
+                            </Box>
+                        </Tooltip>
                     </TableCell>
                     </TableRow>
                 ))}

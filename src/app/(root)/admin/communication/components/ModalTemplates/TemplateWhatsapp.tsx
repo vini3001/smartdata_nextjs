@@ -1,45 +1,7 @@
-import Carousel from 'react-multi-carousel';
-import { ContainerFields, FormButtonTemplate, LeftArrow, RightArrow, TemplateBox, TemplateContainer, TemplateOptionContainer, TemplateSubLabel, TemplateWrapper } from "./styles";
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import { ContainerFields, FormButtonTemplate, TemplateBox, TemplateContainer, TemplateOptionContainer, TemplateSubLabel, TemplateWrapper } from "./styles";
 import { Box, CardContent } from "@mui/material";
-import { TextField } from "@/app/components";
-import Image from "next/image";
-
-const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 3000 },
-      items: 5
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 1
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 1
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1
-    }
-  };
-
-  const LeftArrowIcon = ({ onClick }: any) => {
-    return (
-        <LeftArrow onClick={onClick}>
-            <KeyboardArrowLeftIcon sx={{color: 'white'}} />
-        </LeftArrow>
-    );
-  };
-
-  const RightArrowIcon = ({ onClick }: any) => {
-    return (
-        <RightArrow onClick={onClick}>
-            <KeyboardArrowRightIcon sx={{color: 'white'}} />
-        </RightArrow>
-    );
-  };
+import TextFieldArea from "@/app/components/TextFields/TextFieldArea";
+import React from "react";
 
 interface TemplateProps {
     handleCloseModal: () => void
@@ -47,27 +9,21 @@ interface TemplateProps {
 
 
 export default function TemplateWhatsappCarousel({handleCloseModal}: TemplateProps) {
+    const [textOne, setTextOne] = React.useState<string>('Lorem ipsum is simply dummy text of the printing and typesetting industry.')
+
+    const mockText = 'Lorem ipsum is simply dummy text of the printing and typesetting industry.'
+    
     return (
         <TemplateContainer>
-            <Box sx={{width: '100%'}}>
-            <Carousel
-                    containerClass='carousel-container'
-                    responsive={responsive}
-                    autoPlay={false}
-                    infinite={false}
-                    partialVisbile={false}
-                    customLeftArrow={<LeftArrowIcon />}
-                    customRightArrow={<RightArrowIcon />}
-                    swipeable={true}
-                    draggable={true}
-                    itemClass='container-item'
-                    showDots={false}
-                    >
-                        <TemplateOne />
-                </Carousel>
+            <Box sx={{display: 'flex', justifyContent: 'center', width: '100%'}}>
+                <TemplateOne textOne={textOne} />
             </Box>
             <ContainerFields>
-                <TextField props={{sx:{'.MuiInputBase-root': {borderRadius: '8px', backgroundColor: 'white !important'}}, placeholder: 'Texto 1*', name:"text_1"}}/>
+                <TextFieldArea props={{onChange: (item: any) => {
+                    item.target.value !== '' ? setTextOne(item.target.value) : setTextOne(mockText)
+                    }, sx:{'.MuiInputBase-root': {borderRadius: '8px', backgroundColor: 'white !important'}}, 
+                    inputProps: { maxLength: 300 },
+                    placeholder: 'Texto 1*', name:"text_1"}} />
                 <FormButtonTemplate onClick={handleCloseModal} sx={{color: '#FF4228', borderColor: '#FF4228'}} variant="outlined">
                     Cancelar
                 </FormButtonTemplate>
@@ -76,14 +32,18 @@ export default function TemplateWhatsappCarousel({handleCloseModal}: TemplatePro
     )
 }
 
-function TemplateOne() {
+interface TemplateTexts {
+    textOne: string
+}
+
+function TemplateOne({textOne}: TemplateTexts) {
     return (
         <TemplateWrapper elevation={0}>
             <TemplateOptionContainer sx={{backgroundColor: '#f0fce4'}}>
                 <CardContent>
-                    <Image width={200} height={100} className="image-container" src="assets/Rectangle 608.png" alt={''} />
+                    <img className="image-container" src="/src/presentation/assets/Rectangle 608.png" />
                     <TemplateBox>
-                    <TemplateSubLabel style={{color: 'black'}}>Lorem ipsum is simply dummy text of the printing and typesetting industry.</TemplateSubLabel>
+                       <TemplateSubLabel style={{color: 'black'}}>{textOne}</TemplateSubLabel>
                     </TemplateBox>
                 </CardContent>
             </TemplateOptionContainer>

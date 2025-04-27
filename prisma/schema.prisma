@@ -1,0 +1,562 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model sd_pessoa {
+  nome                       String                       @db.VarChar(100)
+  id_cargo                   Int
+  id_departamento            Int
+  id                         Int                          @id @default(autoincrement())
+  ativo                      Boolean
+  id_cliente                 Int
+  id_usuario                 Int?
+  sd_disparo_pessoas         sd_disparo_pessoas[]
+  sd_meio_comunicacao_pessoa sd_meio_comunicacao_pessoa[]
+  sd_membro_grupo_pessoa     sd_membro_grupo_pessoa[]
+  sd_cargo                   sd_cargo                     @relation(fields: [id_cargo], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_cargo")
+  sd_departamento            sd_departamento              @relation(fields: [id_departamento], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_departamento")
+  sd_usuario                 sd_usuario?                  @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_usuario")
+  sd_pessoa_grupo_informacao sd_pessoa_grupo_informacao[]
+  sd_pessoa_informacao       sd_pessoa_informacao[]
+  sd_pessoa_local_empresa    sd_pessoa_local_empresa[]
+  sd_pessoa_menu             sd_pessoa_menu[]
+}
+
+model sd_membro_grupo_pessoa {
+  id              Int             @id @default(autoincrement())
+  id_pessoa       Int
+  id_grupo        Int
+  id_cliente      Int
+  sd_grupo_pessoa sd_grupo_pessoa @relation(fields: [id_grupo], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_grupo")
+  sd_pessoa       sd_pessoa       @relation(fields: [id_pessoa], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pessoa")
+}
+
+model sd_grupo_pessoa {
+  id                       Int                        @id @default(autoincrement())
+  nome                     String                     @db.VarChar(100)
+  id_cliente               Int
+  sd_disparo_grupo_pessoas sd_disparo_grupo_pessoas[]
+  sd_membro_grupo_pessoa   sd_membro_grupo_pessoa[]
+}
+
+model sd_cargo {
+  id         Int         @id @default(autoincrement())
+  nome       String      @db.VarChar
+  id_cliente Int
+  sd_pessoa  sd_pessoa[]
+}
+
+model sd_departamento {
+  id             Int              @id @default(autoincrement())
+  divisao        String?          @db.VarChar(100)
+  departamento   String?          @db.VarChar(100)
+  id_cliente     Int
+  sd_indicadores sd_indicadores[]
+  sd_pessoa      sd_pessoa[]
+}
+
+model sd_dados {
+  id              Int             @id(map: "sk_movimento_pkey") @default(autoincrement())
+  data            DateTime        @db.Date
+  valormetrica    Decimal         @db.Decimal
+  id_indicador    Int
+  id_localempresa Int
+  id_cliente      Int
+  sd_indicadores  sd_indicadores  @relation(fields: [id_indicador], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_indicador")
+  sd_localempresa sd_localempresa @relation(fields: [id_localempresa], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_localempresa")
+}
+
+model sd_disparo {
+  id                          Int                           @id @default(autoincrement())
+  nome                        String                        @db.VarChar(200)
+  descricao                   String                        @db.VarChar(1000)
+  data_hora_inicio            DateTime                      @db.Timestamp(6)
+  tipo_intervalo_repeticao    String                        @db.VarChar
+  id_meio_comunicacao         Int?
+  data_hora_fim               DateTime?                     @db.Timestamp(6)
+  ind_deploy                  String                        @db.VarChar(1)
+  data_criacao                DateTime                      @db.Timestamp(6)
+  data_deploy                 DateTime?                     @db.Timestamp(6)
+  data_alteracao              DateTime?                     @db.Timestamp(6)
+  ativo                       Boolean
+  intervalo_repeticao         Int
+  mensagem_deploy             String?
+  formato_destino             String?                       @db.VarChar(100)
+  id_cliente                  Int
+  tipo_disparo                String                        @db.VarChar(10)
+  sd_meio_comunicacao         sd_meio_comunicacao?          @relation(fields: [id_meio_comunicacao], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_meio_comunicacao")
+  sd_disparo_grupo_informacao sd_disparo_grupo_informacao[]
+  sd_disparo_grupo_pessoas    sd_disparo_grupo_pessoas[]
+  sd_disparo_informacao       sd_disparo_informacao[]
+  sd_disparo_meio_comunicacao sd_disparo_meio_comunicacao[]
+  sd_disparo_pessoas          sd_disparo_pessoas[]
+}
+
+model sd_disparo_grupo_informacao {
+  id                  Int                 @id @default(autoincrement())
+  id_disparo          Int
+  id_grupo_informacao Int
+  id_cliente          Int
+  sd_disparo          sd_disparo          @relation(fields: [id_disparo], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_disparo")
+  sd_grupo_informacao sd_grupo_informacao @relation(fields: [id_grupo_informacao], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_grupo_informacao")
+}
+
+model sd_disparo_grupo_pessoas {
+  id               Int             @id @default(autoincrement())
+  id_disparo       Int
+  id_grupo_pessoas Int
+  id_cliente       Int
+  sd_disparo       sd_disparo      @relation(fields: [id_disparo], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_disparo")
+  sd_grupo_pessoa  sd_grupo_pessoa @relation(fields: [id_grupo_pessoas], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_grupo_pessoas")
+}
+
+model sd_disparo_informacao {
+  id             Int            @id @default(autoincrement())
+  id_disparo     Int
+  id_informacao  Int
+  id_cliente     Int
+  sd_disparo     sd_disparo     @relation(fields: [id_disparo], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_disparo")
+  sd_indicadores sd_indicadores @relation(fields: [id_informacao], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_informacao")
+}
+
+model sd_disparo_pessoas {
+  id         Int        @id @default(autoincrement())
+  id_pessoa  Int
+  id_disparo Int
+  id_cliente Int
+  sd_disparo sd_disparo @relation(fields: [id_disparo], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_disparo")
+  sd_pessoa  sd_pessoa  @relation(fields: [id_pessoa], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pessoa")
+}
+
+model sd_empresa {
+  id                    Int                     @id @default(autoincrement())
+  id_cliente_empresa    Int
+  razaosocial           String                  @db.VarChar
+  nome                  String                  @db.VarChar
+  ativo                 Boolean
+  id_cliente            Int
+  sd_integracao         sd_integracao?
+  sd_localempresa       sd_localempresa[]
+  sd_parametros_empresa sd_parametros_empresa[]
+}
+
+model sd_grupo_informacao {
+  id                          Int                           @id @default(autoincrement())
+  nome                        String                        @db.VarChar(100)
+  finalidade                  String?                       @db.VarChar(100)
+  id_cliente                  Int
+  sd_disparo_grupo_informacao sd_disparo_grupo_informacao[]
+  sd_membro_grupo_informacao  sd_membro_grupo_informacao[]
+  sd_pessoa_grupo_informacao  sd_pessoa_grupo_informacao[]
+}
+
+model sd_indicadores {
+  id                                Int                                 @id(map: "sk_indicadores_pkey") @default(autoincrement())
+  nome                              String                              @db.VarChar(50)
+  unidademedida                     String?                             @db.VarChar(10)
+  agregacao                         String?                             @db.VarChar(10)
+  unidademedida_speak               String?                             @db.VarChar(100)
+  artigo_speak                      String?                             @db.VarChar(10)
+  nome_speak                        String?                             @db.VarChar(100)
+  descricao                         String                              @db.VarChar(1000)
+  instrucao_sql                     String?
+  id_cliente_indicadores            String?                             @db.VarChar(100)
+  ativo                             Boolean
+  finalidade                        String?                             @db.VarChar(100)
+  origem                            String?                             @db.VarChar(100)
+  tipo_caminho                      String?                             @db.VarChar(100)
+  caminho                           String?                             @db.VarChar(100)
+  formato_destino                   String?                             @db.VarChar(100)
+  id_origem_informacao              Int?
+  id_formato_destino                Int?
+  id_departamento                   Int?
+  id_cliente                        Int
+  report_id                         String?                             @db.VarChar(500)
+  workspace_id                      String?                             @db.VarChar(500)
+  report_id_integracao              String?                             @db.VarChar(500)
+  workspace_id_integracao           String?                             @db.VarChar(500)
+  id_finalidade                     Int                                 @default(1)
+  capacidade_pbi                    String?                             @db.VarChar(50)
+  report_page_id                    String?                             @db.VarChar(500)
+  report_page_id_integracao         String?                             @db.VarChar(500)
+  sd_dados                          sd_dados[]
+  sd_disparo_informacao             sd_disparo_informacao[]
+  sd_departamento                   sd_departamento?                    @relation(fields: [id_departamento], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_departamento")
+  sd_finalidade                     sd_finalidade                       @relation(fields: [id_finalidade], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_finalidade")
+  sd_formato_destino                sd_formato_destino?                 @relation(fields: [id_formato_destino], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_formato_destino")
+  sd_origem_informacao              sd_origem_informacao?               @relation(fields: [id_origem_informacao], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_origem_informacao")
+  sd_membro_grupo_informacao        sd_membro_grupo_informacao[]
+  sd_periodicidade_assinatura       sd_periodicidade_assinatura[]
+  sd_periodicidade_meio_comunicacao sd_periodicidade_meio_comunicacao[]
+  sd_pessoa_informacao              sd_pessoa_informacao[]
+}
+
+model sd_integracao {
+  id                          Int                           @id(map: "sk_integracao_pkey") @default(autoincrement())
+  caracteristicas             String                        @db.VarChar(200)
+  id_empresa                  Int                           @unique(map: "uq_integracao")
+  id_cliente                  Int
+  sd_empresa                  sd_empresa                    @relation(fields: [id_empresa], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_empresa")
+  sd_integracao_configuracoes sd_integracao_configuracoes[]
+  sd_integracao_depara        sd_integracao_depara[]
+}
+
+model sd_integracao_configuracoes {
+  id                Int           @id(map: "sk_integracao_configuracoes_pkey") @default(autoincrement())
+  id_integracao     Int
+  tipo_configuracao String        @db.VarChar(50)
+  configuracao      String        @db.VarChar(10485760)
+  id_cliente        Int
+  sd_integracao     sd_integracao @relation(fields: [id_integracao], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_integracao")
+}
+
+model sd_integracao_depara {
+  id            Int           @id(map: "sk_integracao_depara_pkey") @default(autoincrement())
+  id_integracao Int
+  tipo_depara   String        @db.VarChar(100)
+  de            String        @db.VarChar(100)
+  para          String        @db.VarChar(100)
+  id_cliente    Int
+  sd_integracao sd_integracao @relation(fields: [id_integracao], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_integracao")
+}
+
+model sd_localempresa {
+  id                      Int                       @id @default(autoincrement())
+  id_cliente_localempresa Int
+  nomelocal               String                    @db.VarChar
+  tipolocal               String                    @db.VarChar
+  nomelocal_speak         String?                   @db.VarChar
+  preposicao_speak        String?                   @db.VarChar
+  id_empresa              Int?
+  id_cliente              Int
+  sd_dados                sd_dados[]
+  sd_empresa              sd_empresa?               @relation(fields: [id_empresa], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_empresa")
+  sd_pessoa_local_empresa sd_pessoa_local_empresa[]
+}
+
+model sd_meio_comunicacao {
+  id                                Int                                 @id(map: "sd_meiocomunicacao_pkey") @default(autoincrement())
+  nome                              String                              @db.VarChar(100)
+  id_cliente                        Int
+  sd_disparo                        sd_disparo[]
+  sd_disparo_meio_comunicacao       sd_disparo_meio_comunicacao[]
+  sd_meio_comunicacao_pessoa        sd_meio_comunicacao_pessoa[]
+  sd_periodicidade_meio_comunicacao sd_periodicidade_meio_comunicacao[]
+}
+
+model sd_meio_comunicacao_pessoa {
+  id                  Int                 @id @default(autoincrement())
+  id_pessoa           Int
+  id_meio_comunicacao Int
+  valor               String              @db.VarChar(200)
+  id_cliente          Int
+  sd_meio_comunicacao sd_meio_comunicacao @relation(fields: [id_meio_comunicacao], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_meio_comunicacao")
+  sd_pessoa           sd_pessoa           @relation(fields: [id_pessoa], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pessoa")
+}
+
+model sd_membro_grupo_informacao {
+  id                  Int                 @id @default(autoincrement())
+  id_informacao       Int
+  id_grupo            Int
+  id_cliente          Int
+  sd_grupo_informacao sd_grupo_informacao @relation(fields: [id_grupo], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_grupo_informacao")
+  sd_indicadores      sd_indicadores      @relation(fields: [id_informacao], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_informacao")
+}
+
+model sd_pessoa_local_empresa {
+  id              Int             @id @default(autoincrement())
+  id_pessoa       Int
+  id_localempresa Int
+  id_cliente      Int
+  sd_localempresa sd_localempresa @relation(fields: [id_localempresa], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_local_empresa")
+  sd_pessoa       sd_pessoa       @relation(fields: [id_pessoa], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pessoa")
+}
+
+model sd_log {
+  aplicacao  String
+  modulo     String
+  objeto     String
+  mensagem   String
+  id         Int         @id @default(autoincrement())
+  data_log   DateTime    @db.Timestamp(6)
+  tipo_log   String
+  id_cliente Int
+  id_usuario Int?
+  sd_usuario sd_usuario? @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_usuario")
+}
+
+model sd_formato_destino {
+  id             Int              @id @default(autoincrement())
+  nome           String           @db.VarChar(100)
+  atributo_1     String?          @db.VarChar(100)
+  atributo_2     String?          @db.VarChar(100)
+  atributo_3     String?          @db.VarChar(100)
+  atributo_4     String?          @db.VarChar(100)
+  id_cliente     Int
+  sd_indicadores sd_indicadores[]
+}
+
+model sd_origem_informacao {
+  id             Int              @id @default(autoincrement())
+  nome           String           @db.VarChar(100)
+  atributo_1     String?          @db.VarChar(100)
+  atributo_2     String?          @db.VarChar(100)
+  atributo_3     String?          @db.VarChar(100)
+  atributo_4     String?          @db.VarChar(100)
+  id_cliente     Int
+  sd_indicadores sd_indicadores[]
+}
+
+model sd_pessoa_grupo_informacao {
+  id                  Int                 @id @default(autoincrement())
+  id_pessoa           Int
+  id_grupo_informacao Int
+  id_cliente          Int
+  sd_grupo_informacao sd_grupo_informacao @relation(fields: [id_grupo_informacao], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_grupo_informacao_pessoa")
+  sd_pessoa           sd_pessoa           @relation(fields: [id_pessoa], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pessoa_grupo_informacao")
+}
+
+model sd_pessoa_informacao {
+  id             Int            @id @default(autoincrement())
+  id_pessoa      Int
+  id_informacao  Int
+  id_cliente     Int
+  sd_indicadores sd_indicadores @relation(fields: [id_informacao], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_informacao_pessoa")
+  sd_pessoa      sd_pessoa      @relation(fields: [id_pessoa], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pessoa_informacao")
+}
+
+model sd_cliente {
+  id               Int          @id @default(autoincrement())
+  nome             String?      @db.VarChar(200)
+  nome_abreviado   String?      @db.VarChar(50)
+  documento        Int?
+  endereco         String?      @db.VarChar(200)
+  cidade           String?      @db.VarChar(200)
+  estado           String?      @db.VarChar(50)
+  contato_nome     String?      @db.VarChar(200)
+  contato_email    String?      @db.VarChar(200)
+  contato_telefone String?      @db.VarChar(50)
+  ativo            Boolean      @default(true)
+  logo             String?      @db.VarChar(200)
+  sd_usuario       sd_usuario[]
+}
+
+model sd_usuario {
+  id                                Int                                 @id(map: "sd_tenant_pkey") @default(autoincrement())
+  email                             String                              @db.VarChar(50)
+  password                          String                              @db.VarChar(200)
+  nome                              String                              @db.VarChar(50)
+  perfil_usuario                    String?                             @db.VarChar(10)
+  ativo                             Boolean                             @default(true)
+  id_cliente                        Int
+  resetToken                        String?                             @db.VarChar(255)
+  resetTokenExpiry                  String?                             @db.VarChar(255)
+  sd_log                            sd_log[]
+  sd_periodicidade_assinatura       sd_periodicidade_assinatura[]
+  sd_periodicidade_meio_comunicacao sd_periodicidade_meio_comunicacao[]
+  sd_pessoa                         sd_pessoa[]
+  sd_cliente                        sd_cliente                          @relation(fields: [id_cliente], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_cliente")
+}
+
+model sd_estrutura_menu {
+  id                      Int                 @id @default(autoincrement())
+  descricao               String              @db.VarChar(200)
+  tipo_elemento           String              @db.VarChar(50)
+  tipo_acao               String?             @db.VarChar(50)
+  id_cliente              Int
+  id_estrutura_superior   Int?
+  ativo                   Boolean
+  id_acao                 String?             @db.VarChar(50)
+  sd_estrutura_menu       sd_estrutura_menu?  @relation("sd_estrutura_menuTosd_estrutura_menu", fields: [id_estrutura_superior], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_estrutura_menu_superior")
+  other_sd_estrutura_menu sd_estrutura_menu[] @relation("sd_estrutura_menuTosd_estrutura_menu")
+  sd_pessoa_menu          sd_pessoa_menu[]
+}
+
+model sd_periodicidade_assinatura {
+  id               Int                   @id @default(autoincrement())
+  id_periodicidade Int
+  id_usuario       Int
+  id_indicadores   Int
+  id_cliente       Int
+  sd_indicadores   sd_indicadores        @relation(fields: [id_indicadores], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_indicadores")
+  sd_periodicidade sd_periodicidade_nova @relation(fields: [id_periodicidade], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_periodicidade")
+  sd_usuario       sd_usuario            @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_usuario")
+}
+
+model sd_periodicidade_meio_comunicacao {
+  id                  Int                 @id @default(autoincrement())
+  id_meio_comunicacao Int
+  id_usuario          Int
+  id_indicadores      Int
+  id_cliente          Int
+  sd_indicadores      sd_indicadores      @relation(fields: [id_indicadores], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_indicadores")
+  sd_meio_comunicacao sd_meio_comunicacao @relation(fields: [id_meio_comunicacao], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_meio_comunicacao")
+  sd_usuario          sd_usuario          @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_usuario")
+}
+
+model sd_pessoa_menu {
+  id                Int               @id @default(autoincrement())
+  id_pessoa         Int
+  id_estrutura_menu Int
+  id_cliente        Int
+  sd_estrutura_menu sd_estrutura_menu @relation(fields: [id_estrutura_menu], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_estrutura_menu")
+  sd_pessoa         sd_pessoa         @relation(fields: [id_pessoa], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pessoa")
+}
+
+model sd_disparo_meio_comunicacao {
+  id                  Int                 @id(map: "sd_meio_comunicacao_disparo_pkey") @default(autoincrement())
+  id_disparo          Int
+  id_meio_comunicacao Int
+  id_cliente          Int
+  sd_disparo          sd_disparo          @relation(fields: [id_disparo], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_disparo")
+  sd_meio_comunicacao sd_meio_comunicacao @relation(fields: [id_meio_comunicacao], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_meio_comunicacao")
+}
+
+model sd_periodicidade_nova {
+  id                          Int                           @id(map: "sd_periodicidade_teste_pkey") @default(autoincrement())
+  id_cliente                  Int
+  dia_mes                     Int?
+  dia_semana                  Int?
+  hora                        Int?
+  descricao                   String?                       @db.VarChar(100)
+  tipo                        String?                       @db.VarChar(50)
+  sd_periodicidade_assinatura sd_periodicidade_assinatura[]
+}
+
+model sd_url_encurtada {
+  id            Int       @id @default(autoincrement())
+  url_completa  String?   @db.VarChar(500)
+  url_curta     String?   @db.VarChar(500)
+  data_cadastro DateTime? @default(dbgenerated("timezone('America/Sao_Paulo'::text, now())")) @db.Timestamp(6)
+  data_validade DateTime? @default(dbgenerated("(timezone('America/Sao_Paulo'::text, now()) + '1 day'::interval)")) @db.Timestamp(6)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model sd_dia_semana {
+  dia_semana_txt String? @db.VarChar(50)
+  dia_semana_int Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model sd_dias {
+  dia Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model sd_horas {
+  hora Int?
+
+  @@ignore
+}
+
+model sd_mensagens_documentos {
+  bject                               String?
+  id                                  String?
+  value_messaging_product             String?
+  value_metadata_display_phone_number String?
+  value_metadata_phone_number_id      String?
+  profile_name                        String?
+  wa_id                               String?
+  context_from                        String?
+  context_id                          String?
+  from                                String?
+  timestamp                           String?
+  type                                String?
+  document_mime_type                  String?
+  document_sha256                     String?
+  document_id                         String?
+  field                               String?
+  document_filename                   String?
+  sticker_animated                    Boolean?
+  audio_voice                         Boolean?
+  pk                                  Int      @id @default(autoincrement())
+}
+
+model sd_mensagens_interactive {
+  bject                               String?
+  id                                  String?
+  value_messaging_product             String?
+  value_metadata_display_phone_number String?
+  value_metadata_phone_number_id      String?
+  profile_name                        String?
+  wa_id                               String?
+  context_from                        String?
+  context_id                          String?
+  from                                String?
+  timestamp                           String?
+  type                                String?
+  interactive_type                    String?
+  interactive_button_reply_id         String?
+  interactive_button_reply_title      String?
+  interactive_list_reply_description  String?
+  field                               String?
+  pk                                  Int     @id @default(autoincrement())
+}
+
+model sd_mensagens_status {
+  bject                               String?
+  id                                  String?
+  value_messaging_product             String?
+  value_metadata_display_phone_number String?
+  value_metadata_phone_number_id      String?
+  status                              String?
+  timestamp                           String?
+  recipient_id                        String?
+  conversation_id                     String?
+  conversation_expiration_timestamp   String?
+  conversation_origin_type            String?
+  pricing_billable                    Boolean?
+  pricing_pricing_model               String?
+  pricing_category                    String?
+  field                               String?
+  code                                Float?
+  title                               String?
+  message                             String?
+  error_data_details                  String?
+  pk                                  Int      @id @default(autoincrement())
+}
+
+model sd_mensagens_texto {
+  bject                               String?
+  id                                  String?
+  value_messaging_product             String?
+  value_metadata_display_phone_number String?
+  value_metadata_phone_number_id      String?
+  profile_name                        String?
+  wa_id                               String?
+  from                                String?
+  timestamp                           String?
+  text_body                           String?
+  type                                String?
+  field                               String?
+  context_from                        String?
+  context_id                          String?
+  pk                                  Int     @id @default(autoincrement())
+}
+
+model sd_finalidade {
+  id                 Int              @id @default(autoincrement())
+  nome               String           @db.VarChar(100)
+  id_tipo_finalidade Int?
+  id_cliente         Int?
+  sd_indicadores     sd_indicadores[]
+}
+
+model sd_parametros_empresa {
+  id         Int        @id @default(autoincrement())
+  id_empresa Int
+  id_cliente Int
+  chave      String?    @db.VarChar(100)
+  valor      String?    @db.VarChar(500)
+  sd_empresa sd_empresa @relation(fields: [id_empresa], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_empresa_parametros")
+}

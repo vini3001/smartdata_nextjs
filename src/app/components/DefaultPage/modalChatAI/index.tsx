@@ -83,7 +83,7 @@ export default function ModalChatAI({isOpen, handleModal}: ChatAIModalProps) {
     function handleOpenSideBar() {
       setIsOpenSide(!isOpenSide)
     }
-
+    /*
     useLayoutEffect(() => {
       async function verifyMicPermission() {
       if ("MediaRecorder" in window) {
@@ -102,7 +102,7 @@ export default function ModalChatAI({isOpen, handleModal}: ChatAIModalProps) {
 
     verifyMicPermission()
     }, [])
-
+    */
     return (
         <Modal open={isOpen} onClose={handleModal}>
             <Container>

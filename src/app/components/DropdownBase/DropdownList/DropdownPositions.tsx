@@ -1,16 +1,17 @@
 import * as React from 'react';
 import MenuItem from '@mui/material/MenuItem';
-import { ContainerDropdown, DropdownCustom, Title } from './style';
-import { Box, createTheme, FormHelperText, InputLabel, SelectProps, SvgIcon, ThemeProvider } from '@mui/material';
+import { ContainerDropdown, DropdownCustom, Title } from '../style'
+import { Box, createTheme, FormHelperText, InputLabel, SelectChangeEvent, SelectProps, SvgIcon, ThemeProvider } from '@mui/material';
 import _ from "lodash";
 import { ExpandMoreOutlined } from '@mui/icons-material';
-import TextField from '../TextFields/TextFieldBase';
+import TextField from '../../TextFields/TextFieldBase';
 import { ErrorField } from '@/domain/services/ErrorField';
 import { UseFormRegister } from 'react-hook-form';
+import { sd_cargo } from '@prisma/client';
 
 interface DropdownBase {
   props: SelectProps
-  submenu: any[]
+  submenu: sd_cargo[]
   error: ErrorField
   title?: string
   placeholder?: string
@@ -40,9 +41,9 @@ const theme = createTheme({
   }
 });
 
-export default function DropdownBase({props, submenu, title, error, register, placeholder, searchBar = false, handleReturnValue}: DropdownBase) {
+export default function DropdownPositions({props, submenu, title, error, register, placeholder, searchBar = false, handleReturnValue}: DropdownBase) {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState('')
+  const [value, setValue] = React.useState<sd_cargo>()
   const [filterValue, setFilterValue] = React.useState('')
   const [input, setInput] = React.useState('')
 
@@ -56,8 +57,8 @@ export default function DropdownBase({props, submenu, title, error, register, pl
     );
   };
 
-  const handleChange = (event: any) => {
-     event.target.value !== '' && setValue(event.target.value);
+  const handleChange = (event: SelectChangeEvent<unknown>, _: React.ReactNode) => {
+     event.target.value !== '' && setValue(event.target.value as sd_cargo);
   };
 
   const handleClose = (event: any) => {
@@ -159,12 +160,12 @@ export default function DropdownBase({props, submenu, title, error, register, pl
                     </MenuItem> }
                     {submenu.filter((item) => {
                       if (searchBar && filterValue !== '') {
-                        return item.includes(filterValue)
+                        return item.nome.includes(filterValue)
                       } else {
                         return item
                       }
                     }).map((item, index) => {
-                          return <MenuItem key={index} onClick={() => {handleReturnValue(item)}} value={item}>{item}</MenuItem>
+                          return <MenuItem key={index} value={item.id}>{item.nome}</MenuItem>
                     })}
                 </DropdownCustom>
                 {makeError()}

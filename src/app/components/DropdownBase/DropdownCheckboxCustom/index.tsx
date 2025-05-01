@@ -22,7 +22,8 @@ type ListObject = {id: number, value: string}
 interface DropdownCheckboxCustomProps {
   props: TextFieldProps
   limitTags?: number
-  OptionsList: ListObject[]
+  optionLabel: string
+  OptionsList: any[]
   placeholder: string
   error?: ErrorField;
   control: any;
@@ -33,9 +34,8 @@ export default function DropdownCheckboxCustom(DropdownCheckboxProps: DropdownCh
   const [isFocused, setIsFocused] = useState(false);
   const filter = createFilterOptions();
 
-  const {props, OptionsList, limitTags = 2, error, control, placeholder} = DropdownCheckboxProps
+  const {props, OptionsList, optionLabel, limitTags = 2, error, control, placeholder} = DropdownCheckboxProps
 
-  
 
   const name = props.name ? props.name : "";
 
@@ -54,10 +54,10 @@ export default function DropdownCheckboxCustom(DropdownCheckboxProps: DropdownCh
         control={control}
         defaultValue={[]}
         render={({ field }) => {
-          const handleToggleOption = (selectedOptions: ListObject[]) => {
+          const handleToggleOption = (selectedOptions: any[]) => {
             const selectedOptionsNew = field.value;
             const optionSelected = selectedOptions[selectedOptions.length - 1]
-            const index = selectedOptionsNew.findIndex((selectedOption: ListObject) => selectedOption.id === optionSelected.id);
+            const index = selectedOptionsNew.findIndex((selectedOption: any) => selectedOption.id === optionSelected.id);
 
             if (index === -1) {
               selectedOptionsNew.push(optionSelected);
@@ -81,7 +81,7 @@ export default function DropdownCheckboxCustom(DropdownCheckboxProps: DropdownCh
         
           const handleChange = (_event: any, selectedOptions: any, reason: any) => {
             if (reason === "selectOption" || reason === "removeOption") {
-              const filterAll = selectedOptions.filter((selectedOption: ListObject) => selectedOption.id === 0)
+              const filterAll = selectedOptions.filter((selectedOption: any) => selectedOption.all === true)
 
               if (filterAll.length !== 0) {
                 handleToggleSelectAll();
@@ -95,7 +95,6 @@ export default function DropdownCheckboxCustom(DropdownCheckboxProps: DropdownCh
             }
           };
 
-          console.log(field.value.length)
           return (
             <DropdownCustomNew
             multiple
@@ -105,21 +104,21 @@ export default function DropdownCheckboxCustom(DropdownCheckboxProps: DropdownCh
             onChange={handleChange}
             filterOptions={(options, params) => {
               const filtered = filter(options, params);
-              return [{ value: "Selecionar todos...", id: 0 }, ...filtered];
+              return [{ [optionLabel]: 'Selecionar todos...', all: true }, ...filtered];
             }}
             options={OptionsList}
             disableCloseOnSelect
-            getOptionLabel={(option: any) => option.value}
+            getOptionLabel={(option: any) => option[optionLabel]}
             renderOption={(props, option: any) => {
                 const { key, ...optionProps } = props;
 
-                const isSelected = field.value.some((selectedOption: ListObject) => selectedOption.id === option.id) ||
-                                   (field.value.length === OptionsList.length && option.id === 0)
+                const isSelected = field.value.some((selectedOption: any) => selectedOption.id === option.id) ||
+                                   (field.value.length === OptionsList.length && option.all === true)
 
                 return (
                 <li key={key} {...optionProps}>
                     <Checkbox props={{checked: isSelected}} />
-                    {option.value}
+                    {option[optionLabel]}
                 </li>
                 );
             }}

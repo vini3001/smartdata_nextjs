@@ -1,6 +1,6 @@
 import { Paper, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { ListButton, TableCustom } from "./styles";
-import CustomSwitchButton from "@/app/components/SwitchButton";
+import CustomSwitchButton from "@/pages/components/SwitchButton";
 import Image from "next/image";
 
 interface ListProps {

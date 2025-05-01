@@ -8,7 +8,7 @@ import { getTokenCookie } from '@/lib/auth'
 const t = initTRPC.create()
 
 const isAuthed = t.middleware(({ next, ctx }) => {
-  const { userId, clientId } = getTokenCookie(ctx.req) || ''
+  const { userId, clientId } = getTokenCookie(ctx) || ''
   if (!userId) throw new TRPCError({ code: 'UNAUTHORIZED' })
 
   return next({ ctx: { userId, clientId } })

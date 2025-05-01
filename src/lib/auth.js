@@ -1,34 +1,35 @@
 import { parse, serialize } from 'cookie'
 import jwt from 'jsonwebtoken'
-
+import { cookies } from 'next/headers';
 import { getAWSSecret } from '@/aws-config'
 
 const TOKEN_NAME = 'aCSr43ask'
 const MAX_AGE = 60 * 60 * 24 * 365 // 1 year
 const { JWT_SECRET } = process.env //await getAWSSecret()
 
-export function setTokenCookie(res, userId, clientId) {
-  const token = jwt.sign({ userId, clientId }, JWT_SECRET)
+export async function setTokenCookie(_ctx, userId, clientId) {
+  const token = await jwt.sign({ userId, clientId }, JWT_SECRET)
+  const cookiesStore = await cookies()
 
-  const cookie = serialize(TOKEN_NAME, token, {
+  cookiesStore.set({
+    name: TOKEN_NAME,
+    value: token,
+    httpOnly: true,
+    path: '/',
     maxAge: MAX_AGE,
     expires: new Date(Date.now() + MAX_AGE * 1000),
-    httpOnly: true,
-    // secure: process.env.NODE_ENV === 'production', // doesn't work inside Docker
-    path: '/',
     sameSite: 'lax',
-  })
-
-  res.setHeader('Set-Cookie', cookie)
+  });
 }
 
-export function removeTokenCookie(res) {
-  const cookie = serialize(TOKEN_NAME, '', {
-    maxAge: -1,
-    path: '/',
-  })
+export async function removeTokenCookie(res) {
+  const cookiesStore = await cookies()
 
-  res.setHeader('Set-Cookie', cookie)
+  cookiesStore.set({
+    name: TOKEN_NAME,
+    path: '/',
+    maxAge: -1
+  });
 }
 
 function parseCookies(req) {
@@ -40,13 +41,10 @@ function parseCookies(req) {
 }
 
 export function getTokenCookie(req) {
-  const cookies = parseCookies(req)
-  const token = cookies[TOKEN_NAME]
-
-  if (!token) return
+  if (!req.token) return
 
   try {
-    const { userId, clientId } = jwt.verify(token, JWT_SECRET)
+    const { userId, clientId } = jwt.verify(req.token, JWT_SECRET)
     return { userId, clientId }
   } catch (e) {
     console.error(e)

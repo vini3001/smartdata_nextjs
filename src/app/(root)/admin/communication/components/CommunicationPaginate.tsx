@@ -11,13 +11,13 @@ export default function PaginatedItems() {
   const numberViews = Array.from({ length: 10 }, (_, i) => (i + 1).toString());
 
   const endOffset = itemOffset + numberView;
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+  
   const currentItems = items.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(items.length / numberView);
 
   const handlePageClick = (_event: any, page: any) => {
     const newOffset = ((page - 1) * numberView) % items.length;
-    console.log(6 % items.length)
+    
     setItemOffset(newOffset);
   };
 

@@ -41,7 +41,6 @@ function FiresBody({handleOpenModal}: Pick<FiresProps, "handleOpenModal">) {
     } = methods;
 
     const onSubmit = async (data: any): Promise<void> => {
-        console.log(data)
         handleOpenModal()
     };
 

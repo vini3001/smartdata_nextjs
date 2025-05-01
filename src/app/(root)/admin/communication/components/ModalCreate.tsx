@@ -42,7 +42,6 @@ function CommunicationBody({handleOpenModal}: Pick<CommunicationProps, "handleOp
     } = methods;
 
     const onSubmit = async (data: any): Promise<void> => {
-        console.log(data)
         handleOpenModal()
     };
 

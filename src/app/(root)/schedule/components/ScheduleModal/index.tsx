@@ -78,7 +78,7 @@ export default function ScheduleModal({isOpen, handleModal}: ScheduleModalProps)
                   return (
                     <div key={item} className='row1'>
                       <a>{item}</a>
-                      <CustomSwitchButton />
+                      <CustomSwitchButton props={{}} />
                       <ManualMinuteUpdater />
                       <div>
                         <span>às</span>
@@ -154,8 +154,6 @@ function ChildModal({isOpen, handleModal}: ScheduleModalProps) {
   {id: 6, label: 'S', fullName: 'Sexta-feira'}, {id: 7, label: 'S', fullName: 'Sábado'}]
 
   const listPeriod  = ['dia', 'mês', 'semana', 'ano']
-
-  console.log(pickerDate)
 
   return (
     <React.Fragment>

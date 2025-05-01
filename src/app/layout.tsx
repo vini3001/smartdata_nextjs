@@ -5,6 +5,9 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
 import { customFonts } from "./styles/fonts"
 import MuiThemeProvider from "./styles/themes/MuiThemeProvider";
 import EmotionThemeProvider from "./styles/themes/EmotionThemeProvider";
+import Provider from "./_trpc/Provider";
+import { SnackbarProvider } from "notistack";
+import SnackbarWrapper from "@/lib/SnackbarWrapper";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,14 +29,18 @@ export default function RootLayout({
       </head>
       <body> 
         <main className={customFonts.className}>
-          <AppRouterCacheProvider>
-            <MuiThemeProvider>
-              <EmotionThemeProvider>
-                <GlobalStyles />
-                {children}
-              </EmotionThemeProvider>
-            </MuiThemeProvider>
-          </AppRouterCacheProvider>
+          <Provider>
+            <AppRouterCacheProvider>
+              <MuiThemeProvider>
+                <EmotionThemeProvider>
+                  <SnackbarWrapper>
+                    <GlobalStyles />
+                    {children}
+                  </SnackbarWrapper>
+                </EmotionThemeProvider>
+              </MuiThemeProvider>
+            </AppRouterCacheProvider>
+          </Provider>
         </main>
       </body>
     </html>

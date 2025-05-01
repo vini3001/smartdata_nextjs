@@ -47,8 +47,6 @@ export default function DefaultPage({
     
   }, [path])
 
-  console.log(selectedRoute)
-
   return (
     <Container>
       <div>

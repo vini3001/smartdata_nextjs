@@ -2,19 +2,22 @@ import { BoxContentBase } from "@/app/components";
 import CloseIcon from "@mui/icons-material/Close";
 import { Divider, IconButton } from "@mui/material";
 import { Header, Modal, StyledBackdrop, TitleContainer } from "./styles";
+import CustomSwitchButton from "../../SwitchButton";
 
 interface BaseModalProps {
   opened: boolean;
   onClose?: () => void;
+  onSwitch: () => void
   children: React.ReactNode;
   hasHeader?: boolean;
+  useSwitch?: boolean;
   title?: string;
   subtitle?: string
   closeIcon?: boolean;
 }
 
 export default function BaseModal(props: BaseModalProps) {
-  const { opened, hasHeader = true, children, onClose, title, subtitle, closeIcon } = props;
+  const { opened, hasHeader = true, useSwitch = false, children, onClose, onSwitch, title, subtitle, closeIcon } = props;
 
   return (
       <Modal
@@ -35,6 +38,11 @@ export default function BaseModal(props: BaseModalProps) {
             {closeIcon && onClose && (
               <IconButton onClick={() => onClose()}>
                 <CloseIcon />
+              </IconButton>
+            )}
+            {useSwitch && onSwitch && (
+              <IconButton onClick={() => onSwitch()}>
+                <CustomSwitchButton props={{}} />
               </IconButton>
             )}
           </Header><Divider sx={{ marginTop: '1rem', marginBottom: '1rem' }} /></>

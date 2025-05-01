@@ -20,7 +20,7 @@ export default function PaginatedItems({ itemsPerPage, layout }: PaginatedItemsP
 
   const handlePageClick = (_event: any, page: any) => {
     const newOffset = ((page - 1) * itemsPerPage) % items.length;
-    console.log(6 % items.length)
+    
     setItemOffset(newOffset);
   };
 

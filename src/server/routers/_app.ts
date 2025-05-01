@@ -18,3 +18,5 @@ export const appRouter = router({
   system: systemRouter,
   tenant: tenantRouter, // tRPC has a bug if I use the name 'client' and then try 'utils.client.x.invalidate()'
 })
+
+export type AppRouter = typeof appRouter;

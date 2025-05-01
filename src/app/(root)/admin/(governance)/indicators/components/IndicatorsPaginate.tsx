@@ -17,7 +17,7 @@ export default function PaginatedItems() {
 
   const handlePageClick = (_event: any, page: any) => {
     const newOffset = ((page - 1) * numberView) % items.length;
-    console.log(6 % items.length)
+    
     setItemOffset(newOffset);
   };
 

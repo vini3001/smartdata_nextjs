@@ -6,6 +6,7 @@ import {
   GridToolbarContainer,
   GridActionsCellItem,
   GridRowEditStopReasons,
+  GridColDef,
 } from '@mui/x-data-grid'
 
 import Box from '@mui/material/Box'
@@ -18,6 +19,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import SaveIcon from '@mui/icons-material/Save'
 
 import { trpc } from '@/lib/trpc'
+import { CustomToolbar } from './style'
 
 const sx = {
   height: 250,
@@ -48,11 +50,11 @@ const EditToolbar = (props: any) => {
   }
 
   return (
-    <GridToolbarContainer>
-      <Button color='primary' startIcon={<AddIcon />} onClick={handleClick}>
-        Adicionar Meio de Comunicacao
+    <CustomToolbar>
+      <Button startIcon={<AddIcon />} sx={{boxShadow: 2, color: 'white', borderRadius: '10px', paddingInline: '10px', letterSpacing: '2%', backgroundColor: '#6f7cd1'}} onClick={handleClick}>
+        Adicionar Meio de Comunicação
       </Button>
-    </GridToolbarContainer>
+    </CustomToolbar>
   )
 }
 
@@ -105,7 +107,8 @@ const GriCommunication = ({ liftMedia, setEditing, meioPessoa }: any) => {
     }
   }
 
-  const processRowUpdate = newRow => {
+  const processRowUpdate = (newRow: any) => {
+    console.log(newRow)
     if (newRow.nome === '' || newRow.valor === '') return {} // doesn't let save empty values
 
     delete newRow.isNew
@@ -118,6 +121,7 @@ const GriCommunication = ({ liftMedia, setEditing, meioPessoa }: any) => {
       }
       return row
     })
+    console.log(newState)
 
     setRows(newState)
     liftMedia(newState) // lift up the state here
@@ -125,11 +129,11 @@ const GriCommunication = ({ liftMedia, setEditing, meioPessoa }: any) => {
     return newRow
   }
 
-  const handleRowModesModelChange = newRowModesModel => {
+  const handleRowModesModelChange = (newRowModesModel: any) => {
     setRowModesModel(newRowModesModel)
   }
 
-  const columns = [
+  const columns: GridColDef[] = [
     {
       field: 'nome',
       headerName: 'Meio',
@@ -171,7 +175,7 @@ const GriCommunication = ({ liftMedia, setEditing, meioPessoa }: any) => {
     {
       field: 'actions',
       type: 'actions',
-      headerName: 'Acoes',
+      headerName: 'Ações',
       width: 100,
       cellClassName: 'actions',
       getActions: ({ id }) => {
@@ -182,9 +186,6 @@ const GriCommunication = ({ liftMedia, setEditing, meioPessoa }: any) => {
             <GridActionsCellItem
               icon={<SaveIcon />}
               label='Salvar'
-              sx={{
-                color: 'primary.main',
-              }}
               onClick={handleSaveClick(id)}
             />,
             <GridActionsCellItem
@@ -230,6 +231,7 @@ const GriCommunication = ({ liftMedia, setEditing, meioPessoa }: any) => {
         slots={{ toolbar: EditToolbar }}
         slotProps={{ toolbar: { setRows, setRowModesModel } }}
         hideFooter
+        showToolbar
       />
     </Box>
   )

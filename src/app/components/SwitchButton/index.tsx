@@ -1,6 +1,7 @@
 import { styled } from '@mui/material/styles';
 import Switch, { SwitchProps } from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
+import { Controller } from 'react-hook-form';
 
 
 const AntSwitch = styled(Switch)(({ theme }) => ({
@@ -52,12 +53,26 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 
 interface CustomSwitchProps {
   props: SwitchProps
+  control: any
 }
 
-export default function CustomSwitchButton({props}: CustomSwitchProps) {
+export default function CustomSwitchButton({props, control}: CustomSwitchProps) {
   return (
-      <Stack direction="row" spacing={1} sx={{ alignItems: 'center', justifyContent: 'center' }}>
-        <AntSwitch {...props} inputProps={{ 'aria-label': 'ant design' }} />
-      </Stack>
+    <Controller
+      name={props.name ?? ''}
+      control={control}
+      defaultValue={[]}
+      render={({ field }) => {
+        function handleSetAtivo(event: React.ChangeEvent<HTMLInputElement>) {
+          field.onChange(event.target.value)
+        }
+
+        return (
+          <Stack direction="row" spacing={1} sx={{ alignItems: 'center', justifyContent: 'center' }}>
+            <AntSwitch {...props} onChange={handleSetAtivo} inputProps={{ 'aria-label': 'ant design' }} />
+          </Stack>
+        )
+      }}
+    />
   );
 }

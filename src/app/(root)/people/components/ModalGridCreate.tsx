@@ -7,17 +7,18 @@ import GridCommunication from "@/app/components/DataGridCustom/GridCommunication
 
 interface ModalGridProps {
     isOpen: boolean
+    meioPessoa: any
     handleSetMedia: (media: any) => void
     handleOpenModal: () => void
 }
 
-export default function ModalGridCreate({isOpen, handleSetMedia, handleOpenModal}: ModalGridProps) {
+export default function ModalGridCreate({isOpen, meioPessoa, handleSetMedia, handleOpenModal}: ModalGridProps) {
     return (
-        <BaseModal title="Comunicação" opened={isOpen} children={<ModalGridBody handleSetMedia={handleSetMedia} />} onClose={handleOpenModal} />
+        <BaseModal title="Comunicação" opened={isOpen} children={<ModalGridBody meioPessoa={meioPessoa} handleSetMedia={handleSetMedia} />} onClose={handleOpenModal} />
     )
 }
 
-function ModalGridBody({handleSetMedia}: Pick<ModalGridProps, "handleSetMedia">) {
+function ModalGridBody({handleSetMedia, meioPessoa}: Pick<ModalGridProps, "handleSetMedia" | "meioPessoa">) {
     const [rows, setRows] = React.useState([])
 
     const liftMedia = (media: any) => {
@@ -27,7 +28,7 @@ function ModalGridBody({handleSetMedia}: Pick<ModalGridProps, "handleSetMedia">)
     return (
         <ContainerModal>
             <ModalContentGrid>
-              <GridCommunication data={rows} actionUpsert={() => {}} actionDelete={() => {}} liftMedia={liftMedia} />
+              <GridCommunication data={rows} setEditing={() => {}} meioPessoa={meioPessoa} liftMedia={liftMedia} />
               <GridExceptions data={rows} actionUpsert={() => {}} actionDelete={() => {}} />
               <GridPerson data={rows} actionUpsert={() => {}} actionDelete={() => {}} />
             </ModalContentGrid>

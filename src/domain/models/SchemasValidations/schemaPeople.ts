@@ -46,14 +46,17 @@ export const schemaPeople = yup.object().shape({
     )
     .required("Campo obrigatório"),
     sd_pessoa_menu: yup
-    .object()
+    .array()
+    .of(
+      yup.object().shape({})
+    )
     .required("Campo obrigatório"),
     sd_usuario: yup
     .array()
     .of(
       yup.object({
         ativo: yup.boolean().required('Tipo é obrigatório'),
-        email: yup.string().required('O email é obrigatório'),
+        email: yup.string().default('teste@gmail.com').required('O email é obrigatório'),
         perfil_usuario: yup.string().required('O perfil é obrigatório')
       })
     )

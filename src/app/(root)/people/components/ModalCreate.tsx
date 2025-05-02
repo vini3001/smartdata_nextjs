@@ -98,8 +98,14 @@ function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | 
       setState({ ...state, [name]: value })
     }
 
+    const handleChangePessoa = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setText(event.target.value)
+    }
+
     const handleUser = (event: React.ChangeEvent<HTMLInputElement>) => {
       let { type, name, checked, value } = event.target
+
+      console.log(event.target)
 
       if (type === 'checkbox') {
         handleCheckBox()
@@ -111,6 +117,8 @@ function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | 
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
        mutate({ ...getValues() })
     }
+
+    console.log(getValues())
 
    return (
     <ContainerModal>
@@ -139,7 +147,7 @@ function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | 
                         <a style={{fontWeight: 400, height: 'fit-content', color: '#6e6e6e'}}>Usuário: </a>
                         <Box sx={{display: 'flex', flexDirection: 'row', borderRadius: '100px',  minWidth: '9rem', padding: '3px'}}>
                             <CustomSwitchButton props={{
-                                name: 'sd_usuario'
+                                name: 'sd_usuario.ativo'
 ,                               size: 'medium', 
                                 sx: {  '& .MuiSwitch-thumb': {width: 20, height: 20}, 
                                     '& .MuiSwitch-switchBase.Mui-checked': {
@@ -150,8 +158,8 @@ function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | 
                         <Box sx={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', width: '70%', gap: '0.7rem'}}>
                                    <CustomErrorAlert open={isSelected} title="Será enviado um email automático para definição de senha com validade de 1h">
                                         <Box>
-                                            <TextField props={{value: text , error: (text === '' && isSelected) ? true : false, required: true, disabled: !isSelected, sx:{'.MuiInputBase-root': {borderRadius: '8px', backgroundColor: 'white !important'}}, 
-                                            onChange: handleUser,
+                                            <TextField props={{value: text , error: (text === '' && isSelected) ? true : false, sx:{'.MuiInputBase-root': {borderRadius: '8px', backgroundColor: 'white !important'}}, 
+                                            onChange: handleChangePessoa,
                                             label: 'Login de Usuário (email)', name:"sd_usuario.email"}} register={register} error={ErrorField.parseError("sd_usuario.email", errors)} /> 
                                         </Box>
                                     </CustomErrorAlert>                         
@@ -168,7 +176,7 @@ function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | 
                 </Box>
             </FormContainer>
         </FormProvider>
-        <ModalGridCreate isOpen={isOpen} handleOpenModal={handleOpenCreateModal} handleSetMedia={(media: any) => setState({ ...state, sd_meio_comunicacao_pessoa: media })} />
+        <ModalGridCreate isOpen={isOpen} meioPessoa={state.sd_meio_comunicacao_pessoa} handleOpenModal={handleOpenCreateModal} handleSetMedia={(media: any) => setState({ ...state, sd_meio_comunicacao_pessoa: media })} />
     </ContainerModal>
    )
 }

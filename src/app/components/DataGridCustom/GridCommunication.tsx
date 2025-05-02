@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react'
 import {
   GridRowModes,
   DataGrid,
+  GridToolbarContainer,
   GridActionsCellItem,
   GridRowEditStopReasons,
-  GridColDef
 } from '@mui/x-data-grid'
 
 import Box from '@mui/material/Box'
@@ -17,43 +17,17 @@ import DeleteIcon from '@mui/icons-material/DeleteOutlined'
 import EditIcon from '@mui/icons-material/Edit'
 import SaveIcon from '@mui/icons-material/Save'
 
-import useConfirm from '../hooks/useConfirm'
-import { CustomToolbar } from './style'
-import { translateColumns } from './translateColumns'
-import { Typography } from '@mui/material'
+import { trpc } from '@/lib/trpc'
 
 const sx = {
-  height: 400,
-  '& .MuiDataGrid-root' : {
-     borderRadius: '10px',
-     '& .MuiTypography-root': {
-        fontFamily: 'Oxygen',
-        color: (theme: any) => `${theme.palette.mode === 'dark' ? 'white' : '#000000'}`
-     },
-
-     '& .MuiDataGrid-columnHeader': {
-       color: (theme: any) => `${theme.palette.mode === 'dark' ? 'white' : '#000000'}`
-     },
-  },
-  '& .MuiDataGrid-overlay': {
-    backgroundColor: (theme: any) => `${theme.palette.mode === 'dark' ? '#272727' : 'white'}`
-  },
+  height: 250,
+  // width: '100%',
   '& .MuiDataGrid-cell--editing': {
     backgroundColor: 'rgb(255,215,115, 0.19)',
-    color: '#828DD4',
+    color: '#1a3e72',
     '& .MuiInputBase-root': {
       height: '100%',
     },
-  },
-  '& .MuiDataGrid-cell': {
-    backgroundColor: (theme: any) => `${theme.palette.mode === 'dark' ? '#272727' : 'white'}`,
-    color: '#000000',
-    '& .MuiInputBase-root': {
-      height: '100%',
-    },
-  },
-  '& .MuiDataGrid-filler':  {
-    backgroundColor: (theme: any) => `${theme.palette.mode === 'dark' ? '#272727' : 'white'}`,
   },
   '& .Mui-error': {
     backgroundColor: (theme: any) => `rgb(126,10,15, ${theme.palette.mode === 'dark' ? 0 : 0.1})`,
@@ -66,30 +40,38 @@ const EditToolbar = (props: any) => {
 
   const handleClick = () => {
     const id = URL.createObjectURL(new Blob([])).slice(-36) // this number is only for table control
-    setRows((oldRows: any) => [...oldRows, { id, method: '', value: '', isNew: true }])
+    setRows((oldRows: any) => [...oldRows, { id, mediaId: '', nome: '', valor: '', isNew: true }])
     setRowModesModel((oldModel: any) => ({
       ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'type' },
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'nome' },
     }))
   }
 
   return (
-    <CustomToolbar>
-      <Typography>Meio de Comunicação</Typography>
-      <Button startIcon={<AddIcon />} sx={{boxShadow: 2, color: 'white', borderRadius: '10px', paddingInline: '10px', letterSpacing: '2%', backgroundColor: '#6f7cd1'}} onClick={handleClick}>
-        Adicionar
+    <GridToolbarContainer>
+      <Button color='primary' startIcon={<AddIcon />} onClick={handleClick}>
+        Adicionar Meio de Comunicacao
       </Button>
-    </CustomToolbar>
+    </GridToolbarContainer>
   )
 }
 
-export default function GridCommunication({ data, actionUpsert, actionDelete }: any) {
-  const [rows, setRows] = useState(data)
+const GriCommunication = ({ liftMedia, setEditing, meioPessoa }: any) => {
+  const [rows, setRows] = useState([])
   const [rowModesModel, setRowModesModel] = useState({})
 
+  const { data: meioComunicacao = [] } = trpc.people.medias.useQuery()
+
   useEffect(() => {
-    if (data) setRows(data)
-  }, [data])
+    setRows(meioPessoa)
+  }, [meioPessoa])
+
+  // disable saving form if the grid is in edition mode
+  useEffect(() => {
+    if (Object.keys(rowModesModel).length) setEditing(true)
+    else setEditing(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rowModesModel])
 
   const handleRowEditStop = (params: any, event: any) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -97,85 +79,102 @@ export default function GridCommunication({ data, actionUpsert, actionDelete }: 
     }
   }
 
-  const handleEditClick = (id: any) => () => {
+  const handleEditClick = id => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } })
   }
 
-  const handleSaveClick = (id: any) => () => {
+  const handleSaveClick = id => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } })
   }
 
-  const handleDeleteClick = (id: any) => () => {
-    const newState = rows.filter((row: any) => row.id !== id)
+  const handleDeleteClick = id => () => {
+    const newState = rows.filter(row => row.id !== id)
     setRows(newState)
-
-    // ######### send to server #########
-    actionDelete({ id })
-    // ##################################
-
-    setIdDel(null)
+    liftMedia(newState) // lift up the state here
   }
-  const [idDel, setIdDel] = useState(null)
-  const [toogle, popover] = useConfirm(handleDeleteClick(idDel))
 
-  const handleCancelClick = (id: any) => () => {
+  const handleCancelClick = id => () => {
     setRowModesModel({
       ...rowModesModel,
       [id]: { mode: GridRowModes.View, ignoreModifications: true },
     })
 
-    const editedRow = rows.find((row: any) => row.id === id)
+    const editedRow = rows.find(row => row.id === id)
     if (editedRow.isNew) {
-      setRows(rows.filter((row: any) => row.id !== id))
+      setRows(rows.filter(row => row.id !== id))
     }
   }
 
-  const processRowUpdate = (newRow: any) => {
-    if (newRow.type === '') return {} // doesn't let save empty values
-    
-    actionUpsert({
-      id: newRow.isNew ? 0 : newRow.id,
-      method: newRow.method,
-      value: newRow.value
+  const processRowUpdate = newRow => {
+    if (newRow.nome === '' || newRow.valor === '') return {} // doesn't let save empty values
+
+    delete newRow.isNew
+
+    const newState = rows.map(row => {
+      if (row.id === newRow.id) {
+        const chooseMedia = meioComunicacao.find(m => m.nome === newRow.nome)
+        newRow.mediaId = chooseMedia.id
+        return newRow
+      }
+      return row
     })
+
+    setRows(newState)
+    liftMedia(newState) // lift up the state here
 
     return newRow
   }
 
-  const handleRowModesModelChange = (newRowModesModel: any) => {
+  const handleRowModesModelChange = newRowModesModel => {
     setRowModesModel(newRowModesModel)
   }
 
-  const columns: GridColDef[] = [
+  const columns = [
     {
-      field: 'method',
+      field: 'nome',
       headerName: 'Meio',
-      flex: 1,
+      width: 200,
       editable: true,
-      valueParser: (value: any) => {return value !== undefined ? value.substring(0, 100) : ''},
-      preProcessEditCellProps: (params: any) => {
+      type: 'singleSelect',
+      valueOptions: meioComunicacao.map(m => m.nome),
+      preProcessEditCellProps: params => {
         const hasError = params.props.value.length < 3
         return { ...params.props, error: hasError }
       },
     },
     {
-      field: 'value',
+      field: 'valor',
       headerName: 'Valor',
-      flex: 1,
+      width: 500,
       editable: true,
-      valueParser: (value: any) => {return value !== undefined ? value.substring(0, 100) : ''},
-      preProcessEditCellProps: (params: any) => {
-        const hasError = params.props.value.length < 3
+      valueFormatter: value =>
+        value.replace(/^\(?([0-9]{2})\)?[-. ]?([0-9]?[0-9]{4})[-. ]?([0-9]{4})$/, '($1) $2-$3'),
+      preProcessEditCellProps: params => {
+        let hasError = false
+
+        if (
+          params.otherFieldsProps.nome.value.match('AMAZON|EMAIL|TEAMS') &&
+          !params.props.value.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)
+        )
+          hasError = true
+          if (
+            params.otherFieldsProps.nome.value === 'WHATSAPP' &&
+            (params.props.value.replace(/\D/g, '').length < 10 || params.props.value.replace(/\D/g, '').length > 11)
+        )
+          hasError = true
+
+        if (params.props.value.length < 3) hasError = true
+
         return { ...params.props, error: hasError }
       },
     },
     {
       field: 'actions',
       type: 'actions',
-      headerName: 'Ações',
-      flex: 1,
+      headerName: 'Acoes',
+      width: 100,
       cellClassName: 'actions',
-      getActions: ({ id }: any) => {
+      getActions: ({ id }) => {
         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit
 
         if (isInEditMode) {
@@ -183,8 +182,8 @@ export default function GridCommunication({ data, actionUpsert, actionDelete }: 
             <GridActionsCellItem
               icon={<SaveIcon />}
               label='Salvar'
-              style={{
-                color: '#828DD4',
+              sx={{
+                color: 'primary.main',
               }}
               onClick={handleSaveClick(id)}
             />,
@@ -193,9 +192,7 @@ export default function GridCommunication({ data, actionUpsert, actionDelete }: 
               label='Cancelar'
               className='textPrimary'
               onClick={handleCancelClick(id)}
-              style={{
-                color: '#6e6e6e',
-              }}
+              color='inherit'
             />,
           ]
         }
@@ -211,10 +208,7 @@ export default function GridCommunication({ data, actionUpsert, actionDelete }: 
           <GridActionsCellItem
             icon={<DeleteIcon />}
             label='Apagar'
-            onClick={event => {
-              setIdDel(id)
-              toogle(event.target)
-            }}
+            onClick={handleDeleteClick(id)}
             color='inherit'
           />,
         ]
@@ -223,27 +217,22 @@ export default function GridCommunication({ data, actionUpsert, actionDelete }: 
   ]
 
   return (
-    <>
-      {popover}
-
-      <Box sx={{ ...sx }} >
-        <DataGrid
-          localeText={translateColumns}
-          rows={rows}
-          columns={columns}
-          disableColumnResize
-          editMode='row'
-          rowModesModel={rowModesModel}
-          onRowModesModelChange={handleRowModesModelChange}
-          onRowEditStop={handleRowEditStop}
-          processRowUpdate={processRowUpdate}
-          onProcessRowUpdateError={err => console.log(err)}
-          slots={{ toolbar: EditToolbar }}
-          slotProps={{ toolbar: { setRows, setRowModesModel } }}
-          hideFooter
-          showToolbar
-        />
-      </Box>
-    </>
+    <Box sx={{ ...sx }}>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        editMode='row'
+        rowModesModel={rowModesModel}
+        onRowModesModelChange={handleRowModesModelChange}
+        onRowEditStop={handleRowEditStop}
+        processRowUpdate={processRowUpdate}
+        onProcessRowUpdateError={err => console.log(err)}
+        slots={{ toolbar: EditToolbar }}
+        slotProps={{ toolbar: { setRows, setRowModesModel } }}
+        hideFooter
+      />
+    </Box>
   )
 }
+
+export default GriCommunication

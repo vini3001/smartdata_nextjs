@@ -14,12 +14,12 @@ export const schemaPeople = yup.object().shape({
   sd_departamento: yup
     .object()
     .required("Campo obrigatório"),
-  // sd_meio_comunicacao_pessoa: yup
-  //   .array()
-  //   .of(
-  //     yup.object()
-  //   )
-  //   .required("Campo obrigatório"),
+  sd_meio_comunicacao_pessoa: yup
+    .array()
+    .of(
+      yup.object()
+    )
+    .required("Campo obrigatório"),
     sd_membro_grupo_pessoa: yup
     .array()
     .of(

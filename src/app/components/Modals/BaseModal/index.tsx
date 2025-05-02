@@ -7,7 +7,7 @@ import CustomSwitchButton from "../../SwitchButton";
 interface BaseModalProps {
   opened: boolean;
   onClose?: () => void;
-  onSwitch: () => void
+  onSwitch?: () => void
   children: React.ReactNode;
   hasHeader?: boolean;
   useSwitch?: boolean;

@@ -7,22 +7,27 @@ import GridCommunication from "@/app/components/DataGridCustom/GridCommunication
 
 interface ModalGridProps {
     isOpen: boolean
+    handleSetMedia: (media: any) => void
     handleOpenModal: () => void
 }
 
-export default function ModalGridCreate({isOpen, handleOpenModal}: ModalGridProps) {
+export default function ModalGridCreate({isOpen, handleSetMedia, handleOpenModal}: ModalGridProps) {
     return (
-        <BaseModal title="Comunicação" opened={isOpen} children={<ModalGridBody />} onClose={handleOpenModal} />
+        <BaseModal title="Comunicação" opened={isOpen} children={<ModalGridBody handleSetMedia={handleSetMedia} />} onClose={handleOpenModal} />
     )
 }
 
-function ModalGridBody() {
+function ModalGridBody({handleSetMedia}: Pick<ModalGridProps, "handleSetMedia">) {
     const [rows, setRows] = React.useState([])
+
+    const liftMedia = (media: any) => {
+        handleSetMedia(media)
+      }
 
     return (
         <ContainerModal>
             <ModalContentGrid>
-              <GridCommunication data={rows} actionUpsert={() => {}} actionDelete={() => {}} />
+              <GridCommunication data={rows} actionUpsert={() => {}} actionDelete={() => {}} liftMedia={liftMedia} />
               <GridExceptions data={rows} actionUpsert={() => {}} actionDelete={() => {}} />
               <GridPerson data={rows} actionUpsert={() => {}} actionDelete={() => {}} />
             </ModalContentGrid>

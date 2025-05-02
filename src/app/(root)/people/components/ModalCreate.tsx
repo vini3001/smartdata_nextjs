@@ -128,7 +128,7 @@ function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | 
                 <DropdownCheckboxCustom OptionsList={localEmpresa} props={{ name: 'sd_pessoa_local_empresa', label: "Local Empresa" }} control={control} error={ErrorField.parseError("sd_pessoa_local_empresa", errors)} placeholder={""} limitTags={5} optionLabel={"nomelocal"}/>
                 <DropdownCheckboxCustom OptionsList={grupoInformacao} props={{ name: 'sd_pessoa_informacao', label: "Informações" }} control={control} error={ErrorField.parseError("sd_pessoa_informacao", errors)} placeholder={""} limitTags={5} optionLabel={"nome"}/>
                 <DropdownCheckboxCustom OptionsList={informacoes} props={{ name: 'sd_pessoa_grupo_informacao', label: "Grupos de Informações" }} control={control} error={ErrorField.parseError("sd_pessoa_grupo_informacao", errors)} placeholder={""} limitTags={5} optionLabel={"nome"}/>
-                <DropdownCheckboxCustom OptionsList={starters} props={{ name: 'sd_membro_grupo_pessoa', label: "Associar menus do Chatbot" }} control={control} error={ErrorField.parseError("sd_pessoa_menu", errors)} placeholder={""} limitTags={5} optionLabel={"descricao"}/>
+                <DropdownCheckboxCustom OptionsList={starters} props={{ name: 'sd_pessoa_menu', label: "Associar menus do Chatbot" }} control={control} error={ErrorField.parseError("sd_pessoa_menu", errors)} placeholder={""} limitTags={5} optionLabel={"descricao"}/>
                 <RegisterBox>
                         <a style={{fontWeight: 400, height: 'fit-content', color: '#6e6e6e'}}>Comunicação: </a>
                         <Box sx={{borderRadius: '100px',  minWidth: 'auto', padding: '3px'}}>
@@ -168,7 +168,7 @@ function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | 
                 </Box>
             </FormContainer>
         </FormProvider>
-        <ModalGridCreate isOpen={isOpen} handleOpenModal={handleOpenCreateModal} />
+        <ModalGridCreate isOpen={isOpen} handleOpenModal={handleOpenCreateModal} handleSetMedia={(media: any) => setState({ ...state, sd_meio_comunicacao_pessoa: media })} />
     </ContainerModal>
    )
 }

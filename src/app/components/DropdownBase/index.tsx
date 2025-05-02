@@ -1,174 +1,80 @@
 import * as React from 'react';
 import MenuItem from '@mui/material/MenuItem';
-import { ContainerDropdown, DropdownCustom, Title } from './style';
-import { Box, createTheme, FormHelperText, InputLabel, SelectProps, SvgIcon, ThemeProvider } from '@mui/material';
+import { ContainerDropdown, DropdownCustom, DropdownCustomNew, Title } from './style';
+import { Box, createTheme, FormHelperText, InputLabel, SelectProps, SvgIcon, TextField, TextFieldProps, ThemeProvider } from '@mui/material';
 import _ from "lodash";
 import { ExpandMoreOutlined } from '@mui/icons-material';
-import TextField from '../TextFields/TextFieldBase';
 import { ErrorField } from '@/domain/services/ErrorField';
-import { UseFormRegister } from 'react-hook-form';
+import { Controller, UseFormRegister } from 'react-hook-form';
 
 interface DropdownBase {
   props: SelectProps
-  submenu: any[]
-  error: ErrorField
+  propsText?: TextFieldProps
+  error?: ErrorField
   title?: string
   placeholder?: string
-  searchBar?: boolean
   register?: UseFormRegister<any>;
-  handleReturnValue: (value: string) => void
+  handleReturnValue: (value: any) => void
+  optionLabel: string
+  OptionsList: any[]
+  control: any;
 }
 
 const theme = createTheme({
   components: {
-    MuiSelect: {
-      defaultProps: {
-        IconComponent: ExpandMoreOutlined
-      }
-    },
-    MuiInputLabel: {
-      styleOverrides: {
-        root: {
-          top: "-0.8vh",
-          "&.MuiInputLabel-shrink": { top: 0 },
-          "&.Mui-focused": {
-            color: '#828dd4'
+      MuiAutocomplete: {
+          defaultProps: {
+            popupIcon: <ExpandMoreOutlined />
           }
-        }
-      }
-    }
-  }
+      },
+  },
 });
 
-export default function DropdownBase({props, submenu, title, error, register, placeholder, searchBar = false, handleReturnValue}: DropdownBase) {
-  const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState('')
-  const [filterValue, setFilterValue] = React.useState('')
-  const [input, setInput] = React.useState('')
+export default function DropdownBase(dropdownProps: DropdownBase) {
+  const {props, propsText, title, error, optionLabel, control, OptionsList, register, placeholder, handleReturnValue} = dropdownProps
 
   const name = props.name ? props.name : "";
-
-  const makeError = (): React.ReactNode => {
-    return error?.hasError ? (
-      <FormHelperText title={error?.message}>{error?.message}</FormHelperText>
-    ) : (
-      <></>
-    );
-  };
-
-  const handleChange = (event: any) => {
-     event.target.value !== '' && setValue(event.target.value);
-  };
-
-  const handleClose = (event: any) => {
-    if (event?.type === 'click' && event.target.tagName === 'INPUT') {
-      event.stopPropagation();
-      return;
-    }
-
-    setOpen(false);
-  }
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-     if (event.key === 'Enter') {
-        setFilterValue(input)
-     }
-  }
 
   return (
           <Box style={{display: 'flex', flexDirection: 'column', width: '100%', gap: '0.2rem'}}>
           {!_.isEmpty(title) && <Title>{title}</Title>}
           <ThemeProvider theme={theme}>
-            <ContainerDropdown sx={{ minWidth: 'auto' }}>
-                <InputLabel disabled={props.disabled} id="demo-simple-select-error-label">{props.label}</InputLabel>
-                <DropdownCustom
-                  labelId="demo-simple-select-error-label"
-                  id="demo-simple-select-error"
-                  renderValue={(selected: any) => {
-                    if (selected !== undefined) {
-                      if (selected.length === 0) {
-                        return (<>{placeholder !== undefined ? (<a style={{fontFamily: 'Oxygen', color: 'rgba(0,0,0,0.4)'}}>{placeholder}</a>) : (<a style={{display: 'flex', height: '23px'}}></a>)}</>)
-                      }
-                    }
-                    return selected
-                  }}
-                  {...props}
-                  value={value}
-                  open={open}
-                  error={error?.hasError}
-                  slotProps={{input: {
-                    name
-                  }}
-                  }
-                  {...(register && register(name))}
-                  onOpen={() => setOpen(true)}
-                  onClose={handleClose}
+        <Controller
+            name={name}
+            control={control}
+            defaultValue={[]}
+            render={({ field }) => {
+              const handleChange = (_event: any, selectedOptions: any, reason: any) => {
+                field.onChange(selectedOptions)
+                //handleReturnValue(selectedOptions)
+              };
+
+              return (
+                <DropdownCustomNew
+                  aria-expanded="false"
+                  value={field.value}
                   onChange={handleChange}
-                >
-                  {searchBar &&   
-                      <MenuItem onMouseDown={(e) => e.stopPropagation()}
-                      onKeyDown={(e) => e.stopPropagation()} disableRipple
-                              disableTouchRipple
-                              selected={false}
-                              sx={{
-                                backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                                "&:focus": {
-                                  backgroundColor: "transparent",
-                                },
-                                "&.Mui-focusVisible": {
-                                  backgroundColor: "transparent",
-                                },
-                                '&.Mui-selected': {
-                                  backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                                  "&:hover": {
-                                    backgroundColor: "rgba(0, 0, 0, 0.04)",
-                                  }
-                              }}}
-                              value=''>
-                      <TextField props={{
-                        placeholder: 'Pesquisar',
-                        onChange: (e) => {setInput(e.target.value)},
-                        onKeyDown: handleKeyDown,
-                        slotProps: {
-                          input: {
-                            startAdornment: <SvgIcon sx={{fontSize: '18px', width: '1.5rem'}}>
-                                          <svg width="12" height="12" viewBox="0 -3 7 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M15 15L10.9581 10.9581M10.9581 10.9581C12.052 9.86411 12.6666 8.38039 12.6666 6.8333C12.6666 5.28621 12.052 3.80249 10.9581 2.70853C9.86411 1.61458 8.38039 1 6.8333 1C5.28621 1 3.80249 1.61458 2.70853 2.70853C1.61458 3.80249 1 5.28621 1 6.8333C1 8.38039 1.61458 9.86411 2.70853 10.9581C3.80249 12.052 5.28621 12.6666 6.8333 12.6666C8.38039 12.6666 9.86411 12.052 10.9581 10.9581Z" stroke="black" stroke-width="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                                          </svg>
-                                        </SvgIcon>
-                          }
-                        },
-                        InputProps: {
-                          style: {
-                            paddingLeft: 0,
-                            border: 'none',
-                            height: '2rem',
-                            width: '100%',
-                            marginTop: '2px',
-                            backgroundColor: 'white',
-                            color: 'black',
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                          },
-                          startAdornment: <SvgIcon sx={{fontSize: '18px', width: '1.5rem'}}>
-                                          <svg width="12" height="12" viewBox="0 -3 7 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M15 15L10.9581 10.9581M10.9581 10.9581C12.052 9.86411 12.6666 8.38039 12.6666 6.8333C12.6666 5.28621 12.052 3.80249 10.9581 2.70853C9.86411 1.61458 8.38039 1 6.8333 1C5.28621 1 3.80249 1.61458 2.70853 2.70853C1.61458 3.80249 1 5.28621 1 6.8333C1 8.38039 1.61458 9.86411 2.70853 10.9581C3.80249 12.052 5.28621 12.6666 6.8333 12.6666C8.38039 12.6666 9.86411 12.052 10.9581 10.9581Z" stroke="black" stroke-width="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                                          </svg>
-                                        </SvgIcon>
-                        },}} />
-                    </MenuItem> }
-                    {submenu.filter((item) => {
-                      if (searchBar && filterValue !== '') {
-                        return item.includes(filterValue)
-                      } else {
-                        return item
-                      }
-                    }).map((item, index) => {
-                          return <MenuItem key={index} onClick={() => {handleReturnValue(item)}} value={item}>{item}</MenuItem>
-                    })}
-                </DropdownCustom>
-                {makeError()}
-            </ContainerDropdown>
+                  options={OptionsList}
+                  disableCloseOnSelect
+                  getOptionLabel={(option: any) => option[optionLabel] || ''}
+                  style={{ width: '100%' }}
+                  renderInput={ params => {      
+                    return (
+                      <TextField {...params} 
+                      {...propsText}
+                      error={error?.hasError}
+                      placeholder={placeholder}
+                      helperText={error?.hasError ? error.message : ''}
+                      InputLabelProps={{
+                        sx: { top: "-1vh", "&.MuiInputLabel-shrink": { top: 0 },
+                              "&.Mui-focused": {color: '#828dd4'} }
+                      }} 
+                      />
+                    );
+                  } }
+                  />
+                )
+              }} />
           </ThemeProvider>
         </Box>
   );

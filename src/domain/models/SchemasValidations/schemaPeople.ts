@@ -6,12 +6,56 @@ export const schemaPeople = yup.object().shape({
     .required("Campo obrigatório")
     .transform((value) => value.toLowerCase()),
   ativo: yup
-    .string()
+    .boolean()
     .required("Campo obrigatório"),
-  department: yup
-    .string()
+  sd_cargo: yup
+    .object()
     .required("Campo obrigatório"),
-  people: yup
-    .string()
+  sd_departamento: yup
+    .object()
+    .required("Campo obrigatório"),
+  // sd_meio_comunicacao_pessoa: yup
+  //   .array()
+  //   .of(
+  //     yup.object()
+  //   )
+  //   .required("Campo obrigatório"),
+    sd_membro_grupo_pessoa: yup
+    .array()
+    .of(
+      yup.object().shape({})
+    )
     .required("Campo obrigatório")
+    .min(1, 'Adicione pelo menos um meio de comunicação'),
+    sd_pessoa_grupo_informacao: yup
+    .array()
+    .of(
+      yup.object().shape({})
+    )
+    .required("Campo obrigatório"),
+    sd_pessoa_informacao: yup
+    .array()
+    .of(
+      yup.object().shape({})
+    )
+    .required("Campo obrigatório"),
+    sd_pessoa_local_empresa: yup
+    .array()
+    .of(
+      yup.object().shape({})
+    )
+    .required("Campo obrigatório"),
+    sd_pessoa_menu: yup
+    .object()
+    .required("Campo obrigatório"),
+    sd_usuario: yup
+    .array()
+    .of(
+      yup.object({
+        ativo: yup.boolean().required('Tipo é obrigatório'),
+        email: yup.string().required('O email é obrigatório'),
+        perfil_usuario: yup.string().required('O perfil é obrigatório')
+      })
+    )
+    .required("Campo obrigatório"),
 });

@@ -1,22 +1,22 @@
 import { BaseModal, FormProvider, TextField } from "@/app/components";
 import { Box } from "@mui/material";
-import { FormButton, ContainerModal, FormContainer, TemplateButton, RegisterBox, ContainerBox } from "./styles";
+import { FormButton, ContainerModal, FormContainer, TemplateButton, RegisterBox } from "./styles";
 import { ErrorField, YupService } from "@/domain/services";
 import { schemaPeople } from "@/domain/models/SchemasValidations/schemaPeople";
 import DropdownCheckboxCustom from "@/app/components/DropdownBase/DropdownCheckboxCustom";
-import React, { ChangeEvent } from "react";
+import React from "react";
 import ModalGridCreate from "./ModalGridCreate";
 import CustomSwitchButton from "@/app/components/SwitchButton";
 import DropdownBase from "@/app/components/DropdownBase";
 import CustomErrorAlert from "@/app/components/AlertComponents/ErrorAlert";
 import useSnack from "@/app/components/hooks/useSnack";
 import { trpc } from "@/lib/trpc";
-import DropdownPositions from "@/app/components/DropdownBase/DropdownList/DropdownPositions";
+import DropdownUser from "@/app/components/DropdownBase/DropdownUser/DropdownUser";
 
 interface PeopleProps {
     isOpen: boolean
     handleOpenModal: () => void
-    isActive?: boolean
+    isActive: boolean
 }
 
 export default function CreatePeople({isOpen, handleOpenModal}: PeopleProps) {
@@ -32,40 +32,19 @@ export default function CreatePeople({isOpen, handleOpenModal}: PeopleProps) {
     )
 }
 
-const initialState =
-    {
-      "nome": "teste",
-      "ativo": true,
-      "sd_cargo": {
-        "id": 3,
-        "nome": "ANALISTA",
-        "id_cliente": 1
-      },
-      "sd_departamento": {
-        "id": 7,
-        "divisao": "DELIVERY",
-        "departamento": "APONTAMENTOS",
-        "id_cliente": 1
-      },
-      "sd_meio_comunicacao_pessoa": [
-        {
-          "id": "01b483b0-09d5-46ef-96a2-44a99351319e",
-          "mediaId": 1,
-          "nome": "WHATSAPP",
-          "valor": "1999999999"
-        }
-      ],
-      "sd_membro_grupo_pessoa": [],
-      "sd_pessoa_grupo_informacao": [],
-      "sd_pessoa_informacao": [],
-      "sd_pessoa_local_empresa": [],
-      "sd_pessoa_menu": [],
-      "sd_usuario": {
-        "ativo": false,
-        "email": "",
-        "perfil_usuario": "USER"
-      }
-    }
+const initialState = {
+  nome: '',
+  ativo: true,
+  sd_cargo: null,
+  sd_departamento: null,
+  sd_membro_grupo_pessoa: [],
+  sd_pessoa_local_empresa: [],
+  sd_pessoa_informacao: [],
+  sd_pessoa_grupo_informacao: [],
+  sd_pessoa_menu: [],
+  sd_meio_comunicacao_pessoa: [],
+  sd_usuario: { ativo: false, email: '', perfil_usuario: 'USER' },
+}
   
 
 function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | "handleOpenModal">) {
@@ -77,6 +56,10 @@ function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | 
 
     const utils = trpc.useUtils()
     const [state, setState] = React.useState(initialState)
+
+    React.useEffect(() => {
+      setState({...state, ativo: isActive})
+    }, [isActive])
 
     const { mutate } = trpc.people.upsert.useMutation({
         onSuccess: () => {
@@ -97,6 +80,7 @@ function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | 
     const {
     handleSubmit,
     register,
+    getValues,
     control,
     formState: { errors },
     } = methods;
@@ -111,13 +95,21 @@ function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | 
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       let { type, name, value } = event.target
-      //if (type === 'checkbox') value = event.target.checked ? {} : null
       setState({ ...state, [name]: value })
     }
 
+    const handleUser = (event: React.ChangeEvent<HTMLInputElement>) => {
+      let { type, name, checked, value } = event.target
+
+      if (type === 'checkbox') {
+        handleCheckBox()
+        value = String(event.target.checked)}
+
+      setState({ ...state, sd_usuario: { ...state.sd_usuario, [name]: value } })
+    }
+
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault()
-       mutate({ ...state })
+       mutate({ ...getValues() })
     }
 
    return (
@@ -125,17 +117,18 @@ function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | 
         <FormProvider methods={methods}>
             <FormContainer onSubmit={handleSubmit(onSubmit)}>
                 <Box sx={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.7rem'}}>
-                    <TextField props={{ onChange: handleChange, sx: { '.MuiInputBase-root': { borderRadius: '8px', backgroundColor: 'white !important' } }, label: 'Nome', name: "nome" }} />
-                    <DropdownPositions props={{ sx: { '.MuiInputBase-root': { borderRadius: '8px', backgroundColor: 'white !important' } }, label: 'Cargo', name: "role" }} register={register} error={ErrorField.parseError("role", errors)} submenu={cargos} 
-                                  handleReturnValue={() =>{}} />
-                    <DropdownBase props={{ sx: { '.MuiInputBase-root': { borderRadius: '8px', backgroundColor: 'white !important' } }, label: 'Departamento', name: "department" }} register={register} error={ErrorField.parseError("department", errors)} submenu={["Financeiro","Recursos Humanos","Tecnologia da Informação","COA","CTT","Moenda","Qualidade"
-                                                                                                                                                                                                                                                ]} handleReturnValue={() =>{}} />
+                    <TextField props={{ onChange: handleChange, sx: { '.MuiInputBase-root': { borderRadius: '8px', backgroundColor: 'white !important' } }, label: 'Nome', name: "nome" }}
+                    register={register} error={ErrorField.parseError("nome", errors)} />
+                    <DropdownBase propsText={{ label: "Cargo" }} props={{ sx: { '.MuiInputBase-root': { borderRadius: '8px', backgroundColor: 'white !important' } }, label: 'Cargo', name: "sd_cargo" }} register={register} error={ErrorField.parseError("sd_cargo", errors)}
+                  handleReturnValue={handleChange} optionLabel={"nome"} OptionsList={cargos} control={control} />
+                    <DropdownBase propsText={{label: "Departamento"}} props={{ sx: { '.MuiInputBase-root': { borderRadius: '8px', backgroundColor: 'white !important' } }, label: 'Departamento', name: "sd_departamento" }} register={register} error={ErrorField.parseError("sd_departamento", errors)}
+                  handleReturnValue={handleChange } optionLabel={"departamento"} OptionsList={departamentos} control={control} />
                 </Box>
-                <DropdownCheckboxCustom OptionsList={cargos} props={{ name: 'groups', label: "Grupos" }} control={control} error={ErrorField.parseError("groups", errors)} placeholder={""} limitTags={5} optionLabel={"nome"}/>
-                {/* <DropdownCheckboxCustom OptionsList={[{ id: 1, value: 'Matriz' }, { id: 2, value: 'Filial' }]} props={{ name: 'local_enterprise', label: "Local Empresa" }} control={control} error={ErrorField.parseError("local_enterprise", errors)} placeholder={""} limitTags={5} optionLabel={""}/>
-                <DropdownCheckboxCustom OptionsList={[{ id: 1, value: 'Dashboards' }, { id: 2, value: 'Dashboards PBI' }, { id: 3, value: 'Dashboards Tableau' }]} props={{ name: 'allowed_information_group', label: "Grupo Informações Permitidas" }} control={control} error={ErrorField.parseError("allowed_information_group", errors)} placeholder={""} limitTags={5} optionLabel={""}/>
-                <DropdownCheckboxCustom OptionsList={[{ id: 1, value: "Administrativo -> Tecnologia da Informação -> Dashboard Acompanhamento SD" }, { id: 2, value: "Administrativo -> Tecnologia da Informação -> Matriz de Indicadores" }, { id: 3, value: "Administrativo -> Financeiro -> Média dos Salários por Administração" }, { id: 4, value: "Administrativo -> Tecnologia da Informação -> Mundo do Chá" }
-           ]} props={{ name: 'allowed_information', label: "Informações Permitidas" }} control={control} error={ErrorField.parseError("allowed_information", errors)} placeholder={""} limitTags={5} optionLabel={""}/> */}
+                <DropdownCheckboxCustom OptionsList={cargos} props={{ name: 'sd_membro_grupo_pessoa', label: "Grupos" }} control={control} error={ErrorField.parseError("sd_membro_grupo_pessoa", errors)} placeholder={""} limitTags={5} optionLabel={"nome"}/>
+                <DropdownCheckboxCustom OptionsList={localEmpresa} props={{ name: 'sd_pessoa_local_empresa', label: "Local Empresa" }} control={control} error={ErrorField.parseError("sd_pessoa_local_empresa", errors)} placeholder={""} limitTags={5} optionLabel={"nomelocal"}/>
+                <DropdownCheckboxCustom OptionsList={grupoInformacao} props={{ name: 'sd_pessoa_informacao', label: "Informações" }} control={control} error={ErrorField.parseError("sd_pessoa_informacao", errors)} placeholder={""} limitTags={5} optionLabel={"nome"}/>
+                <DropdownCheckboxCustom OptionsList={informacoes} props={{ name: 'sd_pessoa_grupo_informacao', label: "Grupos de Informações" }} control={control} error={ErrorField.parseError("sd_pessoa_grupo_informacao", errors)} placeholder={""} limitTags={5} optionLabel={"nome"}/>
+                <DropdownCheckboxCustom OptionsList={starters} props={{ name: 'sd_membro_grupo_pessoa', label: "Associar menus do Chatbot" }} control={control} error={ErrorField.parseError("sd_pessoa_menu", errors)} placeholder={""} limitTags={5} optionLabel={"descricao"}/>
                 <RegisterBox>
                         <a style={{fontWeight: 400, height: 'fit-content', color: '#6e6e6e'}}>Comunicação: </a>
                         <Box sx={{borderRadius: '100px',  minWidth: 'auto', padding: '3px'}}>
@@ -146,22 +139,23 @@ function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | 
                         <a style={{fontWeight: 400, height: 'fit-content', color: '#6e6e6e'}}>Usuário: </a>
                         <Box sx={{display: 'flex', flexDirection: 'row', borderRadius: '100px',  minWidth: '9rem', padding: '3px'}}>
                             <CustomSwitchButton props={{
-                                size: 'medium', 
+                                name: 'sd_usuario'
+,                               size: 'medium', 
                                 sx: {  '& .MuiSwitch-thumb': {width: 20, height: 20}, 
                                     '& .MuiSwitch-switchBase.Mui-checked': {
                                         transform: 'translateX(calc(3rem - 20px - 4px))' },
-                                    width: '3rem', height: '1.5rem'}, onChange: handleCheckBox}} />
-                            <span style={{flexGrow: 1, marginLeft: '10px'}}>{isSelected ? <>Ativado</> : <>Desativado</>}</span>
+                                    width: '3rem', height: '1.5rem'}, onChange: handleUser}} />
+                            <span style={{flexGrow: 1, marginLeft: '10px'}}>{state.sd_usuario.ativo ? <>Ativado</> : <>Desativado</>}</span>
                         </Box> 
                         <Box sx={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', width: '70%', gap: '0.7rem'}}>
                                    <CustomErrorAlert open={isSelected} title="Será enviado um email automático para definição de senha com validade de 1h">
                                         <Box>
                                             <TextField props={{value: text , error: (text === '' && isSelected) ? true : false, required: true, disabled: !isSelected, sx:{'.MuiInputBase-root': {borderRadius: '8px', backgroundColor: 'white !important'}}, 
-                                            onChange: (event: React.ChangeEvent<HTMLInputElement>) => {setText(event.target.value)},
-                                            label: 'Login de Usuário (email)', name:"department"}} register={register} error={ErrorField.parseError("department", errors)} /> 
+                                            onChange: handleUser,
+                                            label: 'Login de Usuário (email)', name:"sd_usuario.email"}} register={register} error={ErrorField.parseError("sd_usuario.email", errors)} /> 
                                         </Box>
                                     </CustomErrorAlert>                         
-                            <DropdownBase props={{disabled: !isSelected, label: 'Perfil'}} submenu={['Administrador', 'Usuário']} handleReturnValue={() => { } } error={ErrorField.parseError("repeat_break", errors)} />
+                            <DropdownUser props={{ disabled: !isSelected, name: 'sd_usuario.perfil_usuario', label: 'Perfil' }} submenu={[{ id: 1, name: 'Usuário', value: 'USER' }, { id: 2, name: 'Administrador', value: 'ADMIN' }]} handleReturnValue={() => { } } error={ErrorField.parseError("sd_usuario.perfil_usuario", errors)} control={control} />
                         </Box>
                 </RegisterBox>
                 <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'end', width: '50%', alignSelf: 'end', gap: '0.5rem'}}>

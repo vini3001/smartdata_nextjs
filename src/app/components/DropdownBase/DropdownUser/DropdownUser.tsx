@@ -6,13 +6,13 @@ import _ from "lodash";
 import { ExpandMoreOutlined } from '@mui/icons-material';
 import TextField from '../../TextFields/TextFieldBase';
 import { ErrorField } from '@/domain/services/ErrorField';
-import { UseFormRegister } from 'react-hook-form';
-import { sd_cargo } from '@prisma/client';
+import { Controller, UseFormRegister } from 'react-hook-form';
 
 interface DropdownBase {
   props: SelectProps
-  submenu: sd_cargo[]
+  submenu: {id: number, name: string, value: string}[]
   error: ErrorField
+  control: any
   title?: string
   placeholder?: string
   searchBar?: boolean
@@ -41,9 +41,9 @@ const theme = createTheme({
   }
 });
 
-export default function DropdownPositions({props, submenu, title, error, register, placeholder, searchBar = false, handleReturnValue}: DropdownBase) {
+export default function DropdownUser({props, submenu, title, error, register, control, placeholder, searchBar = false, handleReturnValue}: DropdownBase) {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState<sd_cargo>()
+  const [value, setValue] = React.useState<string>('')
   const [filterValue, setFilterValue] = React.useState('')
   const [input, setInput] = React.useState('')
 
@@ -55,10 +55,6 @@ export default function DropdownPositions({props, submenu, title, error, registe
     ) : (
       <></>
     );
-  };
-
-  const handleChange = (event: SelectChangeEvent<unknown>, _: React.ReactNode) => {
-     event.target.value !== '' && setValue(event.target.value as sd_cargo);
   };
 
   const handleClose = (event: any) => {
@@ -80,7 +76,19 @@ export default function DropdownPositions({props, submenu, title, error, registe
           <Box style={{display: 'flex', flexDirection: 'column', width: '100%', gap: '0.2rem'}}>
           {!_.isEmpty(title) && <Title>{title}</Title>}
           <ThemeProvider theme={theme}>
-            <ContainerDropdown sx={{ minWidth: 'auto' }}>
+          <Controller
+            name={name}
+            control={control}
+            defaultValue=""
+            render={({ field }) => {
+              const handleChange = (event: SelectChangeEvent<unknown>, _: React.ReactNode) => {
+                event.target.value !== '' && setValue(event.target.value as string);
+                field.onChange(event.target.value as string)
+              };
+           
+              
+              return (
+                <ContainerDropdown sx={{ minWidth: 'auto' }}>
                 <InputLabel disabled={props.disabled} id="demo-simple-select-error-label">{props.label}</InputLabel>
                 <DropdownCustom
                   labelId="demo-simple-select-error-label"
@@ -158,18 +166,15 @@ export default function DropdownPositions({props, submenu, title, error, registe
                                         </SvgIcon>
                         },}} />
                     </MenuItem> }
-                    {submenu.filter((item) => {
-                      if (searchBar && filterValue !== '') {
-                        return item.nome.includes(filterValue)
-                      } else {
-                        return item
-                      }
-                    }).map((item, index) => {
-                          return <MenuItem key={index} value={item.id}>{item.nome}</MenuItem>
+                    {submenu.map((item, index) => {
+                          return <MenuItem key={index} value={item.value}>{item.value}</MenuItem>
                     })}
                 </DropdownCustom>
                 {makeError()}
             </ContainerDropdown>
+              )
+            }}
+          />
           </ThemeProvider>
         </Box>
   );

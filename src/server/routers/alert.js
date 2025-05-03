@@ -276,7 +276,8 @@ const alertRouter = router({
   //
   // Mutations
   // ####################################################################################
-  upsert: privateProcedure.mutation(async ({ ctx, rawInput }) => {
+  upsert: privateProcedure.mutation(async ({ ctx, getRawInput }) => {
+    const rawInput = await getRawInput()
     const { id, ...input } = rawInput
 
     // if SelfService, only allow one combination of tipo_intervalo_repeticao and sd_disparo_informacao

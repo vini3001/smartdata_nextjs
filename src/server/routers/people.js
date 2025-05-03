@@ -153,7 +153,14 @@ const peopleRouter = router({
   // ####################################################################################
   // Mutations
   // ####################################################################################
-  upsert: privateProcedure.mutation(async ({ ctx, rawInput }) => {
+  upsert: privateProcedure
+  .input(z.object({
+    nome: z.string(),
+    ativo: z.boolean(),
+  }))
+  .mutation(async ({ ctx, getRawInput }) => {
+    const rawInput = await getRawInput()
+
     const { id, ...input } = rawInput
 
     // ##########################

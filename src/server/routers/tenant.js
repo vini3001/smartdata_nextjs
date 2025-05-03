@@ -68,7 +68,8 @@ all: privateProcedure.input(
   //
   // Mutations
   // ####################################################################################
-  upsert: privateProcedure.mutation(async ({ rawInput }) => {
+  upsert: privateProcedure.mutation(async ({ getRawInput }) => {
+    const rawInput = await getRawInput()
     const { id, idUsuario, nomeUsuario, email, password, ...input } = rawInput
     input.documento = Number(input.documento) || null
 

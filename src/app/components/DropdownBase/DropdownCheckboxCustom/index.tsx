@@ -17,8 +17,6 @@ const theme = createTheme({
   },
 });
 
-type ListObject = {id: number, value: string}
-
 interface DropdownCheckboxCustomProps {
   props: TextFieldProps
   limitTags?: number

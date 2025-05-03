@@ -95,7 +95,8 @@ const companyRouter = router({
     })
   ),
 
-  upsert: privateProcedure.mutation(async ({ ctx, rawInput }) => {
+  upsert: privateProcedure.mutation(async ({ ctx, getRawInput }) => {
+    const rawInput = await getRawInput()
     const { id, ...input } = rawInput
 
     const locals = id

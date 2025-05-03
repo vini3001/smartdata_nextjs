@@ -25,8 +25,6 @@ export default function RadioButton(radioButtonProps: RadioButtonProps) {
     );
   };
 
-  console.log(error)
-
   return (
     <div style={{display: 'flex', flexDirection: 'column', gap: '0.2rem'}}>
       <Controller

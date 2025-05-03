@@ -309,7 +309,9 @@ const infoRouter = router({
   //
   // Mutations
   // ####################################################################################
-  upsert: privateProcedure.mutation(async ({ ctx, rawInput }) => {
+  upsert: privateProcedure.mutation(async ({ ctx, getRawInput }) => {
+    const rawInput = await getRawInput()
+
     delete rawInput.origem
     delete rawInput.formato_destino
     delete rawInput.id_origem_informacao
@@ -536,7 +538,8 @@ const infoRouter = router({
       })
     ),
 
-  subscribe: privateProcedure.mutation(async ({ ctx, rawInput }) => {
+  subscribe: privateProcedure.mutation(async ({ ctx, getRawInput }) => {
+    const rawInput = await getRawInput()
     const allPeriods = [...rawInput.hour, ...rawInput.day, ...rawInput.week]
 
     const subscribe = await prisma.sd_periodicidade_meio_comunicacao

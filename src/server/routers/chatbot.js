@@ -45,7 +45,8 @@ const chatbot = router({
   //
   // Mutations
   // ####################################################################################
-  upsert: privateProcedure.mutation(({ ctx, rawInput }) => {
+  upsert: privateProcedure.mutation(async ({ ctx, getRawInput }) => {
+    const rawInput = await getRawInput()
     const { id, sd_estrutura_menu: path, ...input } = rawInput
     input.id_acao = Number(input.id_acao) || null
 

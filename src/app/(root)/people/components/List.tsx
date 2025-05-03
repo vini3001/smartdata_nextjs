@@ -47,7 +47,7 @@ export default function List({currentItems}: ListProps) {
                     <TableCell>
                         <Tooltip title={'Ativar / Inativar'}>
                             <Box>
-                                <CustomSwitchButton props={{}} />
+                                <CustomSwitchButton props={{}} customControl={undefined} />
                             </Box>
                         </Tooltip>
                     </TableCell>

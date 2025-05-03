@@ -16,7 +16,7 @@ import DropdownUser from "@/app/components/DropdownBase/DropdownUser/DropdownUse
 interface PeopleProps {
     isOpen: boolean
     handleOpenModal: () => void
-    isActive: boolean
+    isActive?: boolean
 }
 
 export default function CreatePeople({isOpen, handleOpenModal}: PeopleProps) {
@@ -47,7 +47,7 @@ const initialState = {
 }
   
 
-function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | "handleOpenModal">) {
+function PeopleBody({handleOpenModal, isActive = false}: Pick<PeopleProps, "isActive" | "handleOpenModal">) {
     const [isOpen, setIsOpen] = React.useState<boolean>(false)
     const [isSelected, setIsSelected] = React.useState<boolean>(false)
     const [text, setText] = React.useState<string>('')
@@ -57,11 +57,23 @@ function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | 
     const utils = trpc.useUtils()
     const [state, setState] = React.useState(initialState)
 
+    const {
+      handleSubmit,
+      register,
+      setValue,
+      getValues,
+      control,
+      formState: { errors },
+      } = methods;
+
     React.useEffect(() => {
-      setState({...state, ativo: isActive})
+      setValue('ativo', isActive);
     }, [isActive])
 
     const { mutate } = trpc.people.upsert.useMutation({
+        onMutate: (variables) => {
+          console.log('onMutate - dados enviados:', variables);
+        },
         onSuccess: () => {
           openSnack('Sucesso!', 'success')
           utils.people.all.invalidate()
@@ -76,14 +88,6 @@ function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | 
     const { data: informacoes = [] } = trpc.info.names.useQuery()
     const { data: grupoInformacao = [] } = trpc.info.groups.useQuery()
     const { data: starters = [] } = trpc.chatbot.starters.useQuery()
-
-    const {
-    handleSubmit,
-    register,
-    getValues,
-    control,
-    formState: { errors },
-    } = methods;
 
     function handleOpenCreateModal() {
         setIsOpen(!isOpen)
@@ -102,23 +106,10 @@ function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | 
       setText(event.target.value)
     }
 
-    const handleUser = (event: React.ChangeEvent<HTMLInputElement>) => {
-      let { type, name, checked, value } = event.target
-
-      console.log(event.target)
-
-      if (type === 'checkbox') {
-        handleCheckBox()
-        value = String(event.target.checked)}
-
-      setState({ ...state, sd_usuario: { ...state.sd_usuario, [name]: value } })
+    const onSubmit = ( _event: React.FormEvent<HTMLFormElement>) => {
+       console.log(getValues())
+       mutate(getValues())
     }
-
-    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-       mutate({ ...getValues() })
-    }
-
-    console.log(getValues())
 
    return (
     <ContainerModal>
@@ -132,10 +123,10 @@ function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | 
                     <DropdownBase propsText={{label: "Departamento"}} props={{ sx: { '.MuiInputBase-root': { borderRadius: '8px', backgroundColor: 'white !important' } }, label: 'Departamento', name: "sd_departamento" }} register={register} error={ErrorField.parseError("sd_departamento", errors)}
                   handleReturnValue={handleChange } optionLabel={"departamento"} OptionsList={departamentos} control={control} />
                 </Box>
-                <DropdownCheckboxCustom OptionsList={cargos} props={{ name: 'sd_membro_grupo_pessoa', label: "Grupos" }} control={control} error={ErrorField.parseError("sd_membro_grupo_pessoa", errors)} placeholder={""} limitTags={5} optionLabel={"nome"}/>
+                <DropdownCheckboxCustom OptionsList={grupoPessoas} props={{ name: 'sd_membro_grupo_pessoa', label: "Grupos" }} control={control} error={ErrorField.parseError("sd_membro_grupo_pessoa", errors)} placeholder={""} limitTags={5} optionLabel={"nome"}/>
                 <DropdownCheckboxCustom OptionsList={localEmpresa} props={{ name: 'sd_pessoa_local_empresa', label: "Local Empresa" }} control={control} error={ErrorField.parseError("sd_pessoa_local_empresa", errors)} placeholder={""} limitTags={5} optionLabel={"nomelocal"}/>
-                <DropdownCheckboxCustom OptionsList={grupoInformacao} props={{ name: 'sd_pessoa_informacao', label: "Informações" }} control={control} error={ErrorField.parseError("sd_pessoa_informacao", errors)} placeholder={""} limitTags={5} optionLabel={"nome"}/>
-                <DropdownCheckboxCustom OptionsList={informacoes} props={{ name: 'sd_pessoa_grupo_informacao', label: "Grupos de Informações" }} control={control} error={ErrorField.parseError("sd_pessoa_grupo_informacao", errors)} placeholder={""} limitTags={5} optionLabel={"nome"}/>
+                <DropdownCheckboxCustom OptionsList={informacoes} props={{ name: 'sd_pessoa_informacao', label: "Informações" }} control={control} error={ErrorField.parseError("sd_pessoa_informacao", errors)} placeholder={""} limitTags={5} optionLabel={"nome"}/>
+                <DropdownCheckboxCustom OptionsList={grupoInformacao} props={{ name: 'sd_pessoa_grupo_informacao', label: "Grupos de Informações" }} control={control} error={ErrorField.parseError("sd_pessoa_grupo_informacao", errors)} placeholder={""} limitTags={5} optionLabel={"nome"}/>
                 <DropdownCheckboxCustom OptionsList={starters} props={{ name: 'sd_pessoa_menu', label: "Associar menus do Chatbot" }} control={control} error={ErrorField.parseError("sd_pessoa_menu", errors)} placeholder={""} limitTags={5} optionLabel={"descricao"}/>
                 <RegisterBox>
                         <a style={{fontWeight: 400, height: 'fit-content', color: '#6e6e6e'}}>Comunicação: </a>
@@ -147,12 +138,16 @@ function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | 
                         <a style={{fontWeight: 400, height: 'fit-content', color: '#6e6e6e'}}>Usuário: </a>
                         <Box sx={{display: 'flex', flexDirection: 'row', borderRadius: '100px',  minWidth: '9rem', padding: '3px'}}>
                             <CustomSwitchButton props={{
-                                name: 'sd_usuario.ativo'
-,                               size: 'medium', 
-                                sx: {  '& .MuiSwitch-thumb': {width: 20, height: 20}, 
-                                    '& .MuiSwitch-switchBase.Mui-checked': {
-                                        transform: 'translateX(calc(3rem - 20px - 4px))' },
-                                    width: '3rem', height: '1.5rem'}, onChange: handleUser}} />
+                            name: 'sd_usuario.ativo',
+                            size: 'medium',
+                            sx: {
+                              '& .MuiSwitch-thumb': { width: 20, height: 20 },
+                              '& .MuiSwitch-switchBase.Mui-checked': {
+                                transform: 'translateX(calc(3rem - 20px - 4px))'
+                              },
+                              width: '3rem', height: '1.5rem'
+                            }
+                          }} handleState={handleCheckBox} customControl={control} />
                             <span style={{flexGrow: 1, marginLeft: '10px'}}>{state.sd_usuario.ativo ? <>Ativado</> : <>Desativado</>}</span>
                         </Box> 
                         <Box sx={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', width: '70%', gap: '0.7rem'}}>
@@ -163,7 +158,8 @@ function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | 
                                             label: 'Login de Usuário (email)', name:"sd_usuario.email"}} register={register} error={ErrorField.parseError("sd_usuario.email", errors)} /> 
                                         </Box>
                                     </CustomErrorAlert>                         
-                            <DropdownUser props={{ disabled: !isSelected, name: 'sd_usuario.perfil_usuario', label: 'Perfil' }} submenu={[{ id: 1, name: 'Usuário', value: 'USER' }, { id: 2, name: 'Administrador', value: 'ADMIN' }]} handleReturnValue={() => { } } error={ErrorField.parseError("sd_usuario.perfil_usuario", errors)} control={control} />
+                            <DropdownUser props={{ disabled: !isSelected, name: 'sd_usuario.perfil_usuario', label: 'Perfil' }} 
+                             submenu={[{ id: 1, name: 'Usuário', value: 'USER' }, { id: 2, name: 'Administrador', value: 'ADMIN' }]} handleReturnValue={() => { } } error={ErrorField.parseError("sd_usuario.perfil_usuario", errors)} control={control} />
                         </Box>
                 </RegisterBox>
                 <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'end', width: '50%', alignSelf: 'end', gap: '0.5rem'}}>
@@ -176,7 +172,7 @@ function PeopleBody({handleOpenModal, isActive}: Pick<PeopleProps, "isActive" | 
                 </Box>
             </FormContainer>
         </FormProvider>
-        <ModalGridCreate isOpen={isOpen} meioPessoa={state.sd_meio_comunicacao_pessoa} handleOpenModal={handleOpenCreateModal} handleSetMedia={(media: any) => setState({ ...state, sd_meio_comunicacao_pessoa: media })} />
+        <ModalGridCreate isOpen={isOpen} meioPessoa={state.sd_meio_comunicacao_pessoa} handleOpenModal={handleOpenCreateModal} handleSetMedia={(media: any) => setValue('sd_meio_comunicacao_pessoa', media)} />
     </ContainerModal>
    )
 }

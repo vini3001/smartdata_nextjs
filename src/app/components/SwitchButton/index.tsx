@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles';
 import Switch, { SwitchProps } from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
-import { Controller } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
 
 const AntSwitch = styled(Switch)(({ theme }) => ({
@@ -53,18 +53,22 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 
 interface CustomSwitchProps {
   props: SwitchProps
-  control: any
+  handleState?: (value: boolean) => void
+  customControl: any
 }
 
-export default function CustomSwitchButton({props, control}: CustomSwitchProps) {
+export default function CustomSwitchButton({props, handleState, customControl}: CustomSwitchProps) {
+  const {control} = useForm()
+
   return (
     <Controller
       name={props.name ?? ''}
-      control={control}
+      control={customControl ? customControl : control}
       defaultValue={[]}
       render={({ field }) => {
         function handleSetAtivo(event: React.ChangeEvent<HTMLInputElement>) {
-          field.onChange(event.target.value)
+          field.onChange(event.target.checked)
+          handleState && handleState(event.target.checked)
         }
 
         return (

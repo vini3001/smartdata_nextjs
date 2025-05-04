@@ -40,7 +40,7 @@ export default function List({currentItems}: ListProps) {
                     <TableCell sx={{padding: 0, maxWidth: '10px'}}>
                         <Tooltip title={'Ativar / Inativar'}>
                             <Box>
-                                <CustomSwitchButton />
+                                <CustomSwitchButton props={{}} customControl={undefined} />
                             </Box>
                         </Tooltip>
                     </TableCell>

@@ -1,4 +1,4 @@
-import { createUploadthing } from 'uploadthing/next-legacy'
+import { createUploadthing } from 'uploadthing/next'
 // import { UploadThingError } from 'uploadthing/server'
 
 const f = createUploadthing()
@@ -20,7 +20,7 @@ export const ourFileRouter = {
     //   // Whatever is returned here is accessible in onUploadComplete as `metadata`
     //   return { userId: user.id }
     // })
-    .onUploadComplete(async ({ metadata, file }) => {
+    .onUploadComplete(async ({ metadata, file }: any) => {
       // This code RUNS ON YOUR SERVER after upload
       console.log('Upload complete for userId:', metadata.userId)
 

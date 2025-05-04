@@ -16,13 +16,6 @@ export default function ClientsPage() {
         <ToolsBand text={"Boa Noite, Cláudio"} sideComponent={<AddButton />} />
         <ClientsBody />
       </Box>
-      // <DefaultPage body={<ClientsBody />} path={"Clientes"}
-      // selectedIcon={undefined} text={"Boa noite, Cláudio"} 
-      // sideComponent={<AddButton />} CustomSelectedIcon={<People />} 
-      // filters={[{id: 1, name: 'Nome', isDropdown: false, submenu: [] },
-      //           {id: 2, name: 'Nome Abreviado', isDropdown: false, submenu: [] },
-      //           {id: 3, name: 'Nome Contato', isDropdown: false, submenu: [] },
-      //           {id: 4, name: 'Usuário Administrador', isDropdown: false, submenu: [] }]}/>
     )
 }
 

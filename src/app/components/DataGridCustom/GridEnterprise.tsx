@@ -20,7 +20,8 @@ import SaveIcon from '@mui/icons-material/Save'
 import { CustomToolbar } from './style'
 
 const sx = {
-  height: 350,
+  height: 250,
+  // width: '100%',
   '& .MuiDataGrid-cell--editing': {
     backgroundColor: 'rgb(255,215,115, 0.19)',
     color: '#1a3e72',
@@ -38,39 +39,48 @@ const EditToolbar = (props: any) => {
   const { setRows, setRowModesModel } = props
 
   const handleClick = () => {
-    const id = URL.createObjectURL(new Blob([])).slice(-36) // Unique ID for the new row
+    const id = URL.createObjectURL(new Blob([])).slice(-36) // this number is only for table control
     setRows((oldRows: any) => [
-      ...(Array.isArray(oldRows) ? oldRows : []),
-      { id, chave: '', valor: '', isNew: true },
+      ...oldRows,
+      {
+        id,
+        id_cliente_localempresa: null,
+        nomelocal: '',
+        tipolocal: '',
+        nomelocal_speak: '',
+        preposicao_speak: '',
+        isNew: true,
+      },
     ])
     setRowModesModel((oldModel: any) => ({
       ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'chave' },
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'id_cliente_localempresa' },
     }))
   }
 
   return (
     <CustomToolbar>
       <Button color='primary' startIcon={<AddIcon />} onClick={handleClick}>
-        Adicionar Parâmetro
+        Adicionar Local
       </Button>
     </CustomToolbar>
   )
 }
 
-const GridParameters = ({ liftMedia, setEditing, parametros }: any) => {
+const GridEnterprise = ({ liftMedia, setEditing, localEmpresa }: any) => {
   const [rows, setRows] = useState([])
   const [rowModesModel, setRowModesModel] = useState({})
 
   useEffect(() => {
-    setRows(parametros)
-  }, [parametros])
+    setRows(localEmpresa)
+  }, [localEmpresa])
 
-  // Disable saving form if the grid is in edition mode
+  // disable saving form if the grid is in edition mode
   useEffect(() => {
     if (Object.keys(rowModesModel).length) setEditing(true)
     else setEditing(false)
-  }, [rowModesModel, setEditing])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rowModesModel])
 
   const handleRowEditStop = (params: any, event: any) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -89,7 +99,7 @@ const GridParameters = ({ liftMedia, setEditing, parametros }: any) => {
   const handleDeleteClick = (id: any) => () => {
     const newState = rows.filter(row => row.id !== id)
     setRows(newState)
-    liftMedia(newState)
+    liftMedia(newState) // lift up the state here
   }
 
   const handleCancelClick = (id: any) => () => {
@@ -105,7 +115,7 @@ const GridParameters = ({ liftMedia, setEditing, parametros }: any) => {
   }
 
   const processRowUpdate = (newRow: any) => {
-    if (newRow.chave === '' || newRow.valor === '') return {}
+    if (newRow.id_cliente_localempresa === '' || newRow.nomelocal === '' || newRow.tipolocal === '') return {} // doesn't let save empty values
 
     delete newRow.isNew
     const newState = rows.map((row: any) => (row.id === newRow.id ? newRow : row))
@@ -121,24 +131,47 @@ const GridParameters = ({ liftMedia, setEditing, parametros }: any) => {
 
   const columns: GridColDef[] = [
     {
-      field: 'chave',
-      headerName: 'Chave',
-      width: 300,
+      field: 'id_cliente_localempresa',
+      headerName: 'ID Cliente',
+      type: 'number',
+      width: 100,
       editable: true,
       preProcessEditCellProps: (params: any) => {
-        const hasError = params.props.value.length < 1
+        const hasError = params.props.value?.length < 1
         return { ...params.props, error: hasError }
       },
     },
     {
-      field: 'valor',
-      headerName: 'Valor',
-      width: 1000,
+      field: 'nomelocal',
+      headerName: 'Nome Local',
+      width: 170,
       editable: true,
       preProcessEditCellProps: (params: any) => {
-        const hasError = params.props.value.length < 1
+        const hasError = params.props.value.length < 3
         return { ...params.props, error: hasError }
       },
+    },
+    {
+      field: 'tipolocal',
+      headerName: 'Tipo Local',
+      width: 170,
+      editable: true,
+      preProcessEditCellProps: (params: any) => {
+        const hasError = params.props.value.length < 3
+        return { ...params.props, error: hasError }
+      },
+    },
+    {
+      field: 'nomelocal_speak',
+      headerName: 'Nome Speak',
+      width: 170,
+      editable: true,
+    },
+    {
+      field: 'preposicao_speak',
+      headerName: 'Preposicao Speak',
+      width: 100,
+      editable: true,
     },
     {
       field: 'actions',
@@ -179,6 +212,7 @@ const GridParameters = ({ liftMedia, setEditing, parametros }: any) => {
             label='Apagar'
             onClick={handleDeleteClick(id)}
             color='inherit'
+            disabled={!!rows.find(row => row.id === id)._count?.sd_pessoa_local_empresa}
           />,
         ]
       },
@@ -205,4 +239,4 @@ const GridParameters = ({ liftMedia, setEditing, parametros }: any) => {
   )
 }
 
-export default GridParameters
+export default GridEnterprise

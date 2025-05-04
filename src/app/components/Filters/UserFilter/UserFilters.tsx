@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { ItemContainer } from './style';
-import { ButtonFilter, CustomButton, CustomMenuList } from './style'
+import { ItemContainer } from '../style';
+import { ButtonFilter, CustomButton, CustomMenuList } from '../style'
 import { FilterAlt, KeyboardArrowUp } from '@mui/icons-material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import CustomSwitchButton from '../SwitchButton';
+import CustomSwitchButton from '../../SwitchButton';
 import { Divider, Drawer, SelectChangeEvent } from '@mui/material';
-import TextField from '../TextFields/TextFieldBase';
+import TextField from '../../TextFields/TextFieldBase';
 import { filters } from '@/utils/filters'
-import DropdownUser from '../DropdownBase/DropdownUser/DropdownUser';
+import DropdownUser from '../../DropdownBase/DropdownUser/DropdownUser';
 
 export const filterObject = {
   order: 'desc',
@@ -38,6 +38,10 @@ export default function UserFilters({handleSetValue}: UserFiltersProps) {
 
   const handleReturnValue = () => {
      handleSetValue(local)
+  }
+
+  const handleClearFields = () => {
+     handleSetValue(filterObject)
   }
 
   const handleChangeDropdown = (e: SelectChangeEvent<unknown>, _: React.ReactNode) => {
@@ -101,7 +105,7 @@ export default function UserFilters({handleSetValue}: UserFiltersProps) {
 
             <div className='button-container'>
             <ItemContainer style={{width: '100%', gap: '0.5rem'}}>
-                <ButtonFilter variant='outlined' customcolor='green'>Limpar</ButtonFilter>
+                <ButtonFilter onClick={handleClearFields} variant='outlined' customcolor='green'>Limpar</ButtonFilter>
                 <ButtonFilter onClick={handleReturnValue} variant='outlined' customcolor='purple'>Ok</ButtonFilter>
             </ItemContainer>
           </div>

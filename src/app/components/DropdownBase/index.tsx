@@ -31,7 +31,7 @@ const theme = createTheme({
 });
 
 export default function DropdownBase(dropdownProps: DropdownBase) {
-  const {props, propsText, title, error, optionLabel, control, OptionsList, register, placeholder, handleReturnValue} = dropdownProps
+  const {props, propsText, title, error, optionLabel, control, OptionsList, placeholder} = dropdownProps
 
   const name = props.name ? props.name : "";
 
@@ -46,7 +46,6 @@ export default function DropdownBase(dropdownProps: DropdownBase) {
             render={({ field }) => {
               const handleChange = (_event: any, selectedOptions: any, reason: any) => {
                 field.onChange(selectedOptions)
-                //handleReturnValue(selectedOptions)
               };
 
               return (

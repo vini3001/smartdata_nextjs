@@ -107,7 +107,6 @@ function PeopleBody({handleOpenModal, isActive = false}: Pick<PeopleProps, "isAc
     }
 
     const onSubmit = ( _event: React.FormEvent<HTMLFormElement>) => {
-       console.log(getValues())
        mutate(getValues())
     }
 

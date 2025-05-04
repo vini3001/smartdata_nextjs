@@ -15,11 +15,6 @@ export default function ClientEnterprise() {
         <ToolsBand text={"Boa Noite, Cláudio"} sideComponent={<AddButton />} />
         <EnterpriseBody />
       </Box>
-      //   <DefaultPage body={<EnterpriseBody />} path={"Empresas"}
-      // selectedIcon={undefined} text={"Boa noite, Cláudio"}
-      // sideComponent={<AddButton />} CustomSelectedIcon={<Business />} 
-      // filters={[{id: 1, name: 'Nome', isDropdown: false, submenu: [] },
-      // {id: 2, name: 'Localização', isDropdown: false, submenu: [] }]} />
     )
 }
 

@@ -4,7 +4,7 @@ import React from 'react';
 import { CustomDivider, CustomLabelPaginate, PaginationContainer, PaginationContent } from './styles';
 import List from './List';
 import { trpc } from '@/lib/trpc';
-import UserFilters, { filterObject, filterUser } from '@/app/components/Filters/UserFilters';
+import UserFilters, { filterObject, filterUser } from '@/app/components/Filters/UserFilter/UserFilters';
 import { useLayout } from '@/contexts/FilterContext';
 
 export default function PaginatedItems() {
@@ -16,7 +16,6 @@ export default function PaginatedItems() {
   React.useLayoutEffect(() => {
     setFilterComponent(<UserFilters handleSetValue={(value: filterUser) => {setFilter(value)}} />);
   }, [])
-  console.log(filter)
 
   const { data, isLoading } = trpc.people.all.useQuery(filter);
 

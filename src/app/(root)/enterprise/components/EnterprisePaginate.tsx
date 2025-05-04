@@ -1,29 +1,35 @@
 import { useState } from 'react';
 import { CustomDivider, CustomLabelPaginate, PaginationContainer, PaginationContent } from './styles';
 import List from './List';
-
-const items = [{id: 1, nome: 'teste1', idade: 2}, {id:2, nome: 'teste2', idade: 2}, {id: 3, nome: 'teste3', idade: 2}]
+import React from 'react';
+import { useLayout } from '@/contexts/FilterContext';
+import EnterpriseFilters, { filterEnterprise, filterObjectEnterprise } from '@/app/components/Filters/EnterpriseFilter/EnterpriseFilter';
+import { trpc } from '@/lib/trpc';
 
 export default function PaginatedItems() {
   const [itemOffset, setItemOffset] = useState(0);
   const [numberView, setNumberView] = useState(10)
+  const [filter, setFilter] = React.useState<filterEnterprise>(filterObjectEnterprise)
+  const { setFilterComponent } = useLayout()
 
-  const numberViews = Array.from({ length: 10 }, (_, i) => (i + 1).toString());
+  React.useLayoutEffect(() => {
+    setFilterComponent(<EnterpriseFilters handleSetValue={(value: filterEnterprise) => {setFilter(value)}} />);
+  }, [])
+
+  const { data, isLoading } = trpc.company.all.useQuery(filter);
+  
+  const persistedData = data !== undefined ? data : []
 
   const endOffset = itemOffset + numberView;
  
-  const currentItems = items.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(items.length / numberView);
+  const currentItems = persistedData.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(persistedData.length / numberView);
 
   const handlePageClick = (_event: any, page: any) => {
-    const newOffset = ((page - 1) * numberView) % items.length;
+    const newOffset = ((page - 1) * numberView) % persistedData.length;
     
     setItemOffset(newOffset);
   };
-
-  function handleSetOption(item: string) {
-    setNumberView(parseInt(item))
-  }
 
   return (
     <PaginationContainer>

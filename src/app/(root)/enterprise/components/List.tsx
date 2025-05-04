@@ -1,9 +1,10 @@
 import { Box, Paper, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from "@mui/material";
 import { ListButton, TableCustom } from "./styles";
 import CustomSwitchButton from "@/app/components/SwitchButton";
+import { companyRouterProps } from "@/server/routers/company";
 
 interface ListProps {
-    currentItems: {id: number, nome: string, idade: number}[]
+    currentItems: companyRouterProps
 }
 
 export default function List({currentItems}: ListProps) {
@@ -28,7 +29,7 @@ export default function List({currentItems}: ListProps) {
                     <TableCell scope="row">
                         {row.nome}
                     </TableCell>
-                    <TableCell align="left">{row.nome}</TableCell>
+                    <TableCell align="left">{row.sd_localempresa.map(g => g.nomelocal).join(', ')}</TableCell>
                     <TableCell sx={{padding: 0, maxWidth: '10px'}}>
                         <Tooltip title={'Editar'}>
                             <Box sx={{display: 'flex', justifyContent: 'center'}}>
@@ -41,7 +42,7 @@ export default function List({currentItems}: ListProps) {
                     <TableCell sx={{padding: 0, maxWidth: '10px'}}>
                         <Tooltip title={'Ativar / Inativar'}>
                             <Box>
-                                <CustomSwitchButton props={{}} />
+                                <CustomSwitchButton props={{}} customControl={undefined} />
                             </Box>
                         </Tooltip>
                     </TableCell>

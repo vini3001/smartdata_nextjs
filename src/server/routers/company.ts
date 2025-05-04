@@ -2,6 +2,16 @@ import { z } from 'zod'
 
 import prisma from '@/lib/prisma'
 import { router, privateProcedure } from '@/server/trpc'
+import { Prisma, sd_empresa, sd_parametros_empresa, sd_pessoa_local_empresa } from '@prisma/client'
+
+export type companyRouterProps = Prisma.sd_empresaGetPayload<{
+  include: {
+    sd_localempresa: {
+      select: { nomelocal: true }
+    },
+    sd_parametros_empresa: true
+  }
+}>[]
 
 const companyRouter = router({
   byId: privateProcedure
@@ -31,14 +41,14 @@ const companyRouter = router({
   all: privateProcedure
     .input(
       z.object({
-        order: z.string(),
+        order: z.enum(['asc', 'desc']).default('asc'),
         active: z.boolean().optional(),
         name: z.string(),
         location: z.string(),
       })
     )
     .query(async ({ ctx, input }) => {
-      const data = await prisma.sd_empresa.findMany({
+      const data: companyRouterProps = await prisma.sd_empresa.findMany({
         where: {
           id_cliente: ctx.clientId,
           ativo: input.active,

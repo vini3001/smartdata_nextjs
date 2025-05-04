@@ -1,22 +1,34 @@
-import { useState } from 'react';
+'use client'
+
+import React from 'react';
 import { CustomDivider, CustomLabelPaginate, PaginationContainer, PaginationContent } from './styles';
 import List from './List';
-
-const items = [{id: 1, nome: 'teste1', idade: 2}, {id:2, nome: 'teste2', idade: 2}, {id: 3, nome: 'teste3', idade: 2}]
+import { trpc } from '@/lib/trpc';
+import UserFilters, { filterObject, filterUser } from '@/app/components/Filters/UserFilters';
+import { useLayout } from '@/contexts/FilterContext';
 
 export default function PaginatedItems() {
-  const [itemOffset, setItemOffset] = useState(0);
-  const [numberView, setNumberView] = useState(10)
+  const [itemOffset, setItemOffset] = React.useState(0);
+  const [numberView, setNumberView] = React.useState(10);
+  const [filter, setFilter] = React.useState<filterUser>(filterObject)
+  const { setFilterComponent } = useLayout()
 
-  const numberViews = Array.from({ length: 10 }, (_, i) => (i + 1).toString());
+  React.useLayoutEffect(() => {
+    setFilterComponent(<UserFilters handleSetValue={(value: filterUser) => {setFilter(value)}} />);
+  }, [])
+  console.log(filter)
+
+  const { data, isLoading } = trpc.people.all.useQuery(filter);
+
+  const persistedData = data !== undefined ? data : []
 
   const endOffset = itemOffset + numberView;
  
-  const currentItems = items.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(items.length / numberView);
+  const currentItems = persistedData.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(persistedData.length / numberView);
 
   const handlePageClick = (_event: any, page: any) => {
-    const newOffset = ((page - 1) * numberView) % items.length;
+    const newOffset = ((page - 1) * numberView) % persistedData.length;
     
     setItemOffset(newOffset);
   };

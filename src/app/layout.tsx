@@ -8,6 +8,7 @@ import EmotionThemeProvider from "./styles/themes/EmotionThemeProvider";
 import Provider from "./_trpc/Provider";
 import { SnackbarProvider } from "notistack";
 import SnackbarWrapper from "@/lib/SnackbarWrapper";
+import { FilterContextProvider } from "@/contexts/FilterContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -30,16 +31,18 @@ export default function RootLayout({
       <body> 
         <main className={customFonts.className}>
           <Provider>
-            <AppRouterCacheProvider>
-              <MuiThemeProvider>
-                <EmotionThemeProvider>
-                  <SnackbarWrapper>
-                    <GlobalStyles />
-                    {children}
-                  </SnackbarWrapper>
-                </EmotionThemeProvider>
-              </MuiThemeProvider>
-            </AppRouterCacheProvider>
+            <FilterContextProvider>
+              <AppRouterCacheProvider>
+                <MuiThemeProvider>
+                  <EmotionThemeProvider>
+                    <SnackbarWrapper>
+                      <GlobalStyles />
+                      {children}
+                    </SnackbarWrapper>
+                  </EmotionThemeProvider>
+                </MuiThemeProvider>
+              </AppRouterCacheProvider>
+            </FilterContextProvider>
           </Provider>
         </main>
       </body>

@@ -4,7 +4,7 @@ import { ButtonBase } from "@/app/components";
 import { Container } from "../styles";
 import PaginatedItems from "./PeoplePaginate";
 import { Box, SvgIcon } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CreatePeople from "./ModalCreate";
 import ToolsBand from "@/app/components/ToolsBand";
 
@@ -15,13 +15,6 @@ export default function ClientPeople() {
           <ToolsBand text={"Boa noite, Cláudio"} sideComponent={<AddButton />} />
           <PeopleBody />
         </Box>
-        // <DefaultPage body={<PeopleBody />} path={"Pessoas"}
-        // selectedIcon={undefined} text={"Boa noite, Cláudio"}
-        // sideComponent={<AddButton />} CustomSelectedIcon={<Contacts />} 
-        // filters={[{id: 1, name: 'Nome', isDropdown: false, submenu: [] },
-        //           {id: 2, name: 'Cargo', isDropdown: false, submenu: [] },
-        //           {id: 3, name: 'Departamento', isDropdown: false, submenu: [] },
-        //           {id: 4, name: 'Grupo', isDropdown: false, submenu: [] }]} />
     )
 }
 

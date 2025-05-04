@@ -10,6 +10,7 @@ import ModalChatAI from "@/app/components/DefaultPage/modalChatAI";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import menus, { MenuProps } from "@/app/(root)/routes";
+import { FilterContextProvider, useLayout } from "@/contexts/FilterContext";
 
 export interface viewProps {
   view: 'grid' | 'list'
@@ -25,6 +26,8 @@ export default function DefaultPage({
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const path = usePathname()
+
+  const { filterComponent } = useLayout();
 
   function handleOpenModal() {
     setIsOpen(!isOpen)
@@ -48,33 +51,33 @@ export default function DefaultPage({
   }, [path])
 
   return (
-    <Container>
-      <div>
-        <Header openSideBar={openSideBar} filters={selectedRoute?.filters ?? []} />
-      </div> 
-        <CustomContainer>
-          <SideBar
-            open={openSideBar}
-          />
-          <BodyContainer>
-              <NavigateHeader handleOpenSideBar={() => setOpenSideBar(!openSideBar)} 
-                path={selectedRoute?.text ?? ''} 
-                SelectedIcon={selectedRoute?.icon ?? ''} /> 
-              <Divider />
-              <ContainerHome>
-                <FirstRow>
-                  {children}
-                </FirstRow>
-              </ContainerHome> 
-            <FooterContainer>
-                <span>© copyright 2024 - SmartData é  RISTI</span>
-                <button onClick={handleOpenModal} className="image-container">
-                   <Image width={200} height={100} src="/assets/Home/Botao AI.svg" alt={""} />
-                </button>
-            </FooterContainer>
-            <ModalChatAI isOpen={isOpen} handleModal={handleOpenModal}/>
-          </BodyContainer> 
-        </CustomContainer>
-    </Container>
+      <Container>
+        <div>
+          <Header openSideBar={openSideBar} filter={filterComponent ? filterComponent : <></>} />
+        </div> 
+          <CustomContainer>
+            <SideBar
+              open={openSideBar}
+            />
+            <BodyContainer>
+                <NavigateHeader handleOpenSideBar={() => setOpenSideBar(!openSideBar)} 
+                  path={selectedRoute?.text ?? ''} 
+                  SelectedIcon={selectedRoute?.icon ?? ''} /> 
+                <Divider />
+                <ContainerHome>
+                  <FirstRow>
+                    {children}
+                  </FirstRow>
+                </ContainerHome> 
+              <FooterContainer>
+                  <span>© copyright 2024 - SmartData é  RISTI</span>
+                  <button onClick={handleOpenModal} className="image-container">
+                    <Image width={200} height={100} src="/assets/Home/Botao AI.svg" alt={""} />
+                  </button>
+              </FooterContainer>
+              <ModalChatAI isOpen={isOpen} handleModal={handleOpenModal}/>
+            </BodyContainer> 
+          </CustomContainer>
+      </Container>
   );
 }

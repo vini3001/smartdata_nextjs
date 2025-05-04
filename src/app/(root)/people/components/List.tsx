@@ -1,9 +1,10 @@
 import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from "@mui/material";
 import { ListButton, TableCustom } from "./styles";
 import CustomSwitchButton from "@/app/components/SwitchButton";
+import { sd_pessoa } from "@prisma/client";
 
 interface ListProps {
-    currentItems: {id: number, nome: string, idade: number}[]
+    currentItems: sd_pessoa[]
 }
 
 export default function List({currentItems}: ListProps) {

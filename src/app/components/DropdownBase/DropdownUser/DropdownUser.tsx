@@ -167,7 +167,7 @@ export default function DropdownUser({props, submenu, title, error, register, co
                         },}} />
                     </MenuItem> }
                     {submenu.map((item, index) => {
-                          return <MenuItem key={index} value={item.value}>{item.value}</MenuItem>
+                          return <MenuItem key={index} value={item.value}>{item.name}</MenuItem>
                     })}
                 </DropdownCustom>
                 {makeError()}

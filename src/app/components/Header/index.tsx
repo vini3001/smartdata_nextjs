@@ -1,17 +1,16 @@
 import { Toolbar } from "@mui/material";
 import { Container, ContainerHeader, ContainerIcons, ContainerLogo, CustomHeader } from "./styles";
 import TextFieldHeader from "./components/CustomTextField";
-import MenuDropDownFilter from "./components/DropdownFilter";
 import UserDropDownFilter from "./components/UserDropdown";
 import Image from "next/image";
 
 interface HeaderProps {
   openSideBar: boolean;
-  filters: {id: number, name: string, isDropdown: boolean, submenu: string[]}[]
+  filter: React.ReactNode
 }
 
 export default function Header(props: HeaderProps): React.ReactNode {
-  const { openSideBar, filters } = props;
+  const { openSideBar, filter } = props;
 
   return (
     <Container opensidebar={openSideBar  ?  'true'  :  'false'}>
@@ -28,7 +27,7 @@ export default function Header(props: HeaderProps): React.ReactNode {
 
             {/* Icons */}
             <ContainerIcons>
-              <MenuDropDownFilter filters={filters} />
+              {filter}
               <UserDropDownFilter />
             </ContainerIcons>
           </ContainerHeader>
